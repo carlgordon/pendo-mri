@@ -114,6 +114,61 @@ html, body {
   line-height: inherit;
   color: inherit; }
 
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Regular.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Regular.WOFF") format("WOFF");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/NotoSans-Regular.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Regular.WOFF") format("WOFF");
+  font-display: swap; }
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Bold.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Bold.WOFF") format("WOFF");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: "Noto Sans";
+  font-style: italic;
+  font-weight: 700;
+  src: url("../fonts/NotoSans-Bold.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Bold.WOFF") format("WOFF");
+  font-display: swap; }
+
+@font-face {
+  font-family: "Noto Sans Light";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/NotoSans-Light.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Light.WOFF") format("WOFF");
+  font-display: swap; }
+
+@font-face {
+  font-family: "Noto Sans Light Italic";
+  font-style: italic;
+  font-weight: 400;
+  src: url("../fonts/NotoSans-Light.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Light.WOFF") format("WOFF"); }
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-SemiBold.WOFF2") format("WOFF2"), url("../fonts/NotoSans-SemiBold.WOFF") format("WOFF");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../fonts/NotoSans-Medium.WOFF2") format("WOFF2"), url("../fonts/NotoSans-Medium.WOFF") format("WOFF");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; }
+
 @keyframes fade-in {
   from {
     opacity: 0; }

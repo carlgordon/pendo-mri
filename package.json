@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch scss -o css"
+    "build-sass": "node-sass scss/mri-ui.scss css/mri-ui.css",
+    "watch-sass": "node-sass -w scss/mri-ui.scss css/mri-ui.css"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "node-sass": "^5.0.0"
+  "dependencies": {},
+  "devDependencies": {
+    "node-sass": "^5.0.0",
+    "nodemon": "^2.0.7"
   }
 }

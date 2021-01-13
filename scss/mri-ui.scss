@@ -8,6 +8,7 @@ $mri-ns: "mri-" !default;
 @import "vendor";
 @import "resets/_all.scss";
 
+@import "fonts/_noto-sans.scss";
 @import "animations/_all.scss";
 @import "components/_all.scss";
 @import "utilities/_all.scss";
