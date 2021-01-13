@@ -1,0 +1,30 @@
+.#{$mri-ns}body {
+  @extend .#{$mri-ns}base;
+  @extend .#{$mri-ns}layout;
+
+  background-color: $mri-background-color-white;
+  color: $mri-dark-text-color;
+  
+  padding: 0;
+  margin: 0;
+}
+
+.#{$mri-ns}body--light {
+  background-color: $mri-background-color-lighter;
+  color: $mri-dark-text-color;
+}
+
+.#{$mri-ns}body--dark {
+  background-color: $mri-background-color-dark;
+  color: $mri-light-text-color;
+}
+
+.#{$mri-ns}body--darker {
+  background-color: $mri-background-color-darker;
+  color: $mri-light-text-color;
+}
+
+.#{$mri-ns}body--darkest {
+  background-color: $mri-background-color-darkest;
+  color: $mri-light-text-color;
+}

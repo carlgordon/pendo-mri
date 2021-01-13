@@ -1,0 +1,180 @@
+.#{$mri-ns}menu-bar {
+  position: relative;
+  float: left;
+  width: 38px;
+  padding: 0px 6px 0px 0px;
+  background: linear-gradient(#07182f, #044d66);
+  z-index: 50;
+  margin: 0 32px 2em 0;
+}
+
+#page {
+  width: 38px;
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.clearfix {
+  *zoom: 1;
+  background-color: transparent !important;
+}
+
+.#{$mri-ns}menu-bar div {
+  padding-top: 10px;
+}
+
+.#{$mri-ns}menu-bar img {
+  z-index: 55;
+  position: relative;
+}
+
+.#{$mri-ns}menu-bar .navMenuLink {
+  cursor: pointer;
+}
+
+.#{$mri-ns}menu-bar__button {
+  border-radius: 0;
+}
+
+#menuButtonDiv {
+  width: 38px;
+  padding-top: 0 !important;
+}
+
+#mainMenuSvg {
+  width: 38px;
+  height: 44px;
+}
+
+#mainMenuSvg #Layer_1 #backgroundRect {
+  fill: #0098E3;
+}
+
+#mainMenuSvg #Layer_1 g {
+  fill: #FFFFFF;
+}
+
+.navMenuSvg {
+  width: 38px;
+  height: 44px;
+  fill: #FFFFFF;
+}
+
+#homeButton .navMenuSvg {
+  stroke: #ffffff;
+}
+
+.navMenuSvg {
+  transition:
+  fill $mri-transition-base,
+  transform $mri-transition-base;
+
+  &:hover {
+    fill: #9CD0E0;
+    // transform: scale(1.15);
+  }
+}
+
+#homeButton .navMenuSvg {
+  transition:
+  stroke $mri-transition-base,
+  transform $mri-transition-base;
+
+  &:hover {
+    stroke: #9CD0E0;
+    // transform: scale(1.15);
+  }
+}
+
+#appNameDiv {
+  height: 200px;
+  width: 38px;
+  position: relative;
+  cursor: pointer;
+}
+
+#VersionLogo {
+  position: relative;
+  margin-bottom: 9px;
+  left: 9px;
+  width: 19px;
+  height: 21px;
+  z-index: -1;
+}
+
+.logoX {
+  fill: #FFFFFF;
+}
+
+.logoKeystone {
+  fill: #BBD437;
+}
+
+
+// Size variants
+
+@mixin component-menu-bar-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}menu-bar--" + $variant-name + " ", null);
+
+  .#{$mri-ns}menu-bar#{$modifier} {
+    border-right-width: map-get($options, border-right-width);
+  }
+
+  #{$parent-class}.#{$mri-ns}menu-bar__button {
+    margin-bottom: map-get($options, button-margin-bottom);
+  }
+}
+
+$mri-menu-bar-default-size: (
+  button-margin-bottom: mri-spacing(medium),
+  border-right-width: 1px,
+) !default;
+
+@include component-menu-bar-size-variant($mri-menu-bar-default-size, null);
+
+
+// Color variants
+
+@mixin component-menu-bar-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}menu-bar--" + $variant-name + " ", null);
+
+  .#{$mri-ns}menu-bar#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-right-color: map-get($options, border-right-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}menu-bar__button--accented {
+    background-color: map-get($options, accented-button-bg-color);
+    color: map-get($options, accented-button-color);
+
+    &:hover {
+      background-color: map-get($options, accented-button-hover-bg-color);
+      color: map-get($options, accented-button-hover-color);
+    }
+
+    &:active {
+      background-color: map-get($options, accented-button-active-bg-color);
+      color: map-get($options, accented-button-active-color);
+    }
+  }
+}
+
+$mri-menu-bar-dark-brand-default: (
+  bg-color: $mri-brand-blue,
+  color: $mri-light-text-color,
+  border-right-color: mri-gray(90),
+  accented-button-bg-color: mri-blue(50),
+  accented-button-color: $mri-light-text-color,
+  accented-button-hover-bg-color: mri-blue(55),
+  accented-button-hover-color: $mri-light-text-color,
+  accented-button-active-bg-color: mri-blue(40),
+  accented-button-active-color: $mri-light-text-color,
+) !default;
+
+@include component-menu-bar-color-variant($mri-menu-bar-dark-brand-default, null);
+

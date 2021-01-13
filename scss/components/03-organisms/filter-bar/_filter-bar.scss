@@ -1,0 +1,104 @@
+.#{$mri-ns}filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin: 0;
+  padding: mri-spacing(small) mri-spacing(large);
+  background: mri-gray(05);
+
+  &--small-padding {
+    padding: mri-spacing(small) mri-spacing(medium);
+  }
+}
+
+.#{$mri-ns}filter-bar__filter-buttons {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-right: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+  > * {
+    margin-left: mri-spacing(small);
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.#{$mri-ns}filter-bar__filter-button {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background: $mri-background-color-lightest;
+  border-radius: 4px;
+  border: none;
+  box-shadow: mri-shadow(x-small);
+  cursor: pointer;
+
+  padding: mri-spacing(small) calc(#{mri-spacing(small) * 2} + 14px) mri-spacing(small) mri-spacing(small);
+
+  &::after {
+    $icon-color: $mri-dark-interactive-color;
+    $icon-chevron-down: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M46.3 11.1L43.2 8.5C42.8 8.2 42.3 8 41.7 8C41.2 8 40.7 8.3 40.3 8.7L23.5 29.2L6.6 8.8C5.9 8 4.6 7.8 3.8 8.5L0.7 11.1C0.3 11.4 0 11.9 0 12.5C0 13 0.1 13.6 0.5 14L22 39.8C22.4 40.3 22.9 40.5 23.5 40.5C24.1 40.5 24.7 40.2 25 39.8L46.5 14C47.3 13.1 47.2 11.9 46.3 11.1Z" fill="#{$icon-color}"/></svg>';
+
+    content: mri-inline-svg($icon-chevron-down);
+    display: inline-block;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    right: mri-spacing(small);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:hover {
+    background: $mri-background-color-lighter;
+  }
+
+  &:active {
+    background: $mri-background-color-light;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow:  0 0 0 2px mri-blue(40), mri-shadow(x-small);
+  }
+
+  &:disabled, &.mri-is-disabled {
+    opacity: $mri-disabled-opacity;
+    cursor: default;
+  }
+}
+
+.#{$mri-ns}filter-bar__filter-button.#{$mri-ns}-is-active {
+  background: $mri-background-color-light;
+}
+
+.#{$mri-ns}filter-bar__label, .#{$mri-ns}filter-bar__value {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.#{$mri-ns}filter-bar__label {
+  font-size: mri-font-size(small);
+  line-height: mri-line-height(small);
+  color: $mri-dark-text-color-muted;
+}
+
+.#{$mri-ns}filter-bar__value {
+  font-size: mri-font-size();
+  line-height: mri-line-height();
+  color: $mri-dark-interactive-color;
+}

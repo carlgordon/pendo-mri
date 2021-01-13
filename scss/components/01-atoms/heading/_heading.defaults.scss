@@ -1,0 +1,62 @@
+$mri-heading-base-color:          $mri-brand-blue !default;
+$mri-heading-base-font-size:      1.125em !default;
+$mri-heading-base-font-weight:    normal !default;
+$mri-heading-base-font-family:    $mri-font-family-headings !default;
+$mri-heading-base-margin-top:     mri-spacing(medium) !default;
+$mri-heading-base-margin-bottom:  0 !default;
+$mri-heading-base-line-height:    1.25 !default;
+
+$mri-heading-h1-color:          $mri-heading-base-color !default;
+$mri-heading-h1-font-size:      2em !default;
+$mri-heading-h1-font-weight:    300 !default;
+$mri-heading-h1-font-family:    $mri-heading-base-font-family !default;
+$mri-heading-h1-margin-top:     $mri-heading-base-margin-top !default;
+$mri-heading-h1-margin-bottom:  $mri-heading-base-margin-bottom !default;
+$mri-heading-h1-line-height:    $mri-heading-base-line-height !default;
+
+$mri-heading-h2-color:          $mri-heading-base-color !default;
+$mri-heading-h2-font-size:      1.75em !default;
+$mri-heading-h2-font-weight:    400 !default;
+$mri-heading-h2-font-family:    $mri-heading-base-font-family !default;
+$mri-heading-h2-margin-top:     $mri-heading-base-margin-top !default;
+$mri-heading-h2-margin-bottom:  $mri-heading-base-margin-bottom !default;
+$mri-heading-h2-line-height:    $mri-heading-base-line-height !default;
+
+$mri-heading-h3-color:          $mri-heading-base-color !default;
+$mri-heading-h3-font-size:      1.5em !default;
+$mri-heading-h3-font-weight:    400 !default;
+$mri-heading-h3-font-family:    $mri-font-family-default !default;
+$mri-heading-h3-margin-top:     $mri-heading-base-margin-top !default;
+$mri-heading-h3-margin-bottom:  $mri-heading-base-margin-bottom !default;
+$mri-heading-h3-line-height:    $mri-heading-base-line-height !default;
+
+$mri-heading-h4-color:          $mri-heading-base-color !default;
+$mri-heading-h4-font-size:      1.25em !default;
+$mri-heading-h4-font-weight:    400 !default;
+$mri-heading-h4-font-family:    $mri-font-family-default !default;
+$mri-heading-h4-margin-top:     $mri-heading-base-margin-top !default;
+$mri-heading-h4-margin-bottom:  $mri-heading-base-margin-bottom !default;
+$mri-heading-h4-line-height:    $mri-heading-base-line-height !default;
+
+$mri-heading-h5-color:          inherit !default;
+$mri-heading-h5-font-size:      $mri-heading-base-font-size !default;
+$mri-heading-h5-font-weight:    400 !default;
+$mri-heading-h5-font-family:    $mri-font-family-default !default;
+$mri-heading-h5-margin-top:     $mri-heading-base-margin-top !default;
+$mri-heading-h5-margin-bottom:  $mri-heading-base-margin-bottom !default;
+$mri-heading-h5-line-height:    $mri-heading-base-line-height !default;
+
+$mri-heading-h6-color:          inherit !default;
+$mri-heading-h6-font-size:      $mri-heading-base-font-size !default;
+$mri-heading-h6-font-weight:    400 !default;
+$mri-heading-h6-font-family:    $mri-font-family-default !default;
+$mri-heading-h6-margin-top:     $mri-heading-base-margin-top !default;
+$mri-heading-h6-margin-bottom:  $mri-heading-base-margin-bottom !default;
+$mri-heading-h6-line-height:    $mri-heading-base-line-height !default;
+
+$mri-heading-eyebrow-color:                   tint($mri-dark-text-color-muted, 20%) !default;
+$mri-heading-eyebrow-font-size:               $mri-font-size-base !default;
+$mri-heading-eyebrow-margin-bottom:           0 !default;
+$mri-heading-eyebrow-font-weight:             normal !default;
+$mri-heading-eyebrow-letter-spacing:          1px !default;
+$mri-heading-eyebrow-text-transform:          uppercase !default;

@@ -1,0 +1,208 @@
+.#{$mri-ns}heading {
+  @extend %heading-reset;
+
+  display: block;
+}
+
+.#{$mri-ns}heading__eyebrow {
+  display: block;
+}
+
+
+@mixin component-heading-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}heading--" + $variant-name + " ", null);
+
+  .#{$mri-ns}heading#{$modifier} {
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    font-weight: map-get($options, font-weight);
+    font-family: map-get($options, font-family);
+    margin-bottom: map-get($options, margin-bottom);
+
+    * + & {
+      margin-top: map-get($options, margin-top);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}heading__eyebrow {
+    font-size: map-get($options, eyebrow-font-size);
+    line-height: map-get($options, eyebrow-line-height);
+    font-weight: map-get($options, eyebrow-font-weight);
+    font-family: map-get($options, eyebrow-font-family);
+    text-transform: map-get($options, eyebrow-text-transform);
+    letter-spacing: map-get($options, eyebrow-letter-spacing);
+    margin-bottom: map-get($options, eyebrow-margin-bottom);
+  }
+}
+
+// Size variants
+
+$mri-heading-default-size: (
+  font-size: map-get($mri-font-size-headings, medium),
+  line-height: map-get($mri-line-height-headings, medium),
+  font-weight: 300,
+  font-family: $mri-font-family-headings,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(medium),
+  eyebrow-font-size: $mri-font-size-base,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-default-size, null);
+
+
+$mri-heading-size-1: (
+  font-size: 32px,
+  line-height: 1.25,
+  font-weight: 300,
+  font-family: $mri-font-family-headings,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(small),
+  eyebrow-font-size: $mri-font-size-base,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-size-1, "1");
+
+
+$mri-heading-size-2: (
+  font-size: 28px,
+  line-height: 1.25,
+  font-weight: 300,
+  font-family: $mri-font-family-default,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(small),
+  eyebrow-font-size: $mri-font-size-base,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-size-2, "2");
+
+
+$mri-heading-size-3: (
+  font-size: 24px,
+  line-height: 1.25,
+  font-weight: 300,
+  font-family: $mri-font-family-default,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(small),
+  eyebrow-font-size: $mri-font-size-base,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-size-3, "3");
+
+
+$mri-heading-size-4: (
+  font-size: 20px,
+  line-height: 1.25,
+  font-weight: 400,
+  font-family: $mri-font-family-default,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(small),
+  eyebrow-font-size: $mri-font-size-base,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-size-4, "4");
+
+
+$mri-heading-size-5: (
+  font-size: 18px,
+  line-height: 1.25,
+  font-weight: 400,
+  font-family: $mri-font-family-default,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(small),
+  eyebrow-font-size: $mri-font-size-x-small,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-size-5, "5");
+
+
+$mri-heading-size-6: (
+  font-size: 16px,
+  line-height: 1.25,
+  font-weight: 400,
+  font-family: $mri-font-family-default,
+  margin-top: mri-spacing(medium),
+  margin-bottom: mri-spacing(small),
+  eyebrow-font-size: $mri-font-size-x-small,
+  eyebrow-line-height: 1.5,
+  eyebrow-font-weight: normal,
+  eyebrow-font-family: $mri-font-family-default,
+  eyebrow-text-transform: none,
+  eyebrow-letter-spacing: 0,
+  eyebrow-margin-bottom: 0,
+) !default;
+
+@include component-heading-size-variant($mri-heading-size-6, "6");
+
+@each $name, $size in $mri-font-size-headings {
+  .#{$mri-ns}heading--#{$name} {
+    font-size: $size;
+    line-height: map-get($mri-line-height-headings, $name);
+  }
+}
+
+
+// Color variants
+
+@mixin component-heading-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}heading--" + $variant-name + " ", null);
+
+  .#{$mri-ns}heading#{$modifier} {
+    color: map-get($options, color);
+  }
+
+  #{$parent-class}.#{$mri-ns}heading__eyebrow {
+    color: map-get($options, eyebrow-color);
+  }
+}
+
+$mri-heading-dark-default-color: (
+  color: $mri-brand-blue,
+  eyebrow-color: $mri-dark-text-color-muted,
+) !default;
+
+@include component-heading-color-variant($mri-heading-dark-default-color, null);
+
+$mri-heading-light: (
+  color: $mri-light-text-color,
+  eyebrow-color: $mri-light-text-color-muted,
+) !default;
+
+@include component-heading-color-variant($mri-heading-light, "light");

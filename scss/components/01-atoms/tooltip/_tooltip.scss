@@ -1,0 +1,88 @@
+.#{$mri-ns}tooltip {
+  display: flex;
+  user-select: none;
+  transition: opacity $mri-transition-base;
+  // pointer-events: none;
+  z-index: 300;
+  animation: fade-in $mri-transition-base;
+}
+
+.#{$mri-ns}tooltip__text {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+
+@mixin component-tooltip-size-variant($options, $variant-name){
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tooltip--" + $variant-name + " ", null);
+
+  .#{$mri-ns}tooltip#{$modifier} {
+    padding: map-get($options, padding);
+    margin: map-get($options, margin);
+    border-radius: map-get($options, border-radius);
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+  }
+  
+  .#{$mri-ns}tooltip#{$modifier} .#{$mri-ns}tooltip-content {
+    max-width: map-get($options, max-width);
+  }
+}
+
+$mri-tooltip-default-size: (
+  padding: mri-spacing(small),
+  margin: mri-spacing(x-small),
+  border-radius: mri-border-radius(small),
+  max-width: 30ch,
+  font-size: mri-font-size(small, paragraphs),
+  line-height: mri-font-size(small, paragraphs)
+);
+
+@include component-tooltip-size-variant($mri-tooltip-default-size, null);
+
+// Color variants
+
+@mixin component-tooltip-color-variant($options, $variant-name){
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tooltip--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}tooltip#{$modifier} {
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+    box-shadow: map-get($options, box-shadow);
+  }
+}
+
+$mri-tooltip-light-default: (
+  color: $mri-dark-text-color,
+  bg-color: $mri-background-color-white,
+  box-shadow: mri-shadow(small)
+);
+
+@include component-tooltip-color-variant($mri-tooltip-light-default, null);
+
+$mri-tooltip-warning: (
+  color: $mri-dark-text-color-warning,
+  bg-color: $mri-lightest-warning-color,
+  box-shadow: mri-shadow(small)
+);
+
+@include component-tooltip-color-variant($mri-tooltip-warning, "warning");
+
+$mri-tooltip-critical: (
+  color: $mri-dark-text-color-critical,
+  bg-color: $mri-lightest-critical-color,
+  box-shadow: mri-shadow(small)
+);
+
+@include component-tooltip-color-variant($mri-tooltip-critical, "critical");
+
+$mri-tooltip-dark: (
+  color: $mri-light-text-color,
+  bg-color: $mri-background-color-darkest,
+  box-shadow: mri-shadow(small)
+);
+
+@include component-tooltip-color-variant($mri-tooltip-dark, "dark");

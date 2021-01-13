@@ -1,0 +1,16 @@
+.#{$mri-ns}overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $mri-overlay-bg-color;
+  animation: fade-in $mri-transition-base;
+  z-index: $mri-overlay-z-index;
+}
+
+.#{$mri-ns}overlay.#{$mri-ns}is-hidden {
+  pointer-events: none;
+  animation: fade-out $mri-transition-base;
+  opacity: 0;
+}

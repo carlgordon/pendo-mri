@@ -1,0 +1,22 @@
+.#{$mri-ns}split-button {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.#{$mri-ns}split-button__section:nth-child(n + 2) {
+  margin-left: -1px;
+}
+
+.#{$mri-ns}split-button__section:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.#{$mri-ns}split-button__section:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.#{$mri-ns}split-button__section:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

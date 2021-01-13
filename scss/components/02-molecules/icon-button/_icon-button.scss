@@ -1,0 +1,237 @@
+.#{$mri-ns}icon-button {
+  @extend %button-reset;
+  
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  border-style: solid;
+  position: relative;
+  flex-grow: 0;
+  flex-shrink: 0;
+
+  transition:
+    background-color $mri-transition-base;
+  
+  cursor: pointer;
+}
+
+.#{$mri-ns}icon-button__icon {
+  pointer-events: none;
+}
+
+.#{$mri-ns}icon-button:disabled {
+  cursor: default;
+}
+
+
+// Animated variant (used in Javascript for the Style Guide only)
+.#{$mri-ns}icon-button--style-guide-only {
+  .#{$mri-ns}icon-button__success-icon,
+  .#{$mri-ns}icon-button__critical-icon,
+  .#{$mri-ns}icon-button__spinner {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity $mri-transition-base;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+}
+
+// Loading state
+.#{$mri-ns}icon-button.#{$mri-ns}is-loading {
+  pointer-events: none;
+
+  .#{$mri-ns}icon-button__icon {
+    animation: fade-out-down $mri-transition-base forwards;
+  }
+
+  .#{$mri-ns}icon-button__spinner {
+    opacity: 1;
+  }
+}
+
+// Success state
+.#{$mri-ns}icon-button.#{$mri-ns}has-success {
+  pointer-events: none;
+
+  .#{$mri-ns}icon-button__icon {
+    opacity: 0;
+  }
+
+  .#{$mri-ns}icon-button__spinner {
+    opacity: 0;
+  }
+
+  .#{$mri-ns}icon-button__success-icon {
+    animation: fade-in-down $mri-transition-base forwards;
+  }
+}
+
+// critical state
+.#{$mri-ns}icon-button.#{$mri-ns}has-critical {
+  pointer-events: none;
+
+  .#{$mri-ns}icon-button__icon {
+    opacity: 0;
+  }
+
+  .#{$mri-ns}icon-button__spinner {
+    opacity: 0;
+  }
+
+  .#{$mri-ns}icon-button__critical-icon {
+    animation: fade-in-down $mri-transition-base forwards;
+  }
+}
+
+
+// Size variants
+
+@mixin component-icon-button-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}icon-button--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}icon-button#{$modifier} {
+    padding: map-get($options, padding);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+  }
+  
+  #{$parent-class}.#{$mri-ns}icon-button__icon,
+  #{$parent-class}.#{$mri-ns}icon-button__spinner,
+  #{$parent-class}.#{$mri-ns}icon-button__success-icon,
+  #{$parent-class}.#{$mri-ns}icon-button__critical-icon {
+    width: map-get($options, icon-size);
+    height: map-get($options, icon-size);
+  }
+}
+
+$mri-icon-button-default-size: (
+  padding: mri-spacing(small),
+  icon-size: $mri-font-size-large,
+  border-width: 0,
+  border-radius: mri-border-radius(pill)
+) !default;
+
+@include component-icon-button-size-variant($mri-icon-button-default-size, null);
+
+$mri-icon-button-small: (
+  padding: mri-spacing(x-small),
+  icon-size: $mri-font-size-base,
+  border-width: 0,
+  border-radius: mri-border-radius(pill)
+) !default;
+
+@include component-icon-button-size-variant($mri-icon-button-small, "small");
+
+// $mri-icon-button-small: (
+//   padding: mri-spacing(x-small),
+//   icon-size: $mri-font-size-small,
+//   border-width: 1px,
+//   border-radius: mri-border-radius(pill)
+// ) !default;
+
+// @include component-icon-button-size-variant($mri-icon-button-small, "small");
+
+$mri-icon-button-x-small: (
+  padding: mri-spacing(2x-small),
+  icon-size: $mri-font-size-x-small,
+  border-width: 0,
+  border-radius: mri-border-radius(pill)
+) !default;
+
+@include component-icon-button-size-variant($mri-icon-button-x-small, "x-small");
+
+$mri-icon-button-2x-small: (
+  padding: mri-spacing(2x-small),
+  icon-size: $mri-font-size-2x-small,
+  border-width: 0,
+  border-radius: mri-border-radius(pill)
+) !default;
+
+@include component-icon-button-size-variant($mri-icon-button-2x-small, "2x-small");
+
+// Color variants
+
+@mixin component-icon-button-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}icon-button--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}icon-button#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+  }
+  
+  .#{$mri-ns}icon-button#{$modifier}:hover {
+    background-color: map-get($options, hover-bg-color);
+    color: map-get($options, hover-color);
+  }
+  
+  .#{$mri-ns}icon-button#{$modifier}:active {
+    background-color: map-get($options, active-bg-color);
+    color: map-get($options, active-color);
+  }
+  
+  .#{$mri-ns}icon-button#{$modifier}:focus {
+    box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color);
+  }
+  
+  .#{$mri-ns}icon-button#{$modifier}:disabled {
+    background-color: map-get($options, disabled-bg-color);
+    color: map-get($options, disabled-color);
+    opacity: map-get($options, disabled-opacity)
+  }
+
+  #{$parent-class} .#{$mri-ns}icon-button__success-icon {
+    color: map-get($options, success-color);
+  }
+
+  #{$parent-class} .#{$mri-ns}icon-button__critical-icon {
+    color: map-get($options, critical-color);
+  }
+}
+
+$mri-icon-button-light-default: (
+  bg-color: $mri-transparent,
+  color: $mri-dark-text-color,
+  border-color: $mri-transparent,
+  hover-bg-color: $mri-light-hover-color-transparent,
+  hover-color: $mri-dark-text-color,
+  active-bg-color: $mri-light-active-color-transparent,
+  active-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-color: $mri-dark-text-color,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  focus-ring-color: mri-blue(50),
+  success-color: $mri-dark-success-color,
+  critical-color: $mri-dark-critical-color
+) !default;
+
+@include component-icon-button-color-variant($mri-icon-button-light-default, null);
+
+$mri-icon-button-dark: (
+  bg-color: $mri-transparent,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  hover-bg-color: $mri-dark-hover-color-transparent,
+  hover-color: $mri-light-text-color,
+  active-bg-color: $mri-dark-active-color-transparent,
+  active-color: $mri-light-text-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-color: $mri-light-text-color,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  focus-ring-color: mri-blue(40),
+  success-color: $mri-light-success-color,
+  critical-color: $mri-light-critical-color
+) !default;
+
+@include component-icon-button-color-variant($mri-icon-button-dark, "dark");

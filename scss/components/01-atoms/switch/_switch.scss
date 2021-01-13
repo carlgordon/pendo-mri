@@ -1,0 +1,247 @@
+.#{$mri-ns}switch {
+  @extend %checkbox-reset;
+  
+  position: relative;
+  // Using content-box to avoid doing complicated calc() for handling
+  // switch width and padding vs. toggle width
+  // box-sizing: content-box;
+  border-style: solid;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-style: none;
+    
+    transition:
+      left $mri-transition-base,
+      transform $mri-transition-base;
+  }
+  
+
+  &::after {
+    content: "Off";
+    display: block;
+    position: absolute;
+    border-style: none;
+    text-align: center;
+
+    transition:
+    color $mri-transition-base,
+    transform $mri-transition-base;
+}
+  
+  &:checked::after {
+    content: "On";
+  }
+
+  &:disabled {
+    cursor: default;
+  }
+
+}
+
+
+// Size variants
+
+@mixin component-switch-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}switch--" + $variant-name + " ", null);
+
+  .#{$mri-ns}switch#{$modifier} {
+    width: map-get($options, width);
+    height: map-get($options, height);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+
+    &::before {
+      top: 50%;
+      left: calc(#{map-get($options, height) / 2} - #{map-get($options, toggle-height) / 1.8});
+      // left: 2px;
+      transform:
+        translateY(#{map-get($options, toggle-height) / -2});
+      width: map-get($options, toggle-width);
+      height: map-get($options, toggle-height);
+      border-radius: map-get($options, toggle-border-radius);
+    }
+
+    &:checked::before {
+      left: calc(100% - #{map-get($options, toggle-width)} - (#{map-get($options, height) / 2} - #{map-get($options, toggle-height) / 1.8}));
+      // left: 38px;
+    }
+
+    &:enabled:hover::before {
+      left: calc(#{map-get($options, height) / 1.5} - #{map-get($options, toggle-height) / 1.8});
+      // left: 6px;
+    }
+
+    &:enabled:hover:checked::before {
+      left: calc(100% - #{map-get($options, toggle-width)} - ((#{map-get($options, height)} / 1.5) - #{map-get($options, toggle-height) / 1.8}));
+      // left: 34px;
+    }
+
+    &::after {
+      font-size: map-get($options, caption-font-size);
+      width: map-get($options, caption-width);
+      height: map-get($options, caption-height);
+      top: calc(#{map-get($options, height) / 2} - #{map-get($options, caption-height) / 2});
+      right: calc(#{map-get($options, height) / 2} - #{map-get($options, caption-width) / 6});
+      // top: 0px;
+      // right: 9px;
+    }
+
+    &:checked::after {
+      left: calc(#{map-get($options, height) / 2} - #{map-get($options, caption-width) / 5});
+      // left: 9px;
+    }
+  }
+}
+
+$mri-switch-default-size: (
+  width: 3.75em,
+  height: 1.5em,
+  border-width: 1px,
+  border-radius: mri-border-radius(pill),
+  toggle-width: 1.125em,
+  toggle-height: 1.125em,
+  toggle-border-radius: mri-border-radius(pill),
+  caption-font-size: .875em,
+  caption-width: 2.33em,
+  caption-height: 1.33em,
+
+  /*
+  width: 60px,
+  height: 24px,
+  border-width: 1px,
+  border-radius: mri-border-radius(pill),
+  toggle-width: 18px,
+  toggle-height: 18px,
+  toggle-border-radius: mri-border-radius(pill),
+  caption-font-size: 12px,
+  caption-width: 18px,
+  caption-height: 22px,
+  */
+) !default;
+
+@include component-switch-size-variant($mri-switch-default-size, null);
+
+
+// Color variants
+
+@mixin component-switch-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}switch--" + $variant-name + " ", null);
+
+  .#{$mri-ns}switch#{$modifier} {
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+
+    &:checked {
+      background-color: map-get($options, checked-bg-color);
+      color: map-get($options, checked-color);
+      border-color: map-get($options, checked-border-color);
+    }
+
+    &:focus:checked {
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color) map-get($options, focus-ring-inset);
+    }
+
+    &:focus {
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color) map-get($options, focus-ring-inset);
+    }
+
+    &:enabled:hover:checked {
+      background-color: map-get($options, checked-hover-bg-color);
+      border-color: map-get($options, checked-hover-border-color);
+    }
+
+    &:enabled:hover {
+      background-color: map-get($options, hover-bg-color);
+      border-color: map-get($options, hover-border-color);
+    }
+
+    &:active:checked {
+      background-color: map-get($options, checked-active-bg-color);
+      border-color: map-get($options, checked-active-border-color);
+    }
+
+    &:active {
+      background-color: map-get($options, active-bg-color);
+      border-color: map-get($options, active-border-color);
+    }
+
+    &:disabled:checked,
+    &.mri-is-disabled:checked {
+      opacity: 50%;
+    }
+    
+    &:disabled,
+    &.mri-is-disabled {
+      opacity: 50%;
+    }
+
+    &::before {
+      background-color: map-get($options, toggle-bg-color);
+      box-shadow: map-get($options, toggle-box-shadow);
+    }
+}
+
+  #{$parent-class}.#{$mri-ns}switch__label#{$modifier} {
+    color: map-get($options, label-text-color);
+  }
+}
+
+$mri-switch-light-default: (
+  bg-color: $mri-background-color-white,
+  color: $mri-dark-text-color,
+  border-color: rgba(22,32,41,0.3),
+  hover-bg-color: $mri-light-hover-color-primary,
+  hover-border-color: rgba(22,32,41,0.4),
+  active-bg-color: $mri-light-active-color-primary,
+  active-border-color: rgba(22,32,41,0.5),
+
+  checked-bg-color: $mri-dark-interactive-color,
+  checked-color: $mri-light-text-color,
+  checked-border-color: rgba(22,32,41,0.3),
+  checked-hover-bg-color: mri-blue(50),
+  checked-hover-border-color: rgba(22,32,41,0.4),
+  checked-active-bg-color: mri-blue(70),
+  checked-active-border-color: rgba(22,32,41,0.5),
+
+  toggle-bg-color: $mri-background-color-white,
+  toggle-box-shadow: mri-shadow(small),
+  focus-ring-color: $mri-light-focus-color,
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  label-text-color: $mri-dark-text-color
+) !default;
+
+@include component-switch-color-variant($mri-switch-light-default, null);
+
+$mri-switch-dark: (
+  bg-color: transparent,
+  color: $mri-light-text-color,
+  border-color: rgba(255,255,255,0.3),
+  hover-bg-color: $mri-dark-hover-color-transparent,
+  hover-border-color: rgba(255,255,255,0.4),
+  active-bg-color: $mri-dark-active-color-transparent,
+  active-border-color: rgba(255,255,255,0.5),
+
+  checked-bg-color: mri-blue(55),
+  checked-color: $mri-light-text-color,
+  checked-border-color: rgba(22,32,41,0.3),
+  checked-hover-bg-color: mri-blue(50),
+  checked-hover-border-color: rgba(22,32,41,0.4),
+  checked-active-bg-color: mri-blue(60),
+  checked-active-border-color: rgba(22,32,41,0.5),
+
+  toggle-bg-color: $mri-background-color-white,
+  toggle-box-shadow: mri-shadow(small),
+  focus-ring-color: $mri-dark-focus-color,
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  label-text-color: $mri-dark-text-color
+) !default;
+
+@include component-switch-color-variant($mri-switch-dark, "dark");

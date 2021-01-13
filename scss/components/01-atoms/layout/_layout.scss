@@ -1,0 +1,17 @@
+.#{$mri-ns}layout {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.#{$mri-ns}layout--row {
+  flex-flow: row nowrap;
+}
+
+.#{$mri-ns}layout--stretch {
+  align-items: stretch;
+}

@@ -1,0 +1,22 @@
+$mri-switch-height:                           1.5em !default;
+$mri-switch-width:                            3.75em !default;
+$mri-switch-border-radius:                    mri-border-radius(pill) !default;
+$mri-switch-border-width:                     1px !default;
+$mri-switch-border:                           $mri-switch-border-width solid !default;
+
+$mri-switch-off-background-color:             $mri-background-color-white !default;
+$mri-switch-off-color:                        $mri-dark-text-color !default;
+
+$mri-switch-on-background-color:              $mri-dark-interactive-color !default;
+$mri-switch-on-color:                         $mri-dark-text-color !default;
+
+$mri-switch-disabled-off-background-color:    $mri-switch-off-background-color !default;
+$mri-switch-disabled-on-background-color:     $mri-switch-on-background-color !default;
+$mri-switch-disabled-opacity:                 0.50 !default;
+
+$mri-switch-toggle-width:                     1.125em !default;
+$mri-switch-toggle-height:                    1.125em !default;
+$mri-switch-toggle-border-radius:             mri-border-radius(pill) !default;
+$mri-switch-toggle-background-color:          $mri-light-text-color !default;
+$mri-switch-toggle-border:                    none !default;
+

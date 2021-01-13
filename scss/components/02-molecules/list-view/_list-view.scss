@@ -1,0 +1,333 @@
+// Block
+.#{$mri-ns}list-view {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  position: relative;
+  border-right: 1px solid;
+  overflow-y: auto;
+  flex-grow: 1;
+  
+  &:focus {
+    outline: none;
+  }
+}
+
+ul.#{$mri-ns}list-view {
+  @extend %list-reset;
+}
+
+// List item element
+.#{$mri-ns}list-view__item {
+  display: grid;
+  grid-template-columns: auto 1fr 5ch auto;
+  grid-column-gap: 0 0 mri-spacing(small);
+  grid-template-rows: auto minmax(0, auto);
+  grid-template-areas:
+    "icon label       counter arrow"
+    ".    description counter arrow";
+  // grid-template-columns: auto 1fr;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-bottom: 1px solid;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    color $mri-transition-base,
+    background-color $mri-transition-base;
+}
+
+.#{$mri-ns}list-view__item.#{$mri-ns}is-disabled {
+  cursor: default;
+}
+
+// List item label element
+.#{$mri-ns}list-view__item-label {
+  display: block;
+  // flex-basis: 100%;
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  grid-area: label;
+}
+
+.#{$mri-ns}list-view__item-description {
+  display: block;
+  // width: 100%;
+  font-size: .875em;
+  grid-area: description;
+}
+
+// List item icon element
+.#{$mri-ns}list-view__item-icon {
+  display: block;
+  grid-area: icon;
+  width: 1em;
+}
+
+.#{$mri-ns}list-view__item-counter {
+  grid-column: 3;
+  grid-row: 1 span 2;
+  grid-area: counter;
+  justify-self: center;
+  align-self: center;
+}
+
+.#{$mri-ns}list-view__item-arrow {
+  grid-column: 4;
+  grid-row: 1 span 2;
+  grid-area: arrow;
+  justify-self: center;
+  align-self: center;
+}
+
+
+// Size variants
+
+@mixin component-list-view-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}list-view--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}list-view#{$modifier} {
+    border-width: map-get($options, border-width);
+    font-size: map-get($options, font-size);
+    padding:
+      map-get($options, padding-vertical)
+      map-get($options, padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}list-view__item {
+    padding:
+      map-get($options, item-padding-vertical)
+      map-get($options, item-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}list-view__item-icon {
+    margin-right: map-get($options, icon-margin);
+  }
+}
+
+$mri-list-view-default-size: (
+  font-size: 1em,
+  border-width: 1,
+  padding-vertical: 0,
+  padding-horizontal: 0,
+  item-padding-vertical: mri-spacing(x-small),
+  item-padding-horizontal: mri-spacing(medium),
+  icon-margin: mri-spacing(small)
+) !default;
+
+@include component-list-view-size-variant($mri-list-view-default-size, null);
+
+
+// Color variants
+
+@mixin component-list-view-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}list-view--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}list-view#{$modifier} {
+    background-color: map-get($options, bg-color);
+    border-color: map-get($options, border-color);
+    
+    &:focus {
+      box-shadow:
+        0 0
+        map-get($options, focus-ring-blur)
+        map-get($options, focus-ring-offset)
+        map-get($options, focus-ring-color);
+    }
+  }
+  
+  .#{$mri-ns}list-view#{$modifier} .#{$mri-ns}list-view__item {
+    color: map-get($options, blurred-item-color);
+    background-color: map-get($options, blurred-item-bg-color);
+    border-bottom-color: map-get($options, border-color);
+    
+    &:not(.#{$mri-ns}is-disabled):hover {
+      color: map-get($options, blurred-item-hover-color);
+      background-color: map-get($options, blurred-item-hover-bg-color);
+    }
+    
+    &.#{$mri-ns}is-disabled {
+      color: map-get($options, blurred-item-disabled-color);
+      background-color: map-get($options, blurred-item-disabled-bg-color);
+      opacity: map-get($options, blurred-item-disabled-opacity);
+    }
+    
+    &.#{$mri-ns}is-selected {
+      color: map-get($options, blurred-item-selected-color);
+      background-color: map-get($options, blurred-item-selected-bg-color);
+      
+      &:not(.#{$mri-ns}is-disabled):hover {
+        color: map-get($options, blurred-item-selected-hover-color);
+        background-color: map-get($options, blurred-item-selected-hover-bg-color);
+      }
+    }
+    
+    &.#{$mri-ns}is-disabled.#{$mri-ns}is-selected {
+      color: map-get($options, blurred-item-selected-disabled-color);
+      background-color: map-get($options, blurred-item-selected-disabled-bg-color);
+      opacity: map-get($options, blurred-item-selected-disabled-opacity);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}list-view__item-counter {
+    color: map-get($options, item-counter-color);
+    background-color: map-get($options, item-counter-bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}list-view__item.#{$mri-ns}is-selected .#{$mri-ns}list-view__item-counter {
+    color: map-get($options, item-selected-counter-color);
+    background-color: map-get($options, item-selected-counter-bg-color);
+  }
+  
+  .#{$mri-ns}list-view#{$modifier}:focus .#{$mri-ns}list-view__item {
+    color: map-get($options, item-color);
+    background-color: map-get($options, item-bg-color);
+    
+    &:not(.#{$mri-ns}is-disabled):hover {
+      color: map-get($options, item-hover-color);
+      background-color: map-get($options, item-hover-bg-color);
+    }
+    
+    &:not(.#{$mri-ns}is-disabled):active {
+      color: map-get($options, item-active-color);
+      background-color: map-get($options, item-active-bg-color);
+    }
+
+    &.has-focus {
+      box-shadow:
+        0 0
+        map-get($options, item-focus-ring-blur)
+        map-get($options, item-focus-ring-offset)
+        map-get($options, item-focus-ring-color);
+    }
+    
+    &.#{$mri-ns}is-disabled {
+      color: map-get($options, item-disabled-color);
+      background-color: map-get($options, item-disabled-bg-color);
+      opacity: map-get($options, item-disabled-opacity);
+    }
+    
+    &.#{$mri-ns}is-selected {
+      color: map-get($options, item-selected-color);
+      background-color: map-get($options, item-selected-bg-color);
+      
+      &:not(.#{$mri-ns}is-disabled):hover {
+        color: map-get($options, item-selected-hover-color);
+        background-color: map-get($options, item-selected-hover-bg-color);
+      }
+    }
+    
+    &.#{$mri-ns}is-disabled.#{$mri-ns}is-selected {
+      color: map-get($options, item-selected-disabled-color);
+      background-color: map-get($options, item-selected-disabled-bg-color);
+      opacity: map-get($options, item-selected-disabled-opacity);
+    }
+  }
+}
+
+$mri-list-view-dark-default: (
+  border-color: $mri-dark-line-color-faint,
+  bg-color: $mri-background-color-white,
+  focus-ring-blur: 1px,
+  focus-ring-offset: 1px,
+  focus-ring-color: none,
+  item-color: $mri-dark-text-color,
+  item-bg-color: $mri-transparent,
+  item-counter-color: $mri-light-text-color,
+  item-counter-bg-color: $mri-background-color-dark,
+  item-focus-ring-blur: 1px,
+  item-focus-ring-offset: 1px,
+  item-focus-ring-color: $mri-light-focus-color,
+  item-disabled-color: $mri-dark-text-color,
+  item-disabled-bg-color: $mri-transparent,
+  item-disabled-opacity: $mri-disabled-opacity,
+  item-hover-color: $mri-dark-text-color,
+  item-hover-bg-color: $mri-light-hover-color-transparent,
+  item-active-color: $mri-dark-text-color,
+  item-active-bg-color: $mri-light-active-color-transparent,
+  item-selected-color: $mri-dark-text-color,
+  item-selected-bg-color: $mri-light-selected-color-transparent,
+  item-selected-counter-color: $mri-dark-text-color,
+  item-selected-counter-bg-color: $mri-light-text-color,
+  item-selected-hover-color: $mri-dark-text-color,
+  item-selected-hover-bg-color: $mri-light-selected-hover-color-transparent,
+  item-selected-disabled-color: $mri-dark-text-color,
+  item-selected-disabled-bg-color: $mri-light-selected-color-transparent,
+  item-selected-disabled-opacity: $mri-disabled-opacity,
+  blurred-item-color: $mri-dark-text-color,
+  blurred-item-bg-color: $mri-transparent,
+  blurred-item-disabled-color: $mri-dark-text-color,
+  blurred-item-disabled-bg-color: $mri-transparent,
+  blurred-item-disabled-opacity: $mri-disabled-opacity,
+  blurred-item-hover-color: $mri-dark-text-color,
+  blurred-item-hover-bg-color: $mri-light-hover-color-transparent,
+  blurred-item-selected-color: $mri-dark-text-color,
+  blurred-item-selected-bg-color: $mri-light-selected-color-transparent,
+  blurred-item-selected-hover-color: $mri-dark-text-color,
+  blurred-item-selected-hover-bg-color: $mri-light-selected-hover-color-transparent,
+  blurred-item-selected-disabled-color: $mri-dark-text-color,
+  blurred-item-selected-disabled-bg-color: $mri-light-selected-color-transparent,
+  blurred-item-selected-disabled-opacity: $mri-disabled-opacity
+) !default;
+
+@include component-list-view-color-variant($mri-list-view-dark-default, null);
+
+$mri-list-view-light: (
+  border-color: $mri-light-line-color-faint,
+  bg-color: $mri-transparent,
+  focus-ring-blur: 1px,
+  focus-ring-offset: 1px,
+  focus-ring-color: none,
+  item-color: $mri-light-text-color,
+  item-bg-color: $mri-transparent,
+  item-counter-color: $mri-dark-text-color,
+  item-counter-bg-color: $mri-background-color-light,
+  item-focus-ring-blur: 1px,
+  item-focus-ring-offset: 1px,
+  item-focus-ring-color: $mri-dark-focus-color,
+  item-disabled-color: $mri-light-text-color,
+  item-disabled-bg-color: $mri-transparent,
+  item-disabled-opacity: $mri-disabled-opacity,
+  item-hover-color: $mri-light-text-color,
+  item-hover-bg-color: $mri-dark-hover-color-transparent,
+  item-active-color: $mri-light-text-color,
+  item-active-bg-color: $mri-dark-active-color-transparent,
+  item-selected-color: $mri-light-text-color,
+  item-selected-bg-color: $mri-dark-selected-color-transparent,
+  item-selected-counter-color: $mri-light-text-color,
+  item-selected-counter-bg-color: $mri-dark-text-color,
+  item-selected-hover-color: $mri-light-text-color,
+  item-selected-hover-bg-color: $mri-dark-selected-hover-color-transparent,
+  item-selected-disabled-color: $mri-light-text-color,
+  item-selected-disabled-bg-color: $mri-dark-selected-color-transparent,
+  item-selected-disabled-opacity: $mri-disabled-opacity,
+  blurred-item-color: $mri-light-text-color,
+  blurred-item-bg-color: $mri-transparent,
+  blurred-item-disabled-color: $mri-light-text-color,
+  blurred-item-disabled-bg-color: $mri-transparent,
+  blurred-item-disabled-opacity: $mri-disabled-opacity,
+  blurred-item-hover-color: $mri-light-text-color,
+  blurred-item-hover-bg-color: $mri-dark-hover-color-transparent,
+  blurred-item-selected-color: $mri-light-text-color,
+  blurred-item-selected-bg-color: $mri-dark-selected-color-transparent,
+  blurred-item-selected-hover-color: $mri-light-text-color,
+  blurred-item-selected-hover-bg-color: $mri-dark-selected-hover-color-transparent,
+  blurred-item-selected-disabled-color: $mri-light-text-color,
+  blurred-item-selected-disabled-bg-color: $mri-dark-selected-color-transparent,
+  blurred-item-selected-disabled-opacity: $mri-disabled-opacity
+  ) !default;
+
+@include component-list-view-color-variant($mri-list-view-light, "light");

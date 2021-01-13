@@ -1,0 +1,9 @@
+$mri-dark-link-color:             $mri-dark-interactive-color !default;
+$mri-dark-link-visited-color:     purple !default;
+
+$mri-light-link-color:            $mri-light-interactive-color !default;
+$mri-light-link-visited-color:    violet !default;
+
+$mri-link-text-decoration:        none !default;
+$mri-link-hover-text-decoration:  none !default;
+$mri-link-hover-color:            shade($mri-dark-interactive-color, 50%) !default;

@@ -1,0 +1,102 @@
+$mri-font-size-headings: (
+  small:    1rem,
+  medium:   18/16 * 1rem,
+  large:    21/16 * 1rem,
+  x-large:  24/16 * 1rem,
+  2x-large: 28/16 * 1rem,
+  3x-large: 2rem,
+  4x-large: 40/16 * 1rem,
+) !default;
+
+$mri-line-height-headings: (
+  small:    20/16 * 1rem,
+  medium:   24/16 * 1rem,
+  large:    28/16 * 1rem,
+  x-large:  32/16 * 1rem,
+  2x-large: 36/16 * 1rem,
+  3x-large: 40/16 * 1rem,
+  4x-large: 48/16 * 1rem,
+) !default;
+
+$mri-font-size-labels: (
+  2x-small: 8/16 * 1rem,
+  x-small:  10/16 * 1rem,
+  small:    12/16 * 1rem,
+  medium:   14/16 * 1rem,
+  large:    1rem,
+  x-large:  18/16 * 1rem,
+) !default;
+
+$mri-line-height-labels: (
+  small:    1rem,
+  medium:   20/16 * 1rem,
+  large:    24/16 * 1rem,
+  x-large:  24/16 * 1rem,
+) !default;
+
+$mri-font-size-paragraphs: (
+  small:    12/16 * 1rem,
+  medium:   14/16 * 1rem,
+  large:    1rem,
+  x-large:  18/16 * 1rem,
+  2x-large: 21/16 * 1rem,
+) !default;
+
+$mri-line-height-paragraphs: (
+  small:    20/16 * 1rem,
+  medium:   24/16 * 1rem,
+  large:    28/16 * 1rem,
+  x-large:  32/16 * 1rem,
+  2x-large: 36/16 * 1rem,
+) !default;
+
+@function mri-font-size($value: medium, $category: labels) {
+  @if ($category == headings) {
+    @return map-get($mri-font-size-headings, $value);
+  }
+  @else if ($category == paragraphs) {
+    @return map-get($mri-font-size-paragraphs, $value);
+  }
+  @return map-get($mri-font-size-labels, $value);
+}
+
+@function mri-line-height($value: medium, $category: labels) {
+  @if ($category == headings) {
+    @return map-get($mri-line-height-headings, $value);
+  }
+  @else if ($category == paragraphs) {
+    @return map-get($mri-line-height-paragraphs, $value);
+  }
+  @return map-get($mri-line-height-labels, $value);
+}
+
+$mri-font-stack-roboto:       "Roboto", "Segoe UI", "Arial", sans-serif !default;
+$mri-font-stack-work-sans:    "Work Sans", "Gill Sans", "Futura", sans-serif !default;
+$mri-font-stack-noto-sans:    "Noto Sans", "Work Sans", "Futura", sans-serif !default;
+$mri-font-stack-noto-sans-light: "Noto Sans Light", "Roboto Light", "Futura", sans-serif !default;
+$mri-font-stack-noto-mono:    "Noto Sans Mono", monospace !default;
+$mri-font-stack-roboto-mono:  "Roboto Mono", "Consolas", monospace !default;
+
+$mri-font-family-default:     $mri-font-stack-noto-sans !default;
+$mri-font-family-numbers:     $mri-font-stack-noto-sans !default;
+$mri-font-family-headings:    $mri-font-stack-noto-sans-light !default;
+$mri-font-family-monospace:   $mri-font-stack-noto-mono !default;
+
+$mri-font-size-base:          #{mri-font-size(medium, labels)} !default;
+
+$mri-font-size-small:         #{mri-font-size(small, labels)} !default;
+$mri-font-size-x-small:        #{mri-font-size(x-small, labels)} !default;
+$mri-font-size-2x-small:       #{mri-font-size(2x-small, labels)} !default;
+
+$mri-font-size-large:         #{mri-font-size(large, labels)} !default;
+$mri-font-size-xlarge:        #{mri-font-size(x-large, labels)} !default;
+$mri-font-size-xxlarge:       #{mri-font-size(2x-large, labels)} !default;
+
+$mri-dark-bold-weight:        700 !default;
+$mri-dark-normal-weight:      500 !default;
+$mri-dark-light-weight:       300 !default;
+
+$mri-light-bold-weight:       600 !default;
+$mri-light-normal-weight:     400 !default;
+$mri-light-light-weight:      300 !default;
+

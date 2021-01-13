@@ -1,0 +1,157 @@
+.#{$mri-ns}icon {
+  // This might need to be refactored out to &-inline or something
+  display: inline-block;
+  line-height: inherit;
+  color: inherit;
+  fill: currentColor;
+  stroke: none;
+
+  circle, ellipse, path, polygon, polyline, rect {
+    fill: currentColor !important;
+    stroke: none !important;
+  }
+}
+
+.#{$mri-ns}icon__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.#{$mri-ns}icon--light {
+  color: $mri-light-text-color;
+}
+
+.#{$mri-ns}icon--interactive {
+  color: $mri-dark-interactive-color;
+}
+
+.#{$mri-ns}icon--required {
+  color: $mri-dark-interactive-color;
+}
+
+.#{$mri-ns}icon--info {
+  color: $mri-dark-icon-color-info;
+}
+
+.#{$mri-ns}icon--success {
+  color: $mri-dark-icon-color-success;
+}
+
+.#{$mri-ns}icon--critical {
+  color: $mri-dark-icon-color-critical;
+}
+
+.#{$mri-ns}icon--warning {
+  color: $mri-dark-icon-color-warning;
+}
+
+.#{$mri-ns}text--info {
+  color: $mri-dark-text-color-info;
+}
+
+.#{$mri-ns}text--success {
+  color: $mri-dark-text-color-success;
+}
+
+.#{$mri-ns}text--critical {
+  color: $mri-dark-text-color-critical;
+}
+
+.#{$mri-ns}text--warning {
+  color: $mri-dark-text-color-warning;
+}
+
+.#{$mri-ns}icon--dark-interactive {
+  color: $mri-light-interactive-color;
+}
+
+.#{$mri-ns}icon--dark-required {
+  color: $mri-light-interactive-color;
+}
+
+.#{$mri-ns}icon--dark-info {
+  color: $mri-light-icon-color-info;
+}
+
+.#{$mri-ns}icon--dark-success {
+  color: $mri-light-icon-color-success;
+}
+
+.#{$mri-ns}icon--dark-critical {
+  color: $mri-light-icon-color-critical;
+}
+
+.#{$mri-ns}icon--dark-warning {
+  color: $mri-light-icon-color-warning;
+}
+
+.#{$mri-ns}text--dark-info {
+  color: $mri-light-text-color-info;
+}
+
+.#{$mri-ns}text--dark-success {
+  color: $mri-light-text-color-success;
+}
+
+.#{$mri-ns}text--dark-critical {
+  color: $mri-light-text-color-critical;
+}
+
+.#{$mri-ns}text--dark-warning {
+  color: $mri-light-text-color-warning;
+}
+
+
+.#{$mri-ns}icon--left {
+  margin-right: 1ch;
+}
+
+@mixin component-icon-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}icon--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}icon#{$modifier} {
+    width: map-get($options, size);
+    height: map-get($options, size);
+    vertical-align: map-get($options, v-align);
+  }
+}
+
+$mri-icon-default-size: (
+  size: $mri-font-size-base,
+  v-align: calc(1/6 * -1em),
+) !default;
+
+@include component-icon-size-variant($mri-icon-default-size, null);
+
+$mri-icon-small: (
+  size: 10px,
+  v-align: calc(1/6 * -1em),
+) !default;
+
+@include component-icon-size-variant($mri-icon-small, "small");
+
+$mri-icon-x-small: (
+  size: 8px,
+  v-align: 1px,
+) !default;
+
+@include component-icon-size-variant($mri-icon-x-small, "x-small");
+
+$mri-icon-large: (
+  size: 1.5rem,
+  v-align: middle,
+) !default;
+
+@include component-icon-size-variant($mri-icon-large, "large");
+
+@mixin component-icon-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}icon--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}icon#{$modifier} {
+    width: map-get($options, size);
+    height: map-get($options, size);
+  }
+}

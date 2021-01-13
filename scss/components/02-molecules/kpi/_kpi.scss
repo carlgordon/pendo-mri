@@ -1,0 +1,153 @@
+.#{$mri-ns}kpi {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.#{$mri-ns}kpi--right-aligned {
+  align-items: flex-end;
+}
+
+.#{$mri-ns}kpi__value, .#{$mri-ns}kpi__label {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mri-kpi--center{
+    text-align: center;
+}
+
+.mri-kpi--left {
+    text-align: left;
+}
+
+.mri-kpi--right {
+    text-align: right;
+}
+
+@mixin component-kpi-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}kpi--" + $variant-name + " ", null);
+
+  .#{$mri-ns}kpi#{$modifier} {
+    padding: map-get($options, padding);
+  }
+
+  #{$parent-class}.#{$mri-ns}kpi__value-text {
+    font-size: map-get($options, value-text-font-size);
+    line-height: map-get($options, value-text-line-height);
+    font-weight: map-get($options, value-text-font-weight);
+  }
+
+  #{$parent-class}.#{$mri-ns}kpi__value-prefix {
+    margin-right: map-get($options, prefix-suffix-spacing);
+  }
+
+  #{$parent-class}.#{$mri-ns}kpi__value-suffix {
+    margin-left: map-get($options, prefix-suffix-spacing);
+  }
+}
+
+$mri-kpi-default-size: ( 
+  padding: 0, 
+  value-text-font-size: map-get($mri-font-size-headings, x-large), 
+  value-text-line-height: map-get($mri-line-height-headings, x-large), 
+  prefix-suffix-spacing: mri-spacing(small) 
+) !default;
+
+@include component-kpi-size-variant($mri-kpi-default-size, null);
+
+
+.mri-kpi-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: .5em;
+}
+
+.mri-kpi--large {
+    .mri-kpi__value {
+        font-size: 1.5rem;
+    }
+
+    .mri-kpi__value-text {
+        font-size: 3rem;
+        line-height: 2.5rem;
+    }
+
+    .mri-kpi-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+
+
+// Color variants
+@mixin component-kpi-color-variant($options, $variant-name) {
+    $modifier: if($variant-name, "--" + $variant-name, null);
+    $parent-class: if($variant-name, ".#{$mri-ns}kpi--" + $variant-name + " ", null);
+
+    .#{$mri-ns}kpi#{$modifier} {
+        color: map-get($options, color);
+    }
+
+    #{$parent-class}.#{$mri-ns}kpi__value {
+        color: map-get($options, value-color);
+    }
+
+    #{$parent-class}.#{$mri-ns}kpi__value-prefix {
+        color: map-get($options, prefix-color);
+    }
+
+    #{$parent-class}.#{$mri-ns}kpi__value-suffix {
+        color: map-get($options, suffix-color);
+    }
+}
+
+$mri-kpi-dark: ( 
+  color: $mri-dark-text-color, 
+  value-color: $mri-brand-cool-gray-6, 
+  prefix-color: $mri-dark-text-color-muted, 
+  suffix-color: $mri-dark-text-color-muted 
+) !default;
+
+@include component-kpi-color-variant($mri-kpi-dark, null);
+
+$mri-kpi-light: ( 
+  color: mri-gray(20), 
+  value-color: $mri-light-text-color, 
+  prefix-color: $mri-light-text-color-muted, 
+  suffix-color: $mri-light-text-color-muted 
+) !default;
+
+@include component-kpi-color-variant($mri-kpi-light, "light");
+
+$mri-kpi-dark-positive: ( 
+  color: $mri-dark-text-color, 
+  value-color: $mri-dark-positive-color, 
+  prefix-color: $mri-dark-text-color-muted, 
+  suffix-color: $mri-dark-text-color-muted 
+) !default;
+
+@include component-kpi-color-variant($mri-kpi-dark-positive, "positive");
+
+$mri-kpi-dark-negative: ( 
+  color: $mri-dark-text-color, 
+  value-color: $mri-dark-negative-color, 
+  prefix-color: $mri-dark-text-color-muted, 
+  suffix-color: $mri-dark-text-color-muted 
+) !default;
+
+@include component-kpi-color-variant($mri-kpi-dark-negative, "negative");
+
+.mri-kpi-value--positive {
+    color: mri-green(60);
+}
+
+.mri-kpi-value--negative {
+    color: mri-red(60);
+}

@@ -1,0 +1,13 @@
+$mri-token-bg-color:                $mri-background-color-lighter !default;
+$mri-token-color:                   $mri-dark-text-color !default;
+$mri-token-padding:                 mri-spacing(small) !default;
+$mri-token-border-radius:           mri-border-radius(medium) !default;
+
+$mri-token-hover-color:             $mri-token-color !default;
+$mri-token-hover-bg-color:          shade($mri-token-bg-color, 5%) !default;
+
+$mri-token-selected-color:          $mri-white !default;
+$mri-token-selected-bg-color:       $mri-dark-interactive-color !default;
+
+$mri-token-selected-hover-color:    $mri-white !default;
+$mri-token-selected-hover-bg-color: shade($mri-token-selected-bg-color, 20%) !default;

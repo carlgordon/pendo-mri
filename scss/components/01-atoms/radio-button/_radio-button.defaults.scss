@@ -1,0 +1,13 @@
+$mri-radio-button-size:                       calc(1em + #{mri-spacing(small)} + 2px) !default;
+$mri-radio-button-background-color:           $mri-background-color-white !default;
+$mri-radio-button-color:                      inherit !default;
+$mri-radio-button-border:                     1px solid mri-gray(30) !default;
+
+$mri-radio-button-focus-border-color:         $mri-dark-interactive-color !default;
+
+$mri-radio-button-mark-size:                  1em !default;
+$mri-radio-button-mark-background-color:      $mri-brand-blue !default;
+
+$mri-radio-button-disabled-background-color:  tint(mri-gray(), 80%) !default;
+$mri-radio-button-disabled-border:            1px solid transparent !default;
+$mri-radio-button-disabled-mark-background-color: tint(mri-gray(), 50%) !default;

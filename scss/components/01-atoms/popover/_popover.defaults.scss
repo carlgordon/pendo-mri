@@ -1,0 +1,14 @@
+$mri-popover-background-color:              $mri-background-color-dark;
+$mri-popover-color:                         $mri-light-text-color;
+$mri-popover-width:                         auto;
+$mri-popover-max-width:                     40em;
+$mri-popover-max-height:                    80vh;
+$mri-popover-padding:                       0;
+$mri-popover-margin:                        0;
+$mri-popover-box-shadow:                    mri-shadow(medium);
+$mri-popover-border-radius:                 mri-border-radius(medium);
+$mri-popover-arrow-size:                    mri-spacing(small);
+$mri-popover-arrow-box-shadow:              true;
+$mri-popover-arrow-box-shadow-transparency: 0.5;
+$mri-popover-arrow-box-shadow-size:         $mri-popover-arrow-size / 2;
+$mri-popover-arrow-box-shadow-color:        transparentize(black, 0.75);

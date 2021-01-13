@@ -1,0 +1,31 @@
+.mri-link-menu {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    .mri-link-menu__item {
+        margin-bottom: 12px;
+    }
+    .mri-link-menu__link-label {
+        display: inline-block;
+        margin-bottom: 4px;
+    }
+
+    .mri-link-menu__link-description {
+        margin: .5em 0 1em;
+    }
+
+    .mri-link-menu__chevron {
+        position: relative;
+        top: -2px;
+        margin-left: 8px;
+    }
+
+    .mri-link-menu__link {
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}

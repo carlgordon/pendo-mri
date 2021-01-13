@@ -1,0 +1,128 @@
+.#{$mri-ns}alert {
+  border-style: solid;
+}
+
+.#{$mri-ns}alert__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.#{$mri-ns}alert__heading {
+  @extend %heading-reset;
+  
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}alert__message {
+  @extend %paragraph-reset;
+}
+
+// Size variants
+
+@mixin component-alert-size-variant ($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}alert--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}alert#{$modifier} {
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    border-radius: map-get($options, border-radius);
+    border-width: map-get($options, border-width);
+  }
+  
+  .#{$mri-ns}alert#{$modifier}.#{$mri-ns}alert--bleed {
+    border-radius: 0;
+    border-width: map-get($options, bleed-border-width);
+  }
+  
+  #{$parent-class}.#{$mri-ns}alert__header {
+    margin-bottom: map-get($options, header-margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}alert__heading {
+    font-size: map-get($options, heading-font-size);
+    line-height: map-get($options, heading-line-height);
+    font-weight: map-get($options, heading-font-weight);
+    text-transform: map-get($options, heading-text-transform);
+    letter-spacing: map-get($options, heading-letter-spacing);
+  }
+  
+  #{$parent-class}.#{$mri-ns}alert__message {
+    margin-bottom: map-get($options, message-margin-bottom);
+  }
+  
+  #{$parent-class}.#{$mri-ns}alert__footer {
+    margin-top: map-get($options, footer-margin);
+  }
+}
+
+$mri-alert-default-size: (
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: $mri-spacing-horizontal-margin-width,
+  border-radius: 2px,
+  border-width: 1px,
+  bleed-border-width: 1px,
+  header-margin: mri-spacing(xsmall),
+  heading-font-size: $mri-font-size-base,
+  heading-line-height: 1.5,
+  heading-font-weight: $mri-dark-bold-weight,
+  heading-text-transform: none,
+  heading-letter-spacing: 0,
+  message-margin-bottom: mri-spacing(small),
+  footer-margin: mri-spacing(small)
+) !default;
+
+@include component-alert-size-variant($mri-alert-default-size, null);
+
+// Color variants
+
+@mixin component-alert-color-variant ($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}alert--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}alert#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}alert__close-button {
+    color: map-get($options, close-button-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}alert__heading {
+    color: map-get($options, heading-color);
+  }
+}
+
+$mri-alert-dark-info: (
+  bg-color: mri-blue(70),
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  heading-color: $mri-light-text-color,
+  close-button-color: $mri-light-text-color
+) !default;
+
+@include component-alert-color-variant($mri-alert-dark-info, null);
+
+$mri-alert-dark-success: (
+  bg-color: $mri-dark-success-color,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  heading-color: $mri-light-text-color,
+  close-button-color: $mri-light-text-color
+) !default;
+
+@include component-alert-color-variant($mri-alert-dark-success, "success");
+
+$mri-alert-dark-critical: (
+  bg-color: $mri-light-critical-color,
+  color: $mri-dark-text-color,
+  border-color: $mri-transparent,
+  heading-color: $mri-dark-critical-color,
+  close-button-color: $mri-dark-text-color
+) !default;
+
+@include component-alert-color-variant($mri-alert-dark-critical, "critical");

@@ -1,0 +1,18 @@
+$mri-border-radii: (
+  2x-small: 2px,
+  x-small:  3px,
+  small:   4px,
+  medium:  8px,
+  large:   12px,
+  x-large:  16px,
+  pill:    9999px,
+) !default;
+
+@function mri-border-radius($size: medium) {
+  @return map-get($mri-border-radii, $size);
+}
+
+// ---
+
+$mri-border-radius-buttons: mri-border-radius(pill);
+$mri-border-radius-fields:  mri-border-radius(small);

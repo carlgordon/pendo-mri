@@ -1,0 +1,48 @@
+.#{$mri-ns}kpi-list, .#{$mri-ns}kpi-list--separator {
+  display: flex;
+  flex-flow: row wrap;
+  margin: -1em;
+  align-items: center;
+  overflow: hidden;
+}
+
+.#{$mri-ns}kpi-list__item {
+  margin: 1em;
+  min-width: 0em;
+  flex-basis: auto;
+  flex-grow: 1;
+  position: relative;
+}
+
+.#{$mri-ns}kpi-list--separator {
+    .#{$mri-ns}kpi-list__item + .#{$mri-ns}kpi-list__item {
+        // margin-left: 1em;
+        &::before {
+            content: "";
+            display: block;
+            width: 0;
+            top: calc(50% - 1.5em);
+            left: 0;
+            height: 3em;
+            position: absolute;
+            margin-left: calc(-1em - 1px);
+            // margin-right: mri-spacing(large) / 2;
+            border-left: 1px solid $mri-dark-line-color-faint;
+        }
+    }
+}
+
+
+.#{$mri-ns}kpi-list__separator {
+  @extend %hr-reset;
+
+  display: block;
+  width: 0;
+  height: auto;
+  min-height: 5em;
+  border-right: 2px solid $mri-dark-line-color-faint;
+  margin: 1em 0;
+  margin-right: -2px;
+
+  // align-self: stretch;
+}

@@ -1,0 +1,92 @@
+.#{$mri-ns}number-kpi {
+  display: inline-flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  white-space: nowrap;
+  max-width: 100%;
+  color: $mri-dark-text-color;
+}
+ 
+.#{$mri-ns}number-kpi__label {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+ 
+.#{$mri-ns}number-kpi__icon {
+  top: 0;
+  left: 0;
+  position: absolute;
+  padding: 1px;
+}
+ 
+.#{$mri-ns}number-kpi__value {
+  display: inline-block;
+  font-size: mri-font-size(3x-large, headings);
+  line-height: mri-line-height(3x-large, headings);
+  font-weight: 300;
+  color: $mri-brand-blue;
+  text-align: center;
+  max-width: 100%;
+}
+ 
+.#{$mri-ns}number-kpi__value-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block; 
+}
+ 
+.#{$mri-ns}number-kpi__value-padding {
+  display: block;
+}
+ 
+.#{$mri-ns}number-kpi__icon + .#{$mri-ns}number-kpi__value-padding {
+  padding: 0 calc(1rem + #{mri-spacing(small)}); // Space for the icon, balanced by space on the other side
+}
+ 
+.#{$mri-ns}number-kpi__value, .#{$mri-ns}number-kpi__value-padding {
+  position: relative;
+}
+ 
+@mixin component-kpi-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}number-kpi--" + $variant-name + " ", null);
+ 
+  .#{$mri-ns}number-kpi#{$modifier} {
+    color: map-get($options, color);
+  }
+ 
+  #{$parent-class}.#{$mri-ns}number-kpi__value {
+    color: map-get($options, value-color);
+  }
+ 
+  #{$parent-class}.#{$mri-ns}number-kpi__label {
+    color: map-get($options, label-color);
+  }
+}
+ 
+$mri-number-kpi-default: ( 
+  color: $mri-dark-text-color, 
+  value-color: $mri-brand-blue, 
+  label-color: $mri-dark-text-color-muted, 
+) !default;
+ 
+@include component-kpi-color-variant($mri-number-kpi-default, null);
+ 
+$mri-number-kpi-dark: ( 
+  color: $mri-dark-text-color, 
+  value-color: $mri-brand-blue, 
+  label-color: $mri-dark-text-color-muted, 
+) !default;
+ 
+@include component-kpi-color-variant($mri-number-kpi-dark, "dark");
+ 
+$mri-number-kpi-light: ( 
+  color: mri-gray(20), 
+  value-color: $mri-light-text-color, 
+  label-color: $mri-light-text-color-muted 
+) !default;
+ 
+@include component-kpi-color-variant($mri-number-kpi-light, "light");

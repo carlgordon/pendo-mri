@@ -1,0 +1,294 @@
+.#{$mri-ns}accordion {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}accordion__section {
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}accordion__section-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  
+  transition:
+    background-color $mri-transition-base,
+    color $mri-transition-base,
+    box-shadow $mri-transition-base;
+}
+
+.#{$mri-ns}accordion__section-header:focus {
+  outline: none;
+  z-index: 10;
+}
+
+.#{$mri-ns}accordion__section-heading {
+  @extend %heading-reset;
+  color: inherit;
+  display: inline-block;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.#{$mri-ns}accordion__section-caret {
+  transform: rotate(180deg);
+  
+  // transition: transform $mri-transition-base;
+}
+
+.#{$mri-ns}accordion__section-body {
+  animation: fade-in-down $mri-transition-base;
+}
+
+.#{$mri-ns}accordion__section.#{$mri-ns}is-closed > * > * > .#{$mri-ns}accordion__section-caret {
+  transform: rotate(0deg);
+}
+
+.#{$mri-ns}accordion__section.#{$mri-ns}is-closed > .#{$mri-ns}accordion__section-body {
+  animation: fade-out-up $mri-transition-base;
+  height: 0;
+  overflow: hidden;
+}
+
+// Size variants
+
+@mixin component-accordion-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}accordion--" + $variant-name + " ", null);
+  
+  #{$parent-class}.#{$mri-ns}accordion__section-header {
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    margin: map-get($options, margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}accordion__section-heading {
+    font-size: map-get($options, heading-font-size);
+    line-height: map-get($options, heading-line-height);
+    text-transform: map-get($options, heading-text-transform);
+    letter-spacing: map-get($options, heading-letter-spacing);
+  }
+
+  #{$parent-class}.#{$mri-ns}accordion__section-heading-text {
+    margin-right: map-get($options, heading-margin);
+  }
+
+  #{$parent-class}.#{$mri-ns}accordion__section-heading .#{$mri-ns}counter {
+    font-size: map-get($options, counter-font-size);
+    margin-right: map-get($options, heading-margin);
+    position: relative;
+    top: -.2em;
+    }
+    
+  #{$parent-class}.#{$mri-ns}accordion__section-icons {
+    margin-left: map-get($options, heading-margin);
+    line-height: 14px;
+    padding-top: 1px;
+    white-space: nowrap;
+  }
+
+  #{$parent-class}.#{$mri-ns}accordion__section-icon {
+    margin-right: map-get($options, icon-margin);
+    vertical-align: initial;
+  }
+
+  #{$parent-class}.#{$mri-ns}accordion__section-caret {
+    margin-left: map-get($options, caret-margin);
+    vertical-align: initial;
+  }
+}
+
+$mri-accordion-default-size: (
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: $mri-spacing-horizontal-margin-width,
+  margin: 0 0 -1px 0,
+  heading-margin: mri-spacing(small),
+  heading-font-size: 1.25rem,
+  heading-line-height: 1.625rem,
+  caret-margin: auto,
+  icon-margin: mri-spacing(medium),
+  counter-font-size: $mri-font-size-small,
+) !default;
+
+@include component-accordion-size-variant($mri-accordion-default-size, null);
+
+$mri-accordion-small: (
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: mri-spacing(medium),
+  margin: 0 0 -1px 0,
+  heading-margin: mri-spacing(small),
+  heading-font-size: 1.125rem,
+  heading-line-height: 1.375rem,
+  caret-margin: auto,
+  icon-margin: mri-spacing(small),
+  counter-font-size: $mri-font-size-x-small,
+) !default;
+
+
+@include component-accordion-size-variant($mri-accordion-small, "small");
+
+
+// Color variants
+
+@mixin component-accordion-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}accordion--" + $variant-name + " ", null);
+  
+  #{$parent-class}.#{$mri-ns}accordion__section-header {
+    background-color: map-get($options, header-bg-color);
+    color: map-get($options, header-color);
+    border-top:1px solid map-get($map: $options, $key: header-border-color);
+    border-bottom:1px solid map-get($map: $options, $key: header-border-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}accordion__section-caret {
+    color: map-get( $options, caret-color)
+  }
+  
+  #{$parent-class}.#{$mri-ns}accordion__section-header:focus {
+    box-shadow:
+      inset 0 0 map-get($options, header-focus-ring-blur) map-get($options, header-focus-ring-offset) map-get($options, header-focus-ring-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}accordion__section-header:hover {
+    background-color: map-get($options, header-hover-bg-color);
+  }
+  
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-critical:hover {
+    background-color: map-get($options, header-hover-bg-critical-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-warning:hover {
+    background-color: map-get($options, header-hover-bg-warning-color);
+  }
+  
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-success:hover {
+    background-color: map-get($options, header-hover-bg-success-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}icon--critical {
+    color: map-get($options, icon-critical-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}icon--warning {
+    color: map-get($options, icon-warning-color);
+  }
+  
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}icon--success {
+    color: map-get($options, icon-success-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-critical {
+    color: map-get($options, header-critical-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-warning {
+    color: map-get($options, header-warning-color);
+  }
+  
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-success {
+    color: map-get($options, header-success-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}counter {
+    background-color: map-get($options, counter-bg-color);
+    color: map-get($options, counter-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}counter--critical {
+    background-color: map-get($options, counter-critical-bg-color);
+    color: map-get($options, counter-critical-color);
+  }
+  
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-critical .#{$mri-ns}counter {
+    color: map-get($options, counter-critical-color);
+    background-color: map-get($options, counter-critical-bg-color);
+  }
+
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-warning .#{$mri-ns}counter {
+    color: map-get($options, counter-warning-color);
+    background-color: map-get($options, counter-warning-bg-color);
+  }
+  
+  .#{$mri-ns}accordion#{$modifier} .#{$mri-ns}accordion__section-header-success .#{$mri-ns}counter  {
+    color: map-get($options, counter-success-color);
+    background-color: map-get($options, counter-success-bg-color);
+  }
+
+}
+
+$mri-accordion-light-default: (
+  header-bg-color: $mri-transparent,
+  header-color: $mri-brand-blue,
+  header-hover-bg-color: $mri-light-hover-color-transparent,
+  header-focus-ring-blur: 0,
+  header-focus-ring-offset: 2px,
+  header-focus-ring-color: $mri-light-focus-color,
+  header-border-color: $mri-light-line-color,
+  caret-color: mri-gray(100),
+  header-critical-color: $mri-dark-text-color-critical,
+  header-warning-color: $mri-dark-text-color-warning,
+  header-success-color: $mri-dark-text-color-success,
+  icon-critical-color: $mri-dark-icon-color-critical,
+  icon-warning-color: $mri-dark-icon-color-warning,
+  icon-success-color: $mri-dark-icon-color-success,
+  header-hover-bg-critical-color: $mri-critical-hover-color-transparent,
+  header-hover-bg-warning-color: $mri-warning-hover-color-transparent,
+  header-hover-bg-success-color: $mri-success-hover-color-transparent,
+  counter-bg-color: $mri-background-color-lighter,
+  counter-color: $mri-dark-text-color,
+  counter-critical-bg-color: $mri-light-background-color-critical,
+  counter-critical-color: $mri-dark-text-color-critical,
+  counter-warning-bg-color: $mri-light-background-color-warning,
+  counter-warning-color: $mri-dark-text-color-warning,
+  counter-success-bg-color: $mri-light-background-color-success,
+  counter-success-color: $mri-dark-text-color-success,
+
+) !default;
+
+@include component-accordion-color-variant($mri-accordion-light-default, null);
+
+$mri-accordion-dark: (
+  header-bg-color: $mri-transparent,
+  header-color: $mri-light-text-color,
+  header-hover-bg-color: $mri-dark-hover-color-transparent,
+  header-focus-ring-blur: 0,
+  header-focus-ring-offset: 2px,
+  header-focus-ring-color:  $mri-dark-focus-color,
+  header-border-color: $mri-light-line-color,
+  caret-color: $mri-light-text-color,
+  counter-font-weight: $mri-dark-normal-weight,
+  header-critical-color: $mri-light-text-color-critical,
+  header-warning-color: $mri-light-text-color-warning,
+  header-success-color: $mri-light-text-color-success,
+  icon-critical-color: $mri-light-critical-color,
+  icon-warning-color: $mri-light-warning-color,
+  icon-success-color: $mri-light-success-color,
+  header-hover-bg-critical-color: $mri-dark-critical-hover-color-transparent,
+  header-hover-bg-warning-color: $mri-dark-warning-hover-color-transparent,
+  header-hover-bg-success-color: $mri-dark-success-hover-color-transparent,
+  counter-bg-color: $mri-background-color-darkest,
+  counter-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-background-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-background-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-background-color-success,
+  counter-success-color: $mri-light-text-color,
+) !default;
+
+@include component-accordion-color-variant($mri-accordion-dark, "dark");

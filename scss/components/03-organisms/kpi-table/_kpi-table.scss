@@ -1,0 +1,66 @@
+.mri-kpi-table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+
+    td, th {
+        padding: 0 8px;
+        text-align: right;
+        font-weight: normal;
+    }
+
+    th {
+
+        &:last-child {
+            font-weight: bold;
+        }
+    }
+
+    td {
+        padding: 8px;
+    }
+}
+
+.mri-kpi-table__item {
+    margin: 16px 0;
+
+    &:first-child {
+        margin: 0 0 16px;
+    }
+}
+
+.mri-kpi-table__heading {
+    margin: 0 0 4px;
+    font-size: $mri-font-size-large;
+}
+
+.mri-kpi-table__value-border {
+    border-left: 10px solid white;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.mri-kpi-table__wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4px 0;
+}
+
+.mri-kpi-table__value {
+    font-size: $mri-font-size-xlarge;
+}
+
+.mri-kpi-table__value-bg {
+    padding: 8px;
+}
+
+th.mri-kpi-table__heading--border {
+    background: $mri-white; 
+    border-bottom: 10px solid;
+}
+
+.mri-kpi-table__value-large {
+    font-size: $mri-font-size-xlarge;
+}

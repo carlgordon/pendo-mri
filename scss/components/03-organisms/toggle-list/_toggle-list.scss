@@ -1,0 +1,31 @@
+.#{$mri-ns}toggle-list {
+  @extend %fieldset-reset;
+}
+
+.#{$mri-ns}toggle-list {
+  display: flex; // NOTE: flexbox doesn't work on fieldsets
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  margin: #{mri-spacing(small) * -1};
+  padding: #{mri-spacing(small) / 2};
+}
+
+.#{$mri-ns}toggle-list .#{$mri-ns}toggle-list__item,
+.#{$mri-ns}toggle-list .#{$mri-ns}toggle-list__heading {
+  margin: #{mri-spacing(small) / 2};
+}
+
+.#{$mri-ns}toggle-list__heading {
+  @extend %heading-reset;
+  
+  font-size: $mri-heading-h6-font-size;
+  color: $mri-toggle-list-heading-color;
+  flex-basis: auto;
+  // padding: $mri-toggle-list-item-padding;
+}
+
+.#{$mri-ns}toggle-list--inline { // NOTE: flexbox doesn't work on fieldsets
+  flex-flow: row wrap;
+  align-items: flex-start;
+}

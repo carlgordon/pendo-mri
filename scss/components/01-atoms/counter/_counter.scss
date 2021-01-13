@@ -1,0 +1,160 @@
+.#{$mri-ns}counter {
+  font-family: $mri-font-family-numbers;
+  display: inline-block;
+  border-style: solid;
+  white-space: nowrap;
+  text-align: center;
+}
+
+// Size variants
+
+@mixin component-counter-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}counter--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}counter#{$modifier} {
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+    min-width: map-get($options, min-width);
+  }
+}
+
+$mri-counter-default-size: (
+  font-size: $mri-font-size-small,
+  line-height: 1em,
+  padding-vertical: mri-spacing(2x-small),
+  padding-horizontal: mri-spacing(small),
+  border-width: 0,
+  border-radius: $mri-border-radius-buttons,
+) !default;
+
+@include component-counter-size-variant($mri-counter-default-size, null);
+
+$mri-counter-small-size: (
+  font-size: $mri-font-size-x-small,
+  line-height: 1em,
+  padding-vertical: mri-spacing(2x-small),
+  padding-horizontal: mri-spacing(small),
+  border-width: 0,
+  border-radius: $mri-border-radius-buttons,
+) !default;
+
+@include component-counter-size-variant($mri-counter-small-size, "small");
+
+// Color variants
+
+@mixin component-counter-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}counter--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}counter#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+    opacity: map-get($options, opacity);
+    font-weight: map-get($options, font-weight);
+  }
+}
+
+$mri-counter-default: (
+  bg-color: $mri-background-color-lighter,
+  color: $mri-dark-text-color,
+  border-color: $mri-transparent,
+  font-weight: $mri-dark-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-default, null);
+
+$mri-counter-critical: (
+  bg-color: $mri-light-background-color-critical,
+  color: $mri-dark-text-color-critical,
+  border-color: $mri-transparent,
+  font-weight: $mri-dark-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-critical, "critical");
+
+$mri-counter-info: (
+  bg-color: $mri-light-background-color-info,
+  color: $mri-dark-text-color-info,
+  border-color: $mri-transparent,
+  font-weight: $mri-dark-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-info, "info");
+
+$mri-counter-warning: (
+  bg-color: $mri-light-background-color-warning,
+  color: $mri-dark-text-color-warning,
+  border-color: $mri-transparent,
+  font-weight: $mri-dark-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-warning, "warning");
+
+$mri-counter-success: (
+  bg-color: $mri-light-background-color-success,
+  color: $mri-dark-text-color-success,
+  border-color: $mri-transparent,
+  font-weight: $mri-dark-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-success, "success");
+
+$mri-counter-dark: (
+  bg-color: $mri-background-color-darkest,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  font-weight: $mri-light-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-dark, "dark");
+
+$mri-counter-dark-critical: (
+  bg-color: $mri-dark-background-color-critical,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  font-weight: $mri-light-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-dark-critical, "dark-critical");
+
+$mri-counter-dark-info: (
+  bg-color: $mri-dark-background-color-info,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  font-weight: $mri-light-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-dark-info, "dark-info");
+
+$mri-counter-dark-warning: (
+  bg-color: $mri-dark-background-color-warning,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  font-weight: $mri-light-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-dark-warning, "dark-warning");
+
+$mri-counter-dark-success: (
+  bg-color: $mri-dark-background-color-success,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  font-weight: $mri-light-normal-weight,
+  opacity: 1.0
+) !default;
+
+@include component-counter-color-variant($mri-counter-dark-success, "dark-success");

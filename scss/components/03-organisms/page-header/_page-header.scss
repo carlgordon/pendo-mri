@@ -1,0 +1,194 @@
+.#{$mri-ns}page-header {
+  padding: $mri-page-header-padding-small;
+  display: -ms-grid;
+  display: grid;
+  grid-template-areas:
+    "nav title toolbar";
+  -ms-grid-columns: auto;
+  grid-template-columns: 32px auto 38px;
+  -ms-grid-rows: auto;
+  grid-template-rows: auto;
+  grid-row-gap: mri-spacing(small);
+
+  @media (min-width: $mri-page-header-min-width-tablet+1) {
+    padding: $mri-page-header-padding;
+    min-height: 104px;
+    grid-template-areas:
+      "nav nav"
+      "title toolbar";
+    -ms-grid-columns: auto 1fr;
+    grid-template-columns: auto 1fr;
+    -ms-grid-rows: 1fr auto;
+    grid-template-rows: 1fr auto;
+  }
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.#{$mri-ns}page-header__content {
+  flex-shrink: 0;
+  flex-basis: 100%;
+}
+
+.#{$mri-ns}page-header__title {
+  grid-area: title;
+  margin: 0 0 -7px 0;
+  color: inherit;
+  font-weight: 300;
+  font-size: mri-font-size(3x-large, headings);
+  line-height: mri-line-height(3x-large, headings);
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    font-size: mri-font-size(large, headings);
+    line-height: 30px;
+    margin: 0 ;
+  }
+  @media (max-width: $mri-page-header-min-width-mobile) {
+    font-size: mri-font-size(large, headings);
+    line-height: 30px;
+    margin: 0 ;
+  }
+}
+
+.#{$mri-ns}page-header__title .#{$mri-ns}heading__eyebrow {
+  color: $mri-light-text-color-muted;
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    display: none;
+  }
+  @media (max-width: $mri-page-header-min-width-mobile) {
+    display: none;
+  }
+}
+
+.#{$mri-ns}page-header__toolbar {
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    display: none;
+  }
+}
+
+.#{$mri-ns}page-header__nav {
+  grid-area: nav;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    align-items: center;
+  }
+}
+
+.#{$mri-ns}page-header__back-button {
+  @media (min-width: $mri-page-header-min-width-tablet+1) {
+    margin: 0 0 0 -8px !important;
+  }
+}
+
+.#{$mri-ns}page-header .#{$mri-ns}breadcrumb {
+  font-size: .875rem;
+  margin-top: 5px;
+  flex-wrap: wrap;
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    display: none;
+  }
+}
+
+.#{$mri-ns}page-header .#{$mri-ns}page-header__breadcrumb-back-button {
+  display: none;
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    display: flex;
+  }
+}
+
+
+.#{$mri-ns}page-header__application-toolbar {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  margin: 0;
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    margin: 0;
+  }
+}
+
+.#{$mri-ns}page-header__application-toolbar > :not(.mri-toolbar__group),
+.#{$mri-ns}page-header__application-toolbar > .mri-toolbar__group > * {
+  margin-top: 1px;
+  margin-bottom: 1px;
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+.#{$mri-ns}page-header__application-toolbar :first-child {
+  margin-left: 0;
+}
+
+.#{$mri-ns}page-header__page-toolbar {
+  justify-content: flex-end;
+  grid-area: toolbar;
+  padding: 0;
+  margin: 0 0 0 mri-spacing(medium);
+
+  @media (min-width: $mri-page-header-min-width-tablet+1) {
+    -ms-grid-row: 2;
+    grid-row: 2;
+    -ms-grid-column: 2;
+    grid-column: 2;
+    align-self: flex-end;
+    margin: 0 0 0 mri-spacing(large);
+    min-width: max-content;
+  }
+}
+
+.#{$mri-ns}page-header .#{$mri-ns}button {
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    padding: 4px;
+  }
+}
+
+.#{$mri-ns}page-header .#{$mri-ns}icon-button {
+  color: inherit;
+}
+
+.#{$mri-ns}page-header__back-button .#{$mri-ns}button__label {
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    display: none;
+  }
+}
+
+.#{$mri-ns}page-header .#{$mri-ns}button__icon--left {
+  @media (max-width: $mri-page-header-min-width-tablet) {
+    margin-right: 0;
+  }
+}
+
+.#{$mri-ns}page-header__dropdown {
+  @media (min-width: $mri-page-header-min-width-tablet+1) {
+    display: none;
+  }
+}
+
+// Color variants
+
+@mixin component-page-header-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}page-header--" + $variant-name + " ", null);
+
+  .#{$mri-ns}page-header#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+  }
+}
+
+$mri-page-header-dark-default: (
+  bg-color: $mri-brand-blue,
+  color: $mri-light-text-color
+);
+
+@include component-page-header-color-variant($mri-page-header-dark-default, null);
+
+$mri-page-header-dark-gray: (
+  bg-color: $mri-background-color-darker,
+  color: $mri-light-text-color
+);
+
+@include component-page-header-color-variant($mri-page-header-dark-gray, "gray");

@@ -1,0 +1,104 @@
+
+.#{$mri-ns}avatar {
+  border-width: 1px;
+  border-style: solid;
+  border-color: $mri-transparent;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-align: center;
+  display: inline-block;
+}
+
+.#{$mri-ns}avatar__text {
+  font-family: $mri-font-family-headings;
+}
+
+.#{$mri-ns}avatar__image img {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+// Size variants
+
+@mixin component-avatar-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}avatar--" + $variant-name + " ", null);
+
+  .#{$mri-ns}avatar#{$modifier} {
+    width: map-get($options, avatar-size);
+    height: map-get($options, avatar-size);
+    font-size: map-get($options, avatar-font-size);
+    line-height: map-get($options, avatar-content-size);
+    border-radius: map-get($options, avatar-border-radius);
+  }
+
+  #{$parent-class}.#{$mri-ns}avatar__text {
+    width: map-get($options, avatar-content-size);
+    height: map-get($options, avatar-content-size);
+  }
+
+  #{$parent-class}.#{$mri-ns}avatar__image {
+    width: map-get($options, avatar-content-size);
+    height: map-get($options, avatar-content-size);
+  }
+}
+
+$mri-avatar-default: (
+  avatar-size: 32px,
+  avatar-font-size: 11px,
+  avatar-content-size: 30px,
+  avatar-border-radius: 4px
+) !default;
+
+@include component-avatar-size-variant($mri-avatar-default, null);
+
+$mri-avatar-large: (
+  avatar-size: 64px,
+  avatar-font-size: 22px,
+  avatar-content-size: 62px,
+  avatar-border-radius: 8px
+) !default;
+
+@include component-avatar-size-variant($mri-avatar-large, "large");
+
+$mri-avatar-small: (
+  avatar-size: 16px,
+  avatar-font-size: 4px,
+  avatar-content-size: 14px,
+  avatar-border-radius: 2px
+) !default;
+
+@include component-avatar-size-variant($mri-avatar-small, "small");
+
+// Color variants
+
+@mixin component-avatar-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}avatar--" + $variant-name + " ", null);
+
+  .#{$mri-ns}avatar#{$modifier} {
+    color: map-get($options, item-icon-color);
+  }
+
+  .#{$mri-ns}avatar#{$modifier}.#{$mri-ns}avatar--border {
+    border-color: map-get($options, item-icon-border-color);
+  }
+}
+
+$mri-avatar-light: (
+  item-icon-color: $mri-light-text-color,
+  item-icon-border-color: $mri-light-line-color,
+) !default;
+
+@include component-avatar-color-variant($mri-avatar-light, null);
+
+$mri-avatar-dark: (
+  item-icon-color: $mri-light-text-color,
+  item-icon-border-color: $mri-dark-line-color-muted,
+) !default;
+
+@include component-avatar-color-variant($mri-avatar-dark, "dark");
+

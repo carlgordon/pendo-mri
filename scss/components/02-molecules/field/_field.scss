@@ -1,0 +1,314 @@
+// Block styles
+.#{$mri-ns}field {
+  display: -ms-grid;
+  display: grid;
+  grid-template:
+    "label                label           label           label           label"
+    "padding-top-left     padding-top     padding-top     padding-top     padding-top-right"
+    "padding-left         padding-middle  padding-middle  padding-middle  padding-right"
+    "padding-left         addon-left      control         addon-right     padding-right"
+    "padding-bottom-left  padding-bottom  padding-bottom  padding-bottom  padding-bottom-right";
+  width: 100%;
+}
+
+.#{$mri-ns}field__control {
+  display: block;
+  z-index: 0;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 4;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 5;
+  grid-row: 2 / span 4;
+  grid-column: 1 / span 5;
+}
+
+.#{$mri-ns}field__label {
+  display: block;
+  grid-row: 1;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-column: 1 / span 5;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 5;
+  z-index: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.#{$mri-ns}field__icon {
+  vertical-align: top;
+  z-index: 1;
+  pointer-events: none;
+  grid-row: 4;
+  -ms-grid-row: 4;
+  -ms-grid-row-span: 1;
+  -ms-grid-row-align: center;
+  grid-column: 2;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
+  justify-self: center;
+  align-self: center;
+
+  transition:
+    color $mri-transition-base,
+    fill $mri-transition-base;
+}
+
+.#{$mri-ns}field__icon--right {
+  grid-column: 4;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  position: relative;
+  justify-self: right;
+
+}
+
+.#{$mri-ns}field__button {
+  grid-row: 4;
+  -ms-grid-row: 4;
+  -ms-grid-row-span: 1;
+  -ms-grid-row-align: center;
+  grid-column: 4;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 1;
+  z-index: 1;
+  align-self: center;
+}
+
+// .#{$mri-ns}field--no-label .#{$mri-ns}field__icon {
+//   top: calc((#{$mri-field-control-border-size}) + (#{$mri-field-padding-vertical} + (#{$mri-input-line-height} * .5em)) - #{$mri-field-icon-size / 2});
+// }
+
+// Size variants
+
+@mixin component-field-size-variant ($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}field--" + $variant-name + " ", null);
+
+  .#{$mri-ns}field#{$modifier} {
+    -ms-grid-columns: map-get($options, padding-horizontal) auto 1fr auto map-get($options, padding-horizontal);
+    grid-template-columns: map-get($options, padding-horizontal) auto 1fr auto map-get($options, padding-horizontal);
+    -ms-grid-rows: map-get($options, label-spacing) map-get($options, padding-vertical) auto auto map-get($options, padding-vertical);
+    grid-template-rows: map-get($options, label-spacing) map-get($options, padding-vertical) 0 auto map-get($options, padding-vertical);
+    
+    &.#{$mri-ns}field--no-label {
+      -ms-grid-rows: 0 map-get($options, padding-vertical) 0 auto map-get($options, padding-vertical);
+      grid-template-rows: 0 map-get($options, padding-vertical) 0 auto map-get($options, padding-vertical);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}field__control {
+    padding-left: map-get($options, padding-horizontal);
+    padding-right: map-get($options, padding-horizontal);
+    padding-top: map-get($options, padding-vertical);
+    padding-bottom: map-get($options, padding-vertical); 
+  }
+  
+  #{$parent-class}.#{$mri-ns}field__label {
+    font-size: map-get($options, label-font-size);
+    line-height: map-get($options, label-line-height);
+  }
+  
+  .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-left .#{$mri-ns}field__control {
+    padding-left: calc(#{map-get($options, padding-horizontal) * 2} + #{map-get($options, icon-size)});
+  }
+  
+  .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-right .#{$mri-ns}field__control {
+    padding-right: calc(#{map-get($options, padding-horizontal) * 2} + #{map-get($options, icon-size)});
+  }
+  
+  .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-right .#{$mri-ns}icon--required, .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-right .#{$mri-ns}icon--critical, .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-right .#{$mri-ns}icon--warning, .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-right .#{$mri-ns}icon--success, .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--icon-right progress {
+    margin-right: calc(#{map-get($options, padding-horizontal)} + #{map-get($options, icon-size)});
+  }
+
+  .#{$mri-ns}field#{$modifier}.#{$mri-ns}field--no-label .#{$mri-ns}field__control {
+    padding-top: map-get($options, padding-vertical);
+  }
+  
+  #{$parent-class}.#{$mri-ns}field__label {
+    font-size: map-get($options, label-font-size);
+    line-height: map-get($options, label-line-height);
+    letter-spacing: map-get($options, label-letter-spacing);
+  }
+  
+  // #{$parent-class}.#{$mri-ns}field__icon {
+  //   height: map-get($options, font-size) * map-get($options, line-height);
+  //   bottom: map-get($options, padding-vertical);
+  // }
+  
+  // #{$parent-class}.#{$mri-ns}field__icon--left {
+  //   left: #{map-get($options, padding-horizontal)};
+  // }
+  
+  // #{$parent-class}.#{$mri-ns}field__icon--right {
+  //   right: #{map-get($options, padding-horizontal)};
+  // }
+  
+  // #{$parent-class}.#{$mri-ns}field__button {
+  //   right: #{map-get($options, padding-horizontal)};
+  //   bottom: map-get($options, padding-vertical);
+  // }
+}
+
+$mri-field-default-size: (
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: mri-spacing(small),
+  label-spacing: 1.5em,
+  font-size: 1em,
+  line-height: 1.5em,
+  label-font-size: 1em,
+  label-line-height: 1.5em,
+  label-letter-spacing: 0,
+  icon-size: .875em,
+) !default;
+
+@include component-field-size-variant($mri-field-default-size, null);
+
+$mri-field-small: (
+  padding-vertical: mri-spacing(2x-small),
+  padding-horizontal: mri-spacing(x-small),
+  font-size: mri-font-size(small),
+  line-height: mri-line-height(small),
+  label-spacing: 1.25em,
+  label-font-size: .875em,
+  label-line-height: 1.25em,
+  label-letter-spacing: 0,
+  icon-size: mri-font-size(small),
+) !default;
+
+@include component-field-size-variant($mri-field-small, 'small');
+
+// Length variants
+
+// @mixin component-field-length-variant ($options, $variant-name) {
+//   $modifier: if($variant-name, "--" + $variant-name, null);
+//   $parent-class: if($variant-name, ".#{$mri-ns}field--" + $variant-name + " ", null);
+  
+//   .#{$mri-ns}field#{$modifier} {
+//     // flex-shrink: 1;
+//     // flex-basis: 0;
+//     min-width: map-get($options, min-width);
+//     @if (has-key($options, max-width)) {
+//       flex-basis: map-get($options, width);
+//     }
+//     @if (has-key($options, flex-grow)) {
+//       flex-grow: map-get($options, flex-grow);
+//       // flex-shrink: map-get($options, flex-grow);
+//     }
+//   }
+// }
+
+
+
+// $mri-field-default: (
+//   min-width: none,
+//   width: none,
+//   flex-grow: 1
+// ) !default;
+
+// @include component-field-length-variant($mri-field-default, null);
+
+// $mri-field-medium: (
+//   min-width: 15ch,
+//   width: 40ch,
+//   flex-grow: 8
+// ) !default;
+
+// @include component-field-length-variant($mri-field-medium, "medium");
+
+// $mri-field-x-short: (
+//   min-width: 8ch,
+//   width: 20ch,
+//   flex-grow: 1
+// ) !default;
+
+// @include component-field-length-variant($mri-field-x-short, "x-short");
+
+// $mri-field-short: (
+//   min-width: 12ch,
+//   width: 25ch,
+//   flex-grow: 2
+// ) !default;
+
+// @include component-field-length-variant($mri-field-short, "short");
+
+// $mri-field-long: (
+//   min-width: 20ch,
+//   width: 80ch,
+//   flex-grow: 16
+// ) !default;
+
+// @include component-field-length-variant($mri-field-long, "long");
+
+// $mri-field-x-long: (
+//   min-width: 25ch,
+//   width: 100ch,
+//   flex-grow: 32
+// ) !default;
+
+// @include component-field-length-variant($mri-field-x-long, "x-long");
+
+
+// Color variants
+
+@mixin component-field-color-variant ($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}field--" + $variant-name + " ", null);
+  
+  #{$parent-class}.#{$mri-ns}label {
+    color: map-get($options, label-color);
+    
+    &.has-focus {
+      color: map-get($options, label-focus-color);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}icon--interactive {
+    color: map-get($options, icon-interactive-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}icon--required {
+    color: map-get($options, icon-required-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}icon--success {
+    color: map-get($options, icon-success-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}icon--critical {
+    color: map-get($options, icon-critical-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}icon--warning {
+    color: map-get($options, icon-warning-color);
+  }
+  
+
+}
+
+$mri-field-light-default: (
+  label-color: $mri-dark-text-color,
+  label-focus-color: $mri-dark-text-color,
+  icon-interactive-color: $mri-dark-interactive-color,
+  icon-required-color: $mri-dark-interactive-color,
+  icon-warning-color: $mri-dark-icon-color-warning,
+  icon-critical-color: $mri-dark-icon-color-critical,
+  icon-success-color: $mri-dark-icon-color-success,
+) !default;
+
+@include component-field-color-variant($mri-field-light-default, null);
+
+$mri-field-dark: (
+  label-color: $mri-light-text-color,
+  label-focus-color: $mri-light-text-color,
+  icon-interactive-color: $mri-light-interactive-color,
+  icon-required-color: $mri-light-interactive-color,
+  icon-warning-color: $mri-light-icon-color-warning,
+  icon-critical-color: $mri-light-icon-color-critical,
+  icon-success-color: $mri-light-icon-color-success,
+) !default;
+
+@include component-field-color-variant($mri-field-dark, "dark");

@@ -1,0 +1,160 @@
+.#{$mri-ns}banner-message {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  border-style: solid;
+  flex-shrink: 0;
+  flex-grow: 0;
+
+  @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+    grid-template-rows: auto;
+    grid-template-columns: auto 1fr auto auto;
+  }
+}
+
+.#{$mri-ns}banner-message__icon {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.#{$mri-ns}banner-message__text {
+  @extend %paragraph-reset;
+
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.#{$mri-ns}banner-message__primary-message {
+  font-weight: bold;
+}
+
+.#{$mri-ns}banner-message__toolbar {
+  grid-row: 2;
+  grid-column-start: 2;
+  grid-column-end: -1;
+
+  @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+.#{$mri-ns}banner-message__close-button {
+  grid-row: 1;
+  grid-column: -1;
+  align-self: flex-start;
+}
+
+// Size variants
+
+@mixin component-banner-message-size-variant($options, $variant-name){
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}banner-message--" + $variant-name + " ", null);
+
+  .#{$mri-ns}banner-message#{$modifier} {
+    padding: map-get($options, padding);
+    border-width: map-get($options, border-width);
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__icon {
+    margin-right: map-get($options, icon-spacing);
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__close-button {
+    margin-left: map-get($options, close-button-spacing);
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__button {
+    margin-left: map-get($options, close-button-spacing);
+    margin-right: 0 !important;
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__text {
+    font-size: map-get($options, font-size-base);
+
+    @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+      font-size: map-get($options, font-size-large-screens);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__toolbar {
+    margin-top: map-get($options, toolbar-spacing);
+
+    @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+      margin-top: 0;
+      padding: 0;
+      margin-left: map-get($options, toolbar-spacing);
+    }
+  }
+}
+
+$mri-banner-message-default-size: (
+  padding: mri-spacing(),
+  border-width: 0 0 2px 0,
+  icon-spacing: mri-spacing(),
+  toolbar-spacing: 0,
+  close-button-spacing: mri-spacing(),
+  font-size-base: mri-font-size(medium, paragraphs),
+  line-height-base: mri-line-height(medium, paragraphs),
+  font-size-large-screens: mri-font-size(large, paragraphs),
+  line-height-large-screens: mri-line-height(large, paragraphs),
+) !default;
+
+@include component-banner-message-size-variant($mri-banner-message-default-size, null);
+
+// Color variants
+
+@mixin component-banner-message-color-variant($options, $variant-name){
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}banner-message--" + $variant-name + " ", null);
+
+  .#{$mri-ns}banner-message#{$modifier} {
+    background-color: map-get($options, bg-color);
+    border-color: map-get($options, border-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__icon {
+    color: map-get($options, icon-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}banner-message__text {
+    color: map-get($options, color);
+  }
+}
+
+$mri-banner-message-informational-default: (
+  bg-color: $mri-lightest-background-color-info,
+  color: $mri-dark-text-color-info,
+  icon-color: $mri-dark-icon-color-info,
+  border-color: $mri-dark-icon-color-info
+) !default;
+
+@include component-banner-message-color-variant($mri-banner-message-informational-default, null);
+
+$mri-banner-message-success: (
+  bg-color: $mri-lightest-background-color-success,
+  color: $mri-dark-text-color-success,
+  icon-color: $mri-dark-icon-color-success,
+  border-color: $mri-dark-icon-color-success
+) !default;
+
+@include component-banner-message-color-variant($mri-banner-message-success, "success");
+
+$mri-banner-message-warning: (
+  bg-color: $mri-lightest-background-color-warning,
+  color: $mri-dark-text-color-warning,
+  icon-color: $mri-dark-icon-color-warning,
+  border-color: $mri-dark-icon-color-warning
+) !default;
+
+@include component-banner-message-color-variant($mri-banner-message-warning, "warning");
+
+$mri-banner-message-critical: (
+  bg-color: $mri-lightest-background-color-critical,
+  color: $mri-dark-text-color-critical,
+  icon-color: $mri-dark-icon-color-critical,
+  border-color: $mri-dark-icon-color-critical
+) !default;
+
+@include component-banner-message-color-variant($mri-banner-message-critical, "critical");

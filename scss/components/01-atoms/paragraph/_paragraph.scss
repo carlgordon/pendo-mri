@@ -1,0 +1,7 @@
+.#{$mri-ns}paragraph {
+  margin: 0;
+}
+
+* + .#{$mri-ns}paragraph {
+  margin-top: mri-spacing(small);
+}

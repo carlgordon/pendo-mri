@@ -1,0 +1,177 @@
+.#{$mri-ns}toast-message {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto 1fr auto;
+  align-items: flex-start;
+  border-style: none;
+  margin-bottom: 1em;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3), 0px 0px 4px rgba(0, 0, 0, 0.3);
+
+  @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+    grid-template-rows: auto;
+    grid-template-columns: auto 1fr auto auto;
+  }
+}
+
+.#{$mri-ns}toast-message__icon {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.#{$mri-ns}toast-message__text {
+  @extend %paragraph-reset;
+
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.#{$mri-ns}toast-message__primary-message {
+  font-weight: bold;
+}
+
+.#{$mri-ns}toast-message__secondary-message {
+}
+
+.#{$mri-ns}toast-message__toolbar-close {
+  grid-row: 1;
+  grid-column: 3;
+
+  @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+    grid-row: 1;
+    grid-column: 3;
+  }
+}
+
+.#{$mri-ns}toast-message__toolbar {
+  grid-row: 2;
+  grid-column: 2 / span 2 ;
+
+  @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+    grid-row: 2;
+    grid-column: 2 / span 2;
+  }
+}
+
+.#{$mri-ns}toast-message__button {
+  grid-row: 2;
+  grid-column: 1;
+}
+
+.#{$mri-ns}toast-message__close-button {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+// Size variants
+
+@mixin component-toast-message-size-variant($options, $variant-name){
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}toast-message--" + $variant-name + " ", null);
+
+  .#{$mri-ns}toast-message#{$modifier} {
+    padding: map-get($options, padding);
+    border-radius: map-get($options, border-radius);
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__icon {
+    margin-right: map-get($options, icon-spacing);
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__close-button {
+    margin-left: map-get($options, close-button-spacing);
+    margin-right: 0 !important;
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__button {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__text {
+    font-size: map-get($options, font-size-base);
+
+    @media screen and (min-width: map-get($mri-grid-breakpoints, sm)) {
+      font-size: map-get($options, font-size-large-screens);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__toolbar {
+    margin: map-get($options, toolbar-spacing);
+    margin-top: map-get($options, icon-spacing);
+    padding: map-get($options, toolbar-spacing);
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__toolbar-close {
+    margin: map-get($options, toolbar-spacing);
+    padding: map-get($options, toolbar-spacing);
+  }
+
+}
+
+$mri-toast-message-default-size: (
+  padding: mri-spacing(),
+  border-radius: 8px,
+  icon-spacing: mri-spacing(),
+  toolbar-spacing: 0,
+  close-button-spacing: mri-spacing(),
+  font-size-base: mri-font-size(medium, paragraphs),
+  line-height-base: mri-line-height(medium, paragraphs),
+  font-size-large-screens: mri-font-size(large, paragraphs),
+  line-height-large-screens: mri-line-height(large, paragraphs),
+) !default;
+
+@include component-toast-message-size-variant($mri-toast-message-default-size, null);
+
+// Color variants
+
+@mixin component-toast-message-color-variant($options, $variant-name){
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}toast-message--" + $variant-name + " ", null);
+
+  .#{$mri-ns}toast-message#{$modifier} {
+    background-color: map-get($options, bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__icon {
+    color: map-get($options, icon-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}toast-message__text {
+    color: map-get($options, color);
+  }
+}
+
+$mri-toast-message-informational-default: (
+  bg-color: $mri-lightest-background-color-info,
+  color: $mri-dark-text-color-info,
+  icon-color: $mri-dark-icon-color-info,
+) !default;
+
+@include component-toast-message-color-variant($mri-toast-message-informational-default, null);
+
+$mri-toast-message-success: (
+  bg-color: $mri-lightest-background-color-success,
+  color: $mri-dark-text-color-success,
+  icon-color: $mri-dark-icon-color-success,
+) !default;
+
+@include component-toast-message-color-variant($mri-toast-message-success, "success");
+
+$mri-toast-message-warning: (
+  bg-color: $mri-lightest-background-color-warning,
+  color: $mri-dark-text-color-warning,
+  icon-color: $mri-dark-icon-color-warning,
+) !default;
+
+@include component-toast-message-color-variant($mri-toast-message-warning, "warning");
+
+$mri-toast-message-critical: (
+  bg-color: $mri-lightest-background-color-critical,
+  color: $mri-dark-text-color-critical,
+  icon-color: $mri-dark-icon-color-critical,
+  border-color: $mri-dark-icon-color-critical
+) !default;
+
+@include component-toast-message-color-variant($mri-toast-message-critical, "critical");

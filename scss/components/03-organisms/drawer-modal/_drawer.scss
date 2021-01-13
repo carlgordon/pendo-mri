@@ -1,0 +1,306 @@
+.#{$mri-ns}drawer__container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  pointer-events: none;
+  z-index: $mri-drawer-container-z-index;
+}
+
+.#{$mri-ns}drawer__container--left {
+  left: 0;
+  right: auto;
+}
+
+.#{$mri-ns}drawer {
+  position: relative;
+  left: auto;
+  right: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  border-style: solid;
+  z-index: 1;
+  // flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  height: 100%;
+  transition:
+  left $mri-transition-base,
+  right $mri-transition-base,
+  opacity $mri-transition-base;
+  pointer-events: auto;
+  overflow: auto;
+  opacity: 1;
+}
+
+.#{$mri-ns}drawer.#{$mri-ns}is-closed {
+  right: -100%;
+  left: auto;
+  opacity: 0;
+}
+
+.#{$mri-ns}drawer + .mri-drawer__overlay {
+  z-index: 0;
+}
+
+.#{$mri-ns}drawer.#{$mri-ns}is-closed + .mri-drawer__overlay {
+  display: none;
+}
+
+.#{$mri-ns}drawer--left {
+  align-self: flex-start;
+  left: 0;
+  right: auto;
+}
+
+.#{$mri-ns}drawer.#{$mri-ns}drawer--left.#{$mri-ns}is-closed {
+  left: -100%;
+}
+
+.#{$mri-ns}drawer__body {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.#{$mri-ns}drawer__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}drawer__header .#{$mri-ns}drawer__header-back-button {
+  margin-right: mri-spacing(small);
+}
+
+.#{$mri-ns}drawer__header .#{$mri-ns}drawer__header-icon {
+  margin-right: mri-spacing(medium);
+  align-self: center;
+}
+
+.#{$mri-ns}drawer__heading {
+  @extend %heading-reset;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.#{$mri-ns}drawer__header-toolbar {
+  flex-grow: 1;
+  padding: 0;
+}
+
+.#{$mri-ns}drawer__header-toolbar .#{$mri-ns}icon-button {
+  margin: 0 0 0 8px;
+}
+
+.#{$mri-ns}drawer__footer {
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}drawer__footer-toolbar {
+  padding: 0;
+}
+
+.#{$mri-ns}modal__loading-overlay {
+  align-items: center;
+  background-color: rgba($mri-white, 0.75);  
+  bottom: 0;
+  display: none;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity $mri-transition-base;
+  z-index: 1;
+
+  // animate overlay fade in transition
+  // ----------------------------------
+  &.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &.mri-is-visible {
+    opacity: 1;
+  }
+
+  // success state default
+  // ----------------------------------
+  .success {
+    display: none;
+
+    &.block {
+      display: block;
+    }
+
+    .mri-icon__success-lg-rev {
+      opacity: 0;
+      transition: opacity $mri-transition-base, 
+                  transform $mri-transition-long;
+      transform: scale(1);
+
+      path {
+        fill: $mri-dark-success-color;
+      }
+    }
+  }
+
+  // success state when active
+  // ----------------------------------
+  &.is-success {
+    color: $mri-light-text-color;
+
+    .loading {
+      display: none;
+    }
+
+    .mri-icon__success-lg-rev {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+}
+
+
+// Size variants
+
+@mixin component-drawer-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}drawer--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}drawer#{$modifier} {
+    border-width: map-get($options, border-width);
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    min-width: map-get($options, min-width);
+    width: map-get($options, width);
+    max-width: map-get($options, max-width);
+    min-height: map-get($options, min-height);
+    max-height: map-get($options, max-height);
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__header {
+    padding: map-get($options, header-padding-vertical) map-get($options, header-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__heading {
+    font-size: map-get($options, heading-font-size);
+    line-height: map-get($options, heading-line-height);
+    font-weight: map-get($options, heading-font-weight);
+    text-transform: map-get($options, heading-text-transform);
+    letter-spacing: map-get($options, heading-letter-spacing);
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__body {
+    min-height: map-get($options, body-min-height);
+    max-height: map-get($options, body-max-height);
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__footer {
+    padding: map-get($options, footer-padding-vertical) map-get($options, footer-padding-horizontal);
+  }
+
+  #{$parent-class}.#{$mri-ns}drawer .#{$mri-ns}grid {
+    padding: map-get($options, footer-padding-vertical) map-get($options, footer-padding-horizontal);
+  }
+}
+
+$mri-drawer-default-size: (
+  border-width: 0,
+  padding-vertical: 0,
+  padding-horizontal: 0,
+  min-width: 300px,
+  width: auto,
+  max-width: 640px,
+  min-height: 0,
+  max-height: none,
+  body-min-height: 15em,
+  body-max-height: none,
+  header-padding-vertical: mri-spacing(medium),
+  header-padding-horizontal: mri-spacing(medium),
+  footer-padding-vertical: mri-spacing(medium),
+  footer-padding-horizontal: mri-spacing(medium),
+  heading-font-size: 1.5rem,
+  heading-line-height: 2rem,
+  heading-font-weight: 300,
+  heading-text-transform: none,
+  heading-letter-spacing: 0
+) !default;
+
+@include component-drawer-size-variant($mri-drawer-default-size, null);
+
+
+// Color variants
+
+@mixin component-drawer-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}drawer--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}drawer#{$modifier} {
+    background-color: map-get($options, bg-color);
+    border-color: map-get($options, border-color);
+    box-shadow: 
+      0 // X offset
+      map-get($options, drop-shadow-height) // Y offset
+      map-get($options, drop-shadow-blur) // Blur
+      rgba(0, 0, 0, map-get($options, drop-shadow-opacity)); // Color
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__header {
+    background-color: map-get($options, header-bg-color);
+    color: map-get($options, header-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__heading {
+    color: map-get($options, heading-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}drawer__footer {
+    background-color: map-get($options, footer-bg-color);
+    color: map-get($options, footer-color);
+    /* border-top: 1px solid map-get($options, footer-border-color); */
+  }
+}
+
+$mri-drawer-light: (
+  bg-color: $mri-background-color-white,
+  border-color: $mri-transparent,
+  drop-shadow-height: mri-spacing(small),
+  drop-shadow-blur: mri-spacing(large),
+  drop-shadow-opacity: 0.25,
+  header-bg-color: $mri-background-color-lighter,
+  header-color: $mri-brand-blue,
+  heading-color: inherit,
+  footer-bg-color: $mri-background-color-white,
+  footer-border-color: $mri-dark-line-color-faint,
+  footer-color: $mri-dark-text-color
+) !default;
+
+@include component-drawer-color-variant($mri-drawer-light, null);
+
+$mri-drawer-dark: (
+  bg-color: $mri-background-color-darker,
+  border-color: $mri-transparent,
+  drop-shadow-height: mri-spacing(small),
+  drop-shadow-blur: mri-spacing(large),
+  drop-shadow-opacity: 0.25,
+  header-bg-color: $mri-background-color-dark,
+  header-color: $mri-light-text-color,
+  heading-color: inherit,
+  footer-bg-color: $mri-background-color-dark,
+  footer-border-color: $mri-light-line-color-faint,
+  footer-color: $mri-light-text-color
+) !default;
+
+@include component-drawer-color-variant($mri-drawer-dark, "dark");

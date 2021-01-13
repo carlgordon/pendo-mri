@@ -1,0 +1,40 @@
+.#{$mri-ns}column-view {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+.#{$mri-ns}column-view__column {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-shrink: 0;
+}
+
+// Width variants
+
+@mixin component-column-view-width-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}column-view--" + $variant-name + " ", null);
+  
+  #{$parent-class}.#{$mri-ns}column-view__column {
+    flex-basis: map-get($options, flex-basis);
+  }
+}
+
+$mri-column-view-default-width: (
+  flex-basis: 40ch
+) !default;
+
+@include component-column-view-width-variant($mri-column-view-default-width, null);

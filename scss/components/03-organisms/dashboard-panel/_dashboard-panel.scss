@@ -1,0 +1,53 @@
+﻿.mri-dashboard-panel {
+    display: flex;
+    flex-flow: column nowrap;
+    border: 1px solid mri-gray(30);
+    border-radius: 4px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+}
+
+.mri-dashboard-panel--horizontal {
+    flex-flow: row nowrap;
+}
+
+.mri-dashboard-panel__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: mri-spacing(medium);
+}
+
+.mri-dashboard-panel__header-toolbar {
+    flex-grow: 1;
+    color: mri-gray(60);
+    margin-left: mri-spacing(medium);
+}
+
+.mri-dashboard-panel__body {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: auto;
+    overflow-y: auto;
+}
+
+.mri-dashboard-panel__heading {
+    @extend %heading-reset;
+    color: #00B288;
+    font-size: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.mri-dashboard-panel__body--padded {
+    padding: 0 mri-spacing(medium) mri-spacing(medium);
+}
+

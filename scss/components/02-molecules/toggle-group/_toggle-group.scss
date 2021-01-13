@@ -1,0 +1,22 @@
+.#{$mri-ns}toggle-group {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: inherit;
+  margin: $mri-toggle-group-margin;
+  flex-grow: 0;
+}
+
+.#{$mri-ns}toggle-group__toggle {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}toggle-group__label {
+  font-size: 1em;
+  line-height: 1;
+  font-weight: normal;
+  padding-left: $mri-toggle-group-label-padding;
+  padding-right: $mri-toggle-group-label-padding;
+}

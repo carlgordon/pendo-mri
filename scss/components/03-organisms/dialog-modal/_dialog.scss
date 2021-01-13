@@ -1,0 +1,302 @@
+.#{$mri-ns}dialog__container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  min-height: auto;
+  top: 0;
+  left: 0;
+  z-index: $mri-dialog-modal-z-index;
+  pointer-events: none;
+  overflow-y: auto;
+}
+
+.#{$mri-ns}dialog {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  border-style: solid;
+  z-index: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+  // margin: auto;
+  animation: fade-in-down $mri-transition-base;
+  opacity: 1;
+  overflow: auto;
+  pointer-events: auto;
+}
+
+.#{$mri-ns}dialog.#{$mri-ns}is-closed {
+  animation: fade-out-up $mri-transition-base;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.#{$mri-ns}dialog__body {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.#{$mri-ns}dialog__header {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}dialog__header .#{$mri-ns}dialog__header-back-button {
+  margin-right: mri-spacing(small);
+}
+
+.#{$mri-ns}dialog__header .#{$mri-ns}dialog__header-icon {
+  margin-right: mri-spacing(medium);
+  align-self: center;
+}
+
+.#{$mri-ns}dialog__heading {
+  @extend %heading-reset;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.#{$mri-ns}dialog__header-toolbar {
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding: 0;
+  margin-left: mri-spacing(medium)
+}
+
+.#{$mri-ns}dialog__header-toolbar .#{$mri-ns}icon-button {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.#{$mri-ns}dialog__footer {
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}dialog__footer-toolbar {
+  padding: 0;
+}
+
+.#{$mri-ns}dialog .#{$mri-ns}banner-message {
+  border-width: 2px 0;
+}
+
+.#{$mri-ns}dialog__loading-overlay {
+  align-items: center;
+  background-color: rgba($mri-white, 0.75);  
+  bottom: 0;
+  display: none;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: opacity $mri-transition-base;
+  z-index: 1;
+
+  // animate overlay fade in transition
+  // ----------------------------------
+  &.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &.mri-is-visible {
+    opacity: 1;
+  }
+
+  // success state default
+  // ----------------------------------
+  .success {
+    display: none;
+
+    &.block {
+      display: block;
+    }
+
+    .mri-icon__success-lg-rev {
+      opacity: 0;
+      transition: opacity $mri-transition-base, 
+                  transform $mri-transition-long;
+      transform: scale(1);
+
+      path {
+        fill: $mri-dark-success-color;
+      }
+    }
+  }
+
+  // success state when active
+  // ----------------------------------
+  &.is-success {
+    color: $mri-light-text-color;
+
+    .loading {
+      display: none;
+    }
+
+    .mri-icon__success-lg-rev {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+  }
+}
+
+// Size variants
+
+@mixin component-dialog-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}dialog--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}dialog#{$modifier} {
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    min-width: map-get($options, min-width);
+    min-height: map-get($options, min-height);
+    width: map-get($options, width);
+    height: map-get($options, height);
+    max-width: map-get($options, max-width);
+    max-height: map-get($options, max-height);
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__header {
+    padding: map-get($options, header-padding-vertical) map-get($options, header-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__heading {
+    font-size: map-get($options, heading-font-size);
+    line-height: map-get($options, heading-line-height);
+    font-weight: map-get($options, heading-font-weight);
+    text-transform: map-get($options, heading-text-transform);
+    letter-spacing: map-get($options, heading-letter-spacing);
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__body {
+    min-width: map-get($options, body-min-width);
+    min-height: map-get($options, body-min-height);
+    max-width: map-get($options, body-max-width);
+    max-height: map-get($options, body-max-height);
+    height: map-get($options, body-height);
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__footer {
+    padding: map-get($options, footer-padding-vertical) map-get($options, footer-padding-horizontal);
+  }
+
+  #{$parent-class}.#{$mri-ns}dialog .#{$mri-ns}grid {
+    padding: map-get($options, footer-padding-vertical) map-get($options, footer-padding-horizontal);
+  }
+}
+
+$mri-dialog-default-size: (
+  border-width: 0,
+  border-radius: mri-border-radius(medium),
+  padding-vertical: 0,
+  padding-horizontal: 0,
+  min-width: 300px,
+  min-height: none,
+  width: auto,
+  height: auto,
+  max-width: 640px,
+  max-height: calc(100% - #{$mri-spacing-horizontal-margin-width * 2}),
+  body-min-width: 0,
+  body-min-height: 0,
+  body-height: auto,
+  body-max-width: none,
+  body-max-height: none,
+  header-padding-vertical: mri-spacing(medium),
+  header-padding-horizontal: mri-spacing(medium),
+  footer-padding-vertical: mri-spacing(medium),
+  footer-padding-horizontal: mri-spacing(medium),
+  heading-font-size: 1.5rem,
+  heading-line-height: 2rem,
+  heading-font-weight: 300,
+  heading-text-transform: none,
+  heading-letter-spacing: 0
+) !default;
+
+@include component-dialog-size-variant($mri-dialog-default-size, null);
+
+
+// Color variants
+
+@mixin component-dialog-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}dialog--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}dialog#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, body-color);
+    border-color: map-get($options, border-color);
+    box-shadow: 
+      0 // X offset
+      map-get($options, drop-shadow-height) // Y offset
+      map-get($options, drop-shadow-blur) // Blur
+      rgba(0, 0, 0, map-get($options, drop-shadow-opacity)); // Color
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__header {
+    background-color: map-get($options, header-bg-color);
+    color: map-get($options, header-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__heading {
+    color: map-get($options, heading-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}dialog__footer {
+    background-color: map-get($options, footer-bg-color);
+    color: map-get($options, footer-color);
+    /* border-top: 1px solid map-get($options, footer-border-color); */
+  }
+}
+
+$mri-dialog-light: (
+  bg-color: $mri-background-color-white,
+  border-color: $mri-transparent,
+  drop-shadow-height: mri-spacing(small),
+  drop-shadow-blur: mri-spacing(large),
+  drop-shadow-opacity: 0.25,
+  header-bg-color: $mri-background-color-lighter,
+  header-color: $mri-brand-blue,
+  heading-color: inherit,
+  body-color: $mri-dark-text-color,
+  footer-bg-color: $mri-background-color-white,
+  footer-border-color: $mri-dark-line-color-faint,
+  footer-color: $mri-dark-text-color
+) !default;
+
+@include component-dialog-color-variant($mri-dialog-light, null);
+
+$mri-dialog-dark: (
+  bg-color: $mri-background-color-dark,
+  border-color: $mri-transparent,
+  drop-shadow-height: mri-spacing(small),
+  drop-shadow-blur: mri-spacing(large),
+  drop-shadow-opacity: 0.25,
+  header-bg-color: $mri-background-color-darker,
+  header-color: $mri-light-text-color,
+  heading-color: inherit,
+  body-color: $mri-light-text-color,
+  footer-bg-color: $mri-background-color-dark,
+  footer-border-color: $mri-light-line-color-faint,
+  footer-color: $mri-light-text-color
+) !default;
+
+@include component-dialog-color-variant($mri-dialog-dark, "dark");

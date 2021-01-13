@@ -1,0 +1,67 @@
+.#{$mri-ns}hotkey {
+  display: inline-block;
+  border-style: solid;
+  font-family: inherit;
+  white-space: nowrap;
+  user-select: all;
+}
+
+// Size variants
+
+@mixin component-hotkey-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}hotkey--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}hotkey#{$modifier} {
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    font-weight: map-get($options, font-weight);
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+  }
+}
+
+$mri-hotkey-default-size: (
+  font-size: .875em,
+  line-height: 1,
+  font-weight: bold,
+  padding-vertical: mri-spacing(x-small),
+  padding-horizontal: mri-spacing(small),
+  border-width: 0,
+  border-radius: 2px
+) !default;
+
+@include component-hotkey-size-variant($mri-hotkey-default-size, null);
+
+// Color variants
+
+@mixin component-hotkey-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}hotkey--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}hotkey#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+    opacity: map-get($options, opacity);
+  }
+}
+
+$mri-hotkey-dark-default: (
+  bg-color: $mri-background-color-light-transparent,
+  color: $mri-dark-text-color,
+  border-color: $mri-transparent,
+  opacity: 1.0
+) !default;
+
+@include component-hotkey-color-variant($mri-hotkey-dark-default, null);
+
+$mri-hotkey-dark-critical: (
+  bg-color: $mri-dark-critical-color,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  opacity: 1.0
+) !default;
+
+@include component-hotkey-color-variant($mri-hotkey-dark-critical, "critical");

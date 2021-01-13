@@ -1,0 +1,54 @@
+.#{$mri-ns}label {
+  display: inline-block;
+  color: $mri-label-color;
+  font-size: $mri-label-font-size;
+  line-height: $mri-label-line-height;
+  font-weight: $mri-label-font-weight;
+  user-select: none;
+  vertical-align: baseline;
+
+  transition:
+    color $mri-transition-base;
+}
+
+.#{$mri-ns}label__required-symbol {
+  font-size: $mri-label-required-symbol-font-size;
+  width: 1em;
+  height: 1em;
+  vertical-align: super;
+}
+
+// Color variants
+
+@mixin component-label-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}label--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}label#{$modifier} {
+    color: map-get($options, color);
+    
+    &.has-focus {
+      color: map-get($options, focus-color);
+    }
+  }
+  
+  .#{$mri-ns}label__required-symbol {
+    color: map-get($options, required-symbol-color);
+  }
+}
+
+$mri-label-dark-default: (
+  color: $mri-dark-text-color,
+  focus-color: $mri-dark-interactive-color,
+  required-symbol-color: $mri-dark-critical-color,
+) !default;
+
+@include component-label-color-variant($mri-label-dark-default, null);
+
+$mri-label-light: (
+  color: $mri-light-text-color,
+  focus-color: $mri-light-interactive-color,
+  required-symbol-color: red,
+) !default;
+
+@include component-label-color-variant($mri-label-light, "light");

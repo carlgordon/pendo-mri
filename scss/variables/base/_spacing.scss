@@ -1,0 +1,22 @@
+// Options
+
+$mri-spacing-values: (
+  hairline: 1px,
+  2x-small: 2px,
+  x-small:  4px,
+  small:    8px,
+  medium:   16px,
+  large:    32px,
+  x-large:  64px,
+  none:     0,
+  auto:     auto,
+) !default;
+
+@function mri-spacing($value: medium) {
+  @return map-get($mri-spacing-values, $value);
+}
+
+// Decisions
+
+$mri-spacing-gutter-width:            mri-spacing(large);
+$mri-spacing-horizontal-margin-width: mri-spacing(large);

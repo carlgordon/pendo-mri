@@ -1,0 +1,48 @@
+#footer {
+  width: 100%;
+  height: 42px;
+  background: #EFF3F3;
+  padding: 3px 10px;
+  z-index: 70;
+  font-size: 12px;
+
+  a:link, a:visited, a:active {
+    color: #10689D;
+    text-decoration: none;
+  }
+  
+  a:link :hover, a:visited :hover, a:active :hover {
+    color: #0582C3;
+  }
+
+  a:focus,
+  span:focus {
+    outline: none;
+  }
+}
+
+#footer.testDatabaseFooter {
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 0.75em, #DDD 0.75em, #DDD 1.5em);
+}
+
+#MenuAppName {
+  font-family: "Noto Sans", "NotoSans", sans-serif;
+  color: #162029;
+  fill: #162029;
+  font-size: 1rem;
+  font-weight: normal;
+  float: left;
+  margin: 9px;
+}
+
+.pt11 {
+  padding-top: 11px;
+}
+
+.pl10 {
+  padding-left: 10px;
+}
+
+.pl40 {
+  padding-left: 40px;
+}

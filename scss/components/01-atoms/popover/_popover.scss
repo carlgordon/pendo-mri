@@ -1,0 +1,207 @@
+$mri-popover-arrow-edge-length: sqrt(pow(($mri-popover-arrow-size * 2), 2));
+
+.#{$mri-ns}popover {
+  display: flex;
+  flex-flow: column nowrap;
+  position: relative;
+  width: $mri-popover-width;
+  max-width: $mri-popover-max-width;
+  max-height: $mri-popover-max-height;
+  padding: $mri-popover-padding;
+  box-shadow: $mri-popover-box-shadow;
+  border-radius: $mri-popover-border-radius;
+  animation: fade-in-down $mri-transition-base;
+}
+
+.#{$mri-ns}popover::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: $mri-popover-arrow-edge-length;
+  height: $mri-popover-arrow-edge-length;
+  transform: rotate(45deg);
+}
+
+.#{$mri-ns}popover__content {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: auto;
+  flex-shrink: 1;
+}
+
+// Popover is attached to the TOP of something
+.#{$mri-ns}drop-element-attached-bottom.#{$mri-ns}drop-target-attached-top .#{$mri-ns}popover {
+  margin: $mri-popover-margin;
+  margin-bottom: $mri-popover-arrow-size;
+  padding-bottom: max($mri-popover-arrow-size, $mri-popover-padding);
+
+  &::before {
+    bottom: $mri-popover-arrow-size * -1;
+
+    @if($mri-popover-arrow-box-shadow) {
+      box-shadow:
+        #{($mri-popover-arrow-box-shadow-size / 2)}
+        #{($mri-popover-arrow-box-shadow-size / 2)}
+        $mri-popover-arrow-box-shadow-size
+        calc(#{($mri-popover-arrow-box-shadow-size / 2) * -1} + 1px)
+        $mri-popover-arrow-box-shadow-color;
+    }
+  }
+}
+
+// Popover is attached to the BOTTOM of something
+.#{$mri-ns}drop-element-attached-top.#{$mri-ns}drop-target-attached-bottom .#{$mri-ns}popover {
+  margin: $mri-popover-margin;
+  margin-top: $mri-popover-arrow-size;
+  padding-top: max($mri-popover-arrow-size, $mri-popover-padding);
+
+  &::before {
+    top: $mri-popover-arrow-size * -1;
+
+    @if($mri-popover-arrow-box-shadow) {
+      box-shadow:
+        #{($mri-popover-arrow-box-shadow-size / 2) * -1}
+        #{($mri-popover-arrow-box-shadow-size / 2) * -1}
+        $mri-popover-arrow-box-shadow-size
+        calc(#{($mri-popover-arrow-box-shadow-size / 2) * -1} + 1px)
+        $mri-popover-arrow-box-shadow-color;
+    }
+  }
+}
+
+// Popover is attached to the RIGHT of something
+.#{$mri-ns}drop-element-attached-left.#{$mri-ns}drop-target-attached-right .#{$mri-ns}popover {
+  margin: $mri-popover-margin;
+  margin-left: $mri-popover-arrow-size;
+  padding-left: max($mri-popover-arrow-size, $mri-popover-padding);
+
+  &::before {
+    left: $mri-popover-arrow-size * -1;
+
+    @if($mri-popover-arrow-box-shadow) {
+      box-shadow:
+        #{($mri-popover-arrow-box-shadow-size / 2) * -1}
+        #{($mri-popover-arrow-box-shadow-size / 2)}
+        $mri-popover-arrow-box-shadow-size
+        calc(#{($mri-popover-arrow-box-shadow-size / 2) * -1} + 1px)
+        $mri-popover-arrow-box-shadow-color;
+    }
+  }
+}
+
+// Popover is attached to the LEFT of something
+.#{$mri-ns}drop-element-attached-right.#{$mri-ns}drop-target-attached-left .#{$mri-ns}popover {
+  margin: $mri-popover-margin;
+  margin-right: $mri-popover-arrow-size;
+  padding-right: max($mri-popover-arrow-size, $mri-popover-padding);
+
+  &::before {
+    right: $mri-popover-arrow-size * -1;
+
+    @if($mri-popover-arrow-box-shadow) {
+      box-shadow:
+        #{($mri-popover-arrow-box-shadow-size / 2)}
+        #{($mri-popover-arrow-box-shadow-size / 2) * -1}
+        $mri-popover-arrow-box-shadow-size
+        calc(#{($mri-popover-arrow-box-shadow-size / 2) * -1} + 1px)
+        $mri-popover-arrow-box-shadow-color;
+    }
+  }
+}
+
+// Position the arrow based on alignment and pinning
+
+.#{$mri-ns}drop-target-attached-center.#{$mri-ns}drop-element-attached-center .#{$mri-ns}popover::before {
+  left: calc(50% - #{$mri-popover-arrow-size});
+}
+
+.#{$mri-ns}drop-target-attached-left.#{$mri-ns}drop-element-attached-left .#{$mri-ns}popover::before,
+.#{$mri-ns}drop-pinned-left .#{$mri-ns}popover::before {
+  left: calc(#{$mri-popover-border-radius} + #{$mri-popover-arrow-size});
+}
+
+.#{$mri-ns}drop-target-attached-right.#{$mri-ns}drop-element-attached-right .#{$mri-ns}popover::before,
+.#{$mri-ns}drop-pinned-right .#{$mri-ns}popover::before {
+  right: calc(#{$mri-popover-border-radius} + #{$mri-popover-arrow-size});
+}
+
+.#{$mri-ns}drop-target-attached-middle.#{$mri-ns}drop-element-attached-middle .#{$mri-ns}popover::before {
+  top: calc(50% - #{$mri-popover-arrow-size});
+}
+
+.#{$mri-ns}drop-target-attached-top.#{$mri-ns}drop-element-attached-top .#{$mri-ns}popover::before,
+.#{$mri-ns}drop-pinned-top .#{$mri-ns}popover::before {
+  top: calc(#{$mri-popover-border-radius} + #{$mri-popover-arrow-size});
+}
+
+.#{$mri-ns}drop-target-attached-bottom.#{$mri-ns}drop-element-attached-bottom .#{$mri-ns}popover::before,
+.#{$mri-ns}drop-pinned-bottom .#{$mri-ns}popover::before {
+  bottom: calc(#{$mri-popover-border-radius} + #{$mri-popover-arrow-size});
+}
+
+// Hide the arrow when a popover is pinned on the same axis it's attached on
+
+.#{$mri-ns}drop-target-attached-left.#{$mri-ns}drop-element-attached-left.#{$mri-ns}drop-pinned-top,
+.#{$mri-ns}drop-target-attached-left.#{$mri-ns}drop-element-attached-left.#{$mri-ns}drop-pinned-bottom,
+.#{$mri-ns}drop-target-attached-center.#{$mri-ns}drop-element-attached-center.#{$mri-ns}drop-pinned-top,
+.#{$mri-ns}drop-target-attached-center.#{$mri-ns}drop-element-attached-center.#{$mri-ns}drop-pinned-bottom,
+.#{$mri-ns}drop-target-attached-right.#{$mri-ns}drop-element-attached-right.#{$mri-ns}drop-pinned-top,
+.#{$mri-ns}drop-target-attached-right.#{$mri-ns}drop-element-attached-right.#{$mri-ns}drop-pinned-bottom,
+.#{$mri-ns}drop-target-attached-top.#{$mri-ns}drop-element-attached-top.#{$mri-ns}drop-pinned-left,
+.#{$mri-ns}drop-target-attached-top.#{$mri-ns}drop-element-attached-top.#{$mri-ns}drop-pinned-right,
+.#{$mri-ns}drop-target-attached-middle.#{$mri-ns}drop-element-attached-middle.#{$mri-ns}drop-pinned-left,
+.#{$mri-ns}drop-target-attached-middle.#{$mri-ns}drop-element-attached-middle.#{$mri-ns}drop-pinned-right,
+.#{$mri-ns}drop-target-attached-bottom.#{$mri-ns}drop-element-attached-bottom.#{$mri-ns}drop-pinned-left,
+.#{$mri-ns}drop-target-attached-bottom.#{$mri-ns}drop-element-attached-bottom.#{$mri-ns}drop-pinned-right {
+  .#{$mri-ns}popover::before {
+    display: none;
+  }
+}
+
+.#{$mri-ns}popover-content {
+  max-height: 100%;
+  min-height: $mri-popover-arrow-size * 2;
+  min-width: $mri-popover-arrow-size * 2;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+
+// Size variants
+
+
+
+// Color variants
+
+@mixin component-popover-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}popover--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}popover#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+
+    &::before {
+      background-color: map-get($options, bg-color);
+      color: map-get($options, color);
+    }
+  }
+
+}
+
+$popover-light-default: (
+  bg-color: $mri-background-color-white,
+  color: $mri-dark-text-color,
+) !default;
+
+@include component-popover-color-variant($popover-light-default, null);
+
+$popover-dark: (
+  bg-color: $mri-background-color-dark,
+  color: $mri-light-text-color,
+) !default;
+
+@include component-popover-color-variant($popover-dark, "dark");
+
+
+

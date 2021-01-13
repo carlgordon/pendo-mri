@@ -1,0 +1,102 @@
+$mri-list-component-border-color: $mri-dark-line-color-muted;
+$mri-list-component-item-hover: $mri-light-hover-color-transparent;
+$mri-list-component-item-active: $mri-light-active-color-transparent;
+$mri-list-component-chevron-size: $mri-font-size-base;
+$mri-list-component-chevron-color: $mri-dark-interactive-color;
+
+.#{$mri-ns}list {
+  @extend %list-reset;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+
+  border-top: 1px solid $mri-list-component-border-color;
+
+  &__item {
+    @extend %button-reset;
+    @extend %link-reset;
+    
+    position: relative;
+    margin: 0;
+    padding: mri-spacing(medium) mri-spacing(large);
+    border-bottom: 1px solid $mri-list-component-border-color;
+  } 
+}
+
+.#{$mri-ns}list--clickable > .#{$mri-ns}list__item,
+.#{$mri-ns}list__item--clickable {
+  user-select: none;
+  cursor: pointer;
+  transition:
+    background $mri-transition-base;
+  padding-right: calc(#{mri-spacing(large)} + #{$mri-list-component-chevron-size} + #{mri-spacing(medium)});
+  outline: 2px solid transparent;
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: mri-spacing(large);
+    top: 50%;
+    transform: translateY(-50%);
+    width: $mri-list-component-chevron-size;
+    height: $mri-list-component-chevron-size;
+    background: mri-inline-svg('<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M39.7 22.1L13.9 0.5C13.5 0.2 13 0 12.4 0C11.9 0 11.4 0.3 11 0.7L8.5 3.9C7.8 4.7 7.9 6 8.7 6.7L29.1 23.6L8.7 40.5C8.3 40.8 8 41.3 8 41.9C8 42.4 8.1 43 8.5 43.4L11.1 46.5C11.5 47 12.1 47.2 12.6 47.2C13.1 47.2 13.5 47 13.9 46.7L39.7 25.2C40.2 24.8 40.4 24.3 40.4 23.7C40.4 23.1 40.2 22.4 39.7 22.1Z" fill="#{$mri-list-component-chevron-color}"/></svg>');
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &:hover {
+    background: $mri-list-component-item-hover;
+  }
+
+  &:active {
+    background: $mri-list-component-item-active;
+  }
+
+  &:focus {
+    outline-width: 2px;
+    outline: solid mri-blue(40);
+    outline-offset: -2px;
+  }
+}
+
+.#{$mri-ns}list__item--success {
+  border-left: 4px solid $mri-dark-success-color;
+  padding-left: calc(#{mri-spacing(large)} - 4px);
+}
+
+.#{$mri-ns}list__item--warning {
+  border-left: 4px solid $mri-dark-warning-color;
+  padding-left: calc(#{mri-spacing(large)} - 4px);
+}
+
+.#{$mri-ns}list__item--critical {
+  border-left: 4px solid $mri-dark-critical-color;
+  padding-left: calc(#{mri-spacing(large)} - 4px);
+}
+
+.#{$mri-ns}list--small > .#{$mri-ns}list__item {
+  padding: mri-spacing(small) mri-spacing(medium);
+  
+  &.#{$mri-ns}list__item--warning,
+  &.#{$mri-ns}list__item--success,
+  &.#{$mri-ns}list__item--critical {
+    padding-left: calc(#{mri-spacing(medium)} - 4px);
+  }
+}
+
+.#{$mri-ns}list--clickable.#{$mri-ns}list--small > .#{$mri-ns}list__item,
+.#{$mri-ns}list--small > .#{$mri-ns}list__item--clickable {
+  padding-right: calc(#{mri-spacing(medium)} + #{$mri-list-component-chevron-size} + #{mri-spacing(medium)});
+
+  &::after {
+    right: mri-spacing(medium);
+  }
+}

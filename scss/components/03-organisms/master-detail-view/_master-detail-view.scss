@@ -1,0 +1,97 @@
+.#{$mri-ns}master-detail {
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  // overflow: hidden;
+
+  @media screen and (min-width: $mri-master-detail-collapse-width) {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+.#{$mri-ns}master-detail__master-pane {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 0;
+  min-width: 320px;
+  border-right: 1px solid #909FAE;
+
+  background-color: $mri-master-detail-master-pane-background-color;
+
+  @media screen and (min-width: $mri-master-detail-collapse-width) {
+    // flex-basis: 60ch;
+    flex-basis: 320px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+}
+
+.#{$mri-ns}master-detail__detail-pane {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.#{$mri-ns}master-detail__detail-header {
+  @extend %heading-reset;
+  padding: $mri-master-detail-header-padding;
+  background-color: $mri-background-color-lighter;
+  height: 64px;
+  display: flex;
+  flex-flow: row nowrap;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}master-detail__detail-icon {
+  margin: 0  mri-spacing(medium) 0 0;
+  align-self: center;
+}
+
+.#{$mri-ns}master-detail__detail-title {
+  @extend %heading-reset;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.#{$mri-ns}master-detail__detail-toolbar {
+  flex-grow: 1;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0 0 0 mri-spacing(medium);
+}
+
+.#{$mri-ns}master-detail__footer-toolbar {
+  justify-content: flex-end;
+  background-color: $mri-background-color-lighter;
+  padding: mri-spacing(medium) mri-spacing(large);
+}
+
+.#{$mri-ns}master-detail__search-area {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+
+  padding: $mri-master-detail-search-area-padding;
+}
+
+.#{$mri-ns}master-detail__master-list {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-basis: 24em;
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-height: $mri-master-detail-master-list-min-height;
+}
+
+.#{$mri-ns}master-detail__master-toolbar {
+  padding: $mri-masterdetail-master-toolbar-padding;
+}

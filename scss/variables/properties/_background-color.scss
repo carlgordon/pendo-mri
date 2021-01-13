@@ -1,0 +1,62 @@
+$mri-background-color-dark:     mri-gray(70) !default;
+$mri-background-color-darker:   mri-gray(80) !default;
+$mri-background-color-darkest:  mri-gray(90) !default;
+
+$mri-background-color-white:    $mri-white !default;
+$mri-background-color-lightest:  mri-gray(05) !default;
+$mri-background-color-lighter:  mri-gray(10) !default;
+$mri-background-color-light:    mri-gray(20) !default;
+
+
+$mri-background-color-dark-transparent:   transparentize($mri-background-color-light, 0.9) !default;
+$mri-background-color-darker-transparent:   transparentize($mri-background-color-white, 0.5) !default;
+$mri-background-color-darkest-transparent:  transparentize($mri-background-color-darkest, 0.5) !default;
+
+$mri-background-color-light-transparent:  transparentize($mri-background-color-dark, 0.9) !default;
+
+// status colors
+$mri-dark-background-color-info:      mri-blue(60) !default;
+$mri-dark-background-color-success:   mri-green(60) !default;
+$mri-dark-background-color-warning:   mri-gold(65) !default;
+$mri-dark-background-color-critical:  mri-red(65) !default;
+
+$mri-light-background-color-info:     mri-blue(10) !default;
+$mri-light-background-color-success:  mri-green(10) !default;
+$mri-light-background-color-warning:  mri-gold(10) !default;
+$mri-light-background-color-critical: mri-red(10) !default;
+
+$mri-lightest-background-color-info:     mri-blue(05) !default;
+$mri-lightest-background-color-success:  mri-green(05) !default;
+$mri-lightest-background-color-warning:  mri-gold(05) !default;
+$mri-lightest-background-color-critical: mri-red(05) !default;
+
+// interaction state colors
+$mri-light-hover-color-primary:          mri-blue(05) !default;
+$mri-light-active-color-primary:         mri-blue(10) !default;
+
+$mri-light-hover-color-transparent:      transparentize(mri-blue(40), 0.9) !default;
+$mri-light-active-color-transparent:     transparentize(mri-blue(40), 0.8) !default;
+$mri-light-selected-color-transparent:     transparentize(mri-blue(40), 0.8) !default;
+$mri-light-selected-hover-color-transparent:     transparentize(mri-blue(40), 0.7) !default;
+$mri-light-selected-active-color-transparent:     transparentize(mri-blue(40), 0.6) !default;
+$mri-light-secondary-selected-color-transparent:     transparentize(mri-blue(40), 0.9) !default;
+$mri-light-secondary-selected-hover-color-transparent:     transparentize(mri-blue(40), 0.8) !default;
+$mri-light-secondary-selected-active-color-transparent:     transparentize(mri-blue(40), 0.7) !default;
+
+$mri-dark-hover-color-transparent:      transparentize($mri-light-interactive-color, 0.9) !default;
+$mri-dark-active-color-transparent:     transparentize($mri-light-interactive-color, 0.8) !default;
+$mri-dark-selected-color-transparent:     transparentize($mri-light-interactive-color, 0.8) !default;
+$mri-dark-selected-hover-color-transparent:     transparentize($mri-light-interactive-color, 0.7) !default;
+$mri-dark-selected-active-color-transparent:     transparentize($mri-light-interactive-color, 0.6) !default;
+$mri-dark-secondary-selected-color-transparent:     transparentize($mri-light-interactive-color, 0.9) !default;
+$mri-dark-secondary-selected-hover-color-transparent:     transparentize($mri-light-interactive-color, 0.8) !default;
+$mri-dark-secondary-selected-active-color-transparent:     transparentize($mri-light-interactive-color, 0.7) !default;
+
+
+$mri-critical-hover-color-transparent: transparentize(mri-red(40), 0.9) !default;
+$mri-warning-hover-color-transparent: transparentize(mri-gold(40), 0.9) !default;
+$mri-success-hover-color-transparent: transparentize(mri-green(40), 0.9) !default;
+
+$mri-dark-critical-hover-color-transparent: transparentize(mri-red(20), 0.9) !default;
+$mri-dark-warning-hover-color-transparent: transparentize(mri-gold(20), 0.9) !default;
+$mri-dark-success-hover-color-transparent: transparentize(mri-green(20), 0.9) !default;

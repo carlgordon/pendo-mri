@@ -1,0 +1,260 @@
+// Resets
+
+.#{$mri-ns}menu__item {
+  @extend %button-reset;
+  @extend %link-reset;
+}
+
+ul.#{$mri-ns}menu {
+  @extend %list-reset;
+}
+
+// Menu block
+.#{$mri-ns}menu {
+  z-index: 100;
+  user-select: none;
+  
+  animation: fade-in .25s cubic-bezier(0, 1, 1, 1);
+}
+
+// Menu item element
+.#{$mri-ns}menu__item {
+  display: flex;
+  flex-flow: row nowrap;
+  cursor: default;
+  border-radius: 0;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  line-height: inherit;
+  transition:
+    color $mri-transition-base,
+    outline $mri-transition-base,
+    background-color $mri-transition-base;
+
+  &:enabled {
+    cursor: $mri-menu-item-cursor;
+  }
+
+  &:focus {
+    outline-width: $mri-menu-item-focus-outline-width;
+    outline-style: $mri-menu-item-focus-outline-style;
+  }
+}
+
+.#{$mri-ns}menu__item--disabled {
+  pointer-events: none;
+}
+
+// Menu heading element
+
+.#{$mri-ns}menu__heading {
+  display: block;
+  font-size: 1.25rem;
+  // font-weight: 500;
+  // letter-spacing: .5px;
+  // text-transform: uppercase;
+  cursor: $mri-menu-heading-cursor;
+}
+
+// Menu separator element
+
+.#{$mri-ns}menu__separator {
+  display: block;
+  height: 0;
+  width: 100%;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+// Menu item name element
+.#{$mri-ns}menu__item-label {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+// Menu item hotkey element
+.#{$mri-ns}menu__item-hotkey {
+  font-family: inherit;
+  margin-left: mri-spacing(small);
+}
+
+// Menu item icon element
+.#{$mri-ns}menu__item-icon {
+  width: 1em;
+  margin-right: 1ch;
+}
+
+// Size variants
+
+@mixin component-menu-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}menu--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}menu#{$modifier} {
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    padding-top: map-get($options, padding-vertical);
+    padding-bottom: map-get($options, padding-vertical);
+    @if(map-has-key($options, margin-vertical)) {
+      margin-top: map-get($options, margin-vertical);
+      margin-bottom: map-get($options, margin-vertical);
+    }
+    @if(map-has-key($options, margin-horizontal)) {
+      margin-left: map-get($options, margin-horizontal);
+      margin-right: map-get($options, margin-horizontal);
+    }
+    box-shadow: map-get($options, box-shadow);
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__item {
+    padding-top: map-get($options, item-spacing) / 2;
+    padding-bottom: map-get($options, item-spacing) / 2;
+    padding-left: map-get($options, padding-horizontal);
+    padding-right: map-get($options, padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__heading {
+    font-size: map-get($options, heading-font-size);
+    padding-left: map-get($options, padding-horizontal);
+    padding-right: map-get($options, padding-horizontal);
+    padding-top: map-get($options, heading-spacing) / 2;
+    padding-bottom: map-get($options, heading-spacing) / 2;
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__separator {
+    margin-top: map-get($options, separator-spacing);
+    margin-bottom: map-get($options, separator-spacing);
+  }
+}
+
+$mri-menu-default-size: (
+  font-size: 14px,
+  line-height: 1.5,
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: mri-spacing(medium),
+  border-radius: 0,
+  box-shadow: mri-shadow(medium),
+  item-spacing: mri-spacing(small),
+  heading-font-size: 1.25rem,
+  heading-spacing: mri-spacing(small),
+  separator-spacing: mri-spacing(small)
+) !default;
+
+@include component-menu-size-variant($mri-menu-default-size, null);
+
+$mri-menu-small: (
+  font-size: 14px,
+  line-height: 1.25,
+  padding-vertical: mri-spacing(x-small),
+  padding-horizontal: mri-spacing(small),
+  border-radius: 0,
+  box-shadow: mri-shadow(medium),
+  item-spacing: mri-spacing(x-small),
+  heading-font-size: .875em,
+  heading-spacing: mri-spacing(small),
+  separator-spacing: mri-spacing(x-small)
+) !default;
+
+@include component-menu-size-variant($mri-menu-small, "small");
+
+// Color variants
+
+@mixin component-menu-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}menu--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}menu#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__item {
+    background-color: map-get($options, item-bg-color);
+    color: map-get($options, item-color);
+    
+    &:enabled:hover {
+      background-color: map-get($options, item-hover-bg-color);
+      color: map-get($options, item-hover-color);
+    }
+    
+    &:enabled:active {
+      background-color: map-get($options, item-active-bg-color);
+      color: map-get($options, item-active-color);
+    }
+    
+    &:focus {
+      outline: 1px solid map-get($options, item-focus-ring-color)
+    }
+    
+    &:disabled, &--disabled {
+      background-color: map-get($options, item-disabled-bg-color);
+      color: map-get($options, item-disabled-color);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__heading {
+    background-color: map-get($options, heading-bg-color);
+    color: map-get($options, heading-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__separator {
+    border-top-color: map-get($options, separator-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}menu__item-icon {
+    color: map-get($options, icon-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}hotkey {
+    color: map-get($options, hotkey-color);
+    background-color: map-get($options, hotkey-bg-color);
+  }
+}
+
+$mri-menu-light-default: (
+  bg-color: $mri-white,
+  color: $mri-dark-text-color,
+  item-bg-color: transparent,
+  item-color: inherit,
+  item-hover-bg-color: $mri-light-hover-color-transparent,
+  item-hover-color: $mri-dark-interactive-color,
+  item-active-bg-color: $mri-light-active-color-transparent,
+  item-active-color: $mri-dark-interactive-color,
+  item-disabled-bg-color: transparent,
+  item-disabled-color: $mri-dark-text-color-disabled,
+  item-focus-ring-color: $mri-dark-interactive-color,
+  separator-color: $mri-dark-line-color-faint,
+  heading-bg-color: transparent,
+  heading-color: $mri-dark-text-color,
+  icon-color: inherit,
+  hotkey-color: inherit,
+  hotkey-bg-color: $mri-background-color-light-transparent,
+) !default;
+
+@include component-menu-color-variant($mri-menu-light-default, null);
+
+$mri-menu-dark-default: (
+  bg-color: $mri-background-color-dark,
+  color: $mri-light-text-color,
+  item-bg-color: transparent,
+  item-color: inherit,
+  item-hover-bg-color: $mri-dark-hover-color-transparent,
+  item-hover-color: $mri-light-interactive-color,
+  item-active-bg-color: $mri-dark-active-color-transparent,
+  item-active-color: $mri-light-interactive-color,
+  item-disabled-bg-color: transparent,
+  item-disabled-color: $mri-light-text-color-disabled,
+  item-focus-ring-color: $mri-light-interactive-color,
+  separator-color: $mri-light-line-color-faint,
+  heading-bg-color: transparent,
+  heading-color: $mri-light-text-color,
+  icon-color: inherit,
+  hotkey-color: inherit,
+  hotkey-bg-color: $mri-background-color-dark-transparent,
+  ) !default;
+
+@include component-menu-color-variant($mri-menu-dark-default, "dark");

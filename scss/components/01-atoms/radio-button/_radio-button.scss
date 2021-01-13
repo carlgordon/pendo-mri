@@ -1,0 +1,219 @@
+.#{$mri-ns}radio-button {
+  @extend %radio-button-reset;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-style: solid;
+  border-radius: 100%;
+  cursor: pointer;
+
+  transition:
+    background-color $mri-transition-base,
+    border $mri-transition-base;
+
+  &:focus {
+    border-color: $mri-radio-button-focus-border-color;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 100%;
+    background-color: currentColor;
+    opacity: 0;
+    transition:
+      opacity $mri-transition-base,
+      background-color $mri-transition-base;
+  }
+
+  &:checked::after {
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: $mri-disabled-cursor;
+  }
+}
+
+
+// Size variants
+
+@mixin component-radio-button-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}radio-button--" + $variant-name + " ", null);
+
+  .#{$mri-ns}radio-button#{$modifier} {
+    width: map-get($options, size);
+    height: map-get($options, size);
+    border-width: map-get($options, border-width);
+
+    &::after {
+      width: map-get($options, tickmark-size);
+      height: map-get($options, tickmark-size);
+    }
+  }
+}
+
+$mri-radio-button-default-size: (
+  size:  1.5em,
+  border-width: mri-spacing(hairline),
+  tickmark-size: .75em,
+) !default;
+
+@include component-radio-button-size-variant($mri-radio-button-default-size, null); 
+
+$mri-radio-button-small: (
+  size:  1em,
+  border-width: mri-spacing(hairline),
+  tickmark-size: .5em,
+) !default;
+
+@include component-radio-button-size-variant($mri-radio-button-small, "small"); 
+
+// Color variants
+
+@mixin component-radio-button-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}radio-button--" + $variant-name + " ", null);
+
+  .#{$mri-ns}radio-button#{$modifier} {
+    border-color: map-get($options, border-color);
+    border-style: map-get($options, border-style);
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+
+    &:before {
+      border-color: map-get($options, color);
+    }
+
+    &:hover {
+      border-color: map-get($options, hover-border-color);
+      color: map-get($options, hover-color);
+      background-color: map-get($options, hover-bg-color);
+
+      &:before {
+        border-color: map-get($options, hover-color);
+      }
+    }
+
+    &:focus {
+      border-color: map-get($options, focus-border-color);
+      border-style: map-get($options, focus-border-style);
+      color: map-get($options, focus-color);
+      background-color: map-get($options, focus-bg-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color);
+
+      &:before {
+        border-color: map-get($options, focus-color);
+      }
+    }
+
+    &:disabled:not(.#{$mri-ns}radio-button--readonly), &.#{$mri-ns}is-disabled:not(.#{$mri-ns}radio-button--readonly) {
+      border-color: map-get($options, disabled-border-color);
+      color: map-get($options, disabled-color);
+      background-color: map-get($options, disabled-bg-color);
+      opacity: map-get($options, disabled-opacity);
+
+      &:before {
+        border-color: map-get($options, disabled-color);
+      }
+    }
+  }
+
+    #{if($modifier, ".#{$mri-ns}radio-button#{$modifier}", null)}.#{$mri-ns}radio-button--readonly {
+      background-color: map-get($options, readonly-bg-color);
+      border-color: map-get($options, readonly-border-color);
+  
+      &::before {
+        border-color: map-get($options, readonly-color);
+      }
+  
+      &:hover {
+        border-color: map-get($options, readonly-border-color);
+        color: map-get($options, readonly-color);
+        background-color: map-get($options, readonly-bg-color);
+  
+        &:before {
+          border-color: map-get($options, readonly-color);
+        }
+      }
+  
+      &:focus {
+        background-color: map-get($options, readonly-focus-bg-color);
+        border-color: map-get($options, readonly-focus-border-color);
+  
+        &::before {
+          border-color: map-get($options, readonly-focus-color);
+      }
+    }
+  }
+}
+
+$mri-radio-button-light-default: (
+  border-color: $mri-dark-line-color-muted,
+  border-style: solid,
+  color: $mri-dark-text-color,
+  bg-color: $mri-background-color-white,
+  hover-border-color: $mri-dark-line-color,
+  hover-color: $mri-dark-text-color,
+  hover-bg-color: $mri-background-color-white,
+  focus-border-color: $mri-dark-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-dark-text-color,
+  focus-bg-color: $mri-background-color-white,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: $mri-dark-line-color-muted,
+  disabled-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-background-color-lighter,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-dark-line-color-muted,
+  readonly-border-style: solid,
+  readonly-color: $mri-dark-text-color,
+  readonly-bg-color: $mri-background-color-lightest,
+  readonly-focus-border-color: $mri-dark-line-color-muted,
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-dark-text-color,
+  readonly-focus-bg-color: $mri-background-color-lightest,
+  label-text-color: $mri-dark-text-color
+) !default;
+
+@include component-radio-button-color-variant($mri-radio-button-light-default, null);
+
+$mri-radio-button-dark: (
+  border-color: $mri-light-line-color-muted,
+  border-style: solid,
+  color: $mri-light-text-color,
+  bg-color: $mri-background-color-dark,
+  font-weight: inherit,
+  hover-border-color: $mri-light-line-color,
+  hover-color: $mri-light-text-color,
+  hover-bg-color: $mri-background-color-dark,
+  focus-border-color: $mri-light-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-light-text-color,
+  focus-bg-color: $mri-background-color-dark,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: $mri-light-line-color-muted,
+  disabled-color: $mri-light-text-color,
+  disabled-bg-color: $mri-background-color-darker,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-light-line-color-muted,
+  readonly-border-style: solid,
+  readonly-color: $mri-light-text-color,
+  readonly-bg-color: $mri-background-color-darker,
+  readonly-focus-border-color: $mri-light-line-color-muted,
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-light-text-color,
+  readonly-focus-bg-color: $mri-background-color-darker,
+  label-text-color: $mri-light-text-color
+) !default;
+
+@include component-radio-button-color-variant($mri-radio-button-dark, "dark");
+

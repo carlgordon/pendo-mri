@@ -1,0 +1,314 @@
+.#{$mri-ns}nav-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-content: stretch;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}nav-bar__group {
+  display: flex;
+  flex-flow: inherit;
+  justify-content: inherit;
+  align-content: inherit;
+  align-items: inherit;
+}
+
+.#{$mri-ns}nav-bar__link,
+.#{$mri-ns}nav-bar__button {
+  @extend %link-reset;
+  @extend %button-reset;
+  
+  display: flex;
+  align-items: center;
+
+  color: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+
+  transition:
+    color $mri-transition-base,
+    background-color $mri-transition-base;
+    
+  &:disabled, &.#{$mri-ns}is-disabled {
+    cursor: default;
+  }
+}
+
+.#{$mri-ns}nav-bar__heading {
+  @extend %heading-reset;
+  
+  display: block;
+  font-size: $mri-nav-bar-heading-font-size;
+  font-weight: bold;
+}
+
+.#{$mri-ns}nav-bar__label {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Size variants
+
+@mixin component-nav-bar-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}nav-bar--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}nav-bar#{$modifier} {
+    padding-left: map-get($options, "padding-horizontal");
+    padding-right: map-get($options, "padding-horizontal");
+    padding-top: map-get($options, "padding-vertical");
+    padding-bottom: map-get($options, "padding-vertical");
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__link {
+    font-size: map-get($options, "link-font-size");
+    line-height: map-get($options, "link-line-height");
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__heading {
+    font-size: map-get($options, "heading-font-size");
+    line-height: map-get($options, "heading-line-height");
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__button {
+    font-size: map-get($options, "button-font-size");
+    line-height: map-get($options, "button-line-height");
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__link,
+  #{$parent-class}.#{$mri-ns}nav-bar__heading,
+  #{$parent-class}.#{$mri-ns}nav-bar__button {
+    padding-left: map-get($options, "link-padding-horizontal");
+    padding-right: map-get($options, "link-padding-horizontal");
+    padding-top: map-get($options, "link-padding-vertical");
+    padding-bottom: map-get($options, "link-padding-vertical");
+    
+    &:not(:first-child) {
+      margin-left: map-get($options, "item-spacing-horizontal");
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__image {
+    width: map-get($options, "image-width");
+    height: map-get($options, "image-height");
+    //margin-left: map-get($options, "link-padding-horizontal");
+    margin-right: map-get($options, "link-padding-horizontal");
+    margin-top: map-get($options, "link-padding-vertical");
+    margin-bottom: map-get($options, "link-padding-vertical");
+    
+    &:not(:first-child) {
+      margin-left: calc(#{map-get($options, "item-spacing-horizontal")} + #{map-get($options, "link-padding-horizontal")});
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link {
+    font-weight: map-get($options, "link-font-weight");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link:hover {
+    font-weight: map-get($options, "link-hover-font-weight");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link:active {
+    font-weight: map-get($options, "link-active-font-weight");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link.mri-is-active {
+    font-weight: map-get($options, "link-current-font-weight");
+  }
+}
+
+$mri-nav-bar-default-size: (
+  padding-horizontal: calc(#{$mri-spacing-horizontal-margin-width} - #{mri-spacing(medium)}),
+  padding-vertical: 0,
+  link-padding-horizontal: mri-spacing(medium),
+  link-padding-vertical: mri-spacing(small),
+  item-spacing-horizontal: 0,
+  link-font-weight: normal,
+  link-hover-font-weight: normal,
+  link-active-font-weight: normal,
+  link-current-font-weight: bold,
+  link-font-size: $mri-font-size-base,
+  link-line-height: 1,
+  button-font-size: $mri-font-size-base,
+  button-line-height: 1,
+  heading-font-size: $mri-font-size-large,
+  heading-line-height: 1,
+  image-width: auto,
+  image-height: 1em,
+) !default;
+
+@include component-nav-bar-size-variant($mri-nav-bar-default-size, null);
+
+$mri-nav-bar-small: (
+  padding-horizontal: mri-spacing(small),
+  padding-vertical: 0,
+  link-padding-horizontal: mri-spacing(small),
+  link-padding-vertical: mri-spacing(x-small),
+  item-spacing-horizontal: 0,
+  link-font-weight: normal,
+  link-hover-font-weight: normal,
+  link-active-font-weight: normal,
+  link-current-font-weight: bold,
+  link-font-size: $mri-font-size-x-small,
+  link-line-height: 1,
+  button-font-size: $mri-font-size-base,
+  button-line-height: 1,
+  heading-font-size: $mri-font-size-x-small,
+  heading-line-height: 1,
+) !default;
+
+@include component-nav-bar-size-variant($mri-nav-bar-small, "small");
+
+// Color variants
+
+@mixin component-nav-bar-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}nav-bar--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}nav-bar#{$modifier} {
+    background-color: map-get($options, "bg-color");
+    color: map-get($options, "color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link {
+    background-color: map-get($options, "link-bg-color");
+    color: map-get($options, "link-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link:hover {
+    background-color: map-get($options, "link-hover-bg-color");
+    color: map-get($options, "link-hover-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link:active {
+    background-color: map-get($options, "link-active-bg-color");
+    color: map-get($options, "link-active-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__link.mri-is-active {
+    background-color: map-get($options, "link-current-bg-color");
+    color: map-get($options, "link-current-color");
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__link.#{$mri-ns}is-disabled,
+  #{$parent-class}.#{$mri-ns}nav-bar__link.#{$mri-ns}is-disabled:hover {
+    cursor: default;
+    color: map-get($options, "link-disabled-color");
+    background-color: map-get($options, "link-disabled-bg-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__button {
+    background-color: map-get($options, "button-bg-color");
+    color: map-get($options, "button-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__button:hover {
+    background-color: map-get($options, "button-hover-bg-color");
+    color: map-get($options, "button-hover-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__button:active {
+    background-color: map-get($options, "button-active-bg-color");
+    color: map-get($options, "button-active-color");
+  }
+  
+  #{$parent-class}.#{$mri-ns}nav-bar__button.mri-is-active {
+    background-color: map-get($options, "button-current-bg-color");
+    color: map-get($options, "button-current-color");
+  }
+
+  #{$parent-class}.#{$mri-ns}nav-bar__button.#{$mri-ns}is-disabled,
+  #{$parent-class}.#{$mri-ns}nav-bar__button.#{$mri-ns}is-disabled:hover,
+  #{$parent-class}.#{$mri-ns}nav-bar__button:disabled,
+  #{$parent-class}.#{$mri-ns}nav-bar__button:disabled:hover {
+    cursor: default;
+    color: map-get($options, "button-disabled-color");
+    background-color: map-get($options, "button-disabled-bg-color");
+  }
+}
+
+$mri-nav-bar-light-default: (
+  bg-color: $mri-background-color-lighter,
+  color: $mri-dark-text-color,
+  link-color: $mri-dark-interactive-color,
+  link-bg-color: $mri-transparent,
+  link-hover-bg-color: transparentize($mri-dark-interactive-color, 0.9),
+  link-hover-color: $mri-dark-interactive-color,
+  link-active-bg-color: transparentize($mri-dark-interactive-color, 0.8),
+  link-active-color: $mri-dark-interactive-color,
+  link-current-bg-color: $mri-background-color-light,
+  link-current-color: $mri-dark-text-color,
+  link-disabled-color: $mri-dark-text-color-disabled,
+  link-disabled-bg-color: $mri-transparent,
+  button-color: $mri-dark-text-color,
+  button-bg-color: $mri-transparent,
+  button-hover-bg-color: transparentize($mri-dark-interactive-color, 0.9),
+  button-hover-color: $mri-dark-text-color,
+  button-active-bg-color: transparentize($mri-dark-interactive-color, 0.8),
+  button-active-color: $mri-dark-text-color,
+  button-current-bg-color: $mri-background-color-light,
+  button-current-color: $mri-dark-text-color,
+  button-disabled-color: $mri-dark-text-color-disabled,
+  button-disabled-bg-color: $mri-transparent,
+) !default;
+
+@include component-nav-bar-color-variant($mri-nav-bar-light-default, null);
+
+$mri-nav-bar-dark: (
+  bg-color: $mri-background-color-darkest,
+  color: $mri-light-text-color,
+  link-color: $mri-light-interactive-color,
+  link-bg-color: $mri-transparent,
+  link-hover-bg-color: transparentize($mri-light-interactive-color, 0.9),
+  link-hover-color: $mri-light-interactive-color,
+  link-active-bg-color: transparentize($mri-light-interactive-color, 0.8),
+  link-active-color: $mri-light-interactive-color,
+  link-current-bg-color: $mri-background-color-darkest,
+  link-current-color: $mri-light-text-color,
+  link-disabled-color: $mri-light-text-color-disabled,
+  link-disabled-bg-color: $mri-transparent,
+  button-color: $mri-light-text-color,
+  button-bg-color: $mri-transparent,
+  button-hover-bg-color: transparentize($mri-light-interactive-color, 0.9),
+  button-hover-color: $mri-light-text-color,
+  button-active-bg-color: transparentize($mri-light-interactive-color, 0.8),
+  button-active-color: $mri-light-text-color,
+  button-current-bg-color: $mri-background-color-light,
+  button-current-color: $mri-light-text-color,
+  button-disabled-color: $mri-light-text-color-disabled,
+  button-disabled-bg-color: $mri-transparent,
+) !default;
+
+@include component-nav-bar-color-variant($mri-nav-bar-dark, "dark");
+
+$mri-nav-bar-dark-blue: (
+  bg-color: mri-blue(85),
+  color: $mri-light-text-color,
+  link-color: $mri-light-interactive-color,
+  link-bg-color: $mri-transparent,
+  link-hover-bg-color: transparentize($mri-light-interactive-color, 0.9),
+  link-hover-color: $mri-light-interactive-color,
+  link-active-bg-color: transparentize($mri-light-interactive-color, 0.8),
+  link-active-color: $mri-light-interactive-color,
+  link-current-bg-color: mri-blue(95),
+  link-current-color: $mri-light-text-color,
+  link-disabled-color: $mri-light-text-color-disabled,
+  link-disabled-bg-color: $mri-transparent,
+  button-color: $mri-light-text-color,
+  button-bg-color: $mri-transparent,
+  button-hover-bg-color: transparentize($mri-light-interactive-color, 0.9),
+  button-hover-color: $mri-light-text-color,
+  button-active-bg-color: transparentize($mri-light-interactive-color, 0.8),
+  button-active-color: $mri-light-text-color,
+  button-current-bg-color: $mri-background-color-light,
+  button-current-color: $mri-light-text-color,
+  button-disabled-color: $mri-light-text-color-disabled,
+  button-disabled-bg-color: $mri-transparent,
+) !default;
+
+@include component-nav-bar-color-variant($mri-nav-bar-dark-blue, "dark-blue");

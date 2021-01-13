@@ -1,0 +1,86 @@
+.mri-calendar-container {
+    display: flex;
+}
+
+.mri-calendar-day-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    width: 100%;
+}
+
+.mri-calendar-day {
+    min-width: 10em;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    position: relative;
+}
+
+.mri-calendar-date, .mri-calendar-day-number {
+    font-size: 24px;
+    display: block;
+    text-align: right;
+}
+
+.mri-calendar-date {
+    padding: .5em .5em .25em;
+}
+
+.mri-calendar-content {
+    border: 1px solid #C6CED5;
+    padding: .5em 1em 1em;
+    height: calc(100% - 52px);
+    min-height: 150px;
+}
+
+.mri-calendar-events {
+    margin-bottom: .15em;
+    padding: 4px;
+    border-radius: 4px;
+
+    &:hover {
+        background: rgba(16,104,157,.1);
+        cursor: pointer;
+    }
+}
+
+.mri-calendar-container > .mri-icon {
+    margin-top: 6em;
+    position: relative;
+    height: 100%;
+    width: 32px;
+}
+
+.mri-calendar-container > .mri-icon:first-child {
+    margin-right: 1em;
+}
+
+.mri-calendar-container > .mri-icon:last-child {
+    margin-left: 1em;
+}
+
+.mri-calendar-current-day {
+
+    .mri-calendar-date {
+        background: mri-blue(10);
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    .mri-calendar-content {
+        border: 2px solid mri-blue(10);
+        border-top: none;
+    }
+}
+
+.mri-calendar-date:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

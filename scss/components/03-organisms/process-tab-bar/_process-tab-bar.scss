@@ -1,0 +1,251 @@
+.#{$mri-ns}process-tab-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border: none;
+  margin: 0;
+  // overflow: hidden;
+}
+
+.#{$mri-ns}process-tab-bar__tab {
+  @extend %link-reset;
+
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  
+  // flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  min-width: min-content;
+  white-space: nowrap;
+  border-style: solid;
+  margin-right: 0;
+  transition:
+    background-color $mri-transition-base;
+  cursor: pointer;
+  position: relative;
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    left: calc(#{1em / 360 * 150} + 1px);
+    background-color: inherit;
+    
+    z-index: 1;
+  }
+
+  &::before {
+    transform: skew(30deg);
+    top: 0;
+  }
+
+  &::after {
+    transform: skew(-30deg);
+    bottom: 1px;
+  }
+}
+
+.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-disabled,
+.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-selected {
+  cursor: default;
+  pointer-events: none;
+}
+
+.#{$mri-ns}process-tab-bar__tab-label {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 5ch;
+}
+
+.#{$mri-ns}process-tab-bar__tab:focus {
+  outline: none;
+}
+
+.#{$mri-ns}process-tab-bar__tab-number {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  font-family: $mri-font-family-numbers;
+  border-style: solid;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}process-tab-bar__tab-label,
+.#{$mri-ns}process-tab-bar__tab-icon,
+.#{$mri-ns}process-tab-bar__tab-number {
+  position: relative;
+  z-index: 2;
+}
+
+.#{$mri-ns}process-tab-bar__tab-icon,
+.#{$mri-ns}process-tab-bar__tab-number {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}process-tab-bar__tab-icon {
+  border-radius: 100%;
+  vertical-align: middle;
+  box-sizing: content-box; // To avoid setting size of the icon plus padding
+  transition:
+    background-color $mri-transition-base,
+    padding $mri-transition-base;
+}
+
+// Size variants
+
+@mixin component-process-tab-bar-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}process-tab-bar--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}process-tab-bar {
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab {
+    border-width: map-get($options, tab-border-width);
+    border-radius: map-get($options, tab-border-radius);
+    padding:
+      map-get($options, tab-padding-vertical)
+      map-get($options, tab-padding-horizontal);
+  }
+
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab:not(:first-child) {
+    padding-left: calc(#{map-get($options, tab-padding-horizontal)} + 1em);
+  }
+
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab:first-child {
+    padding-left: map-get($options, outside-tab-padding);
+  }
+
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab:last-child {
+    padding-right: map-get($options, outside-tab-padding);
+  }
+
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab-icon {
+    width: map-get($options, tab-icon-size);
+    height: map-get($options, tab-icon-size);
+    margin: map-get($options, tab-icon-margin);
+    padding: map-get($options, tab-icon-padding);
+  }
+
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab-number {
+    font-size: map-get($options, tab-number-font-size);
+    width: map-get($options, tab-number-size);
+    height: map-get($options, tab-number-size);
+    border-width:  map-get($options, tab-number-border-width);
+    border-radius: map-get($options, tab-number-border-radius);
+    margin-right: map-get($options, tab-number-margin-right);
+  }
+}
+
+$mri-process-tab-bar-default-size: (
+  padding-vertical: 0,
+  padding-horizontal: 0,
+  tab-border-width: 0,
+  tab-border-radius: 0,
+  tab-padding-vertical: mri-spacing(small),
+  tab-padding-horizontal: mri-spacing(medium),
+  outside-tab-padding: $mri-spacing-horizontal-margin-width,
+  tab-icon-size: 1.5em,
+  tab-icon-margin: 0 mri-spacing(small) 0 0,
+  tab-icon-padding: mri-spacing(2x-small),
+  tab-number-font-size: 1em,
+  tab-number-size: 1.5em,
+  tab-number-border-width: 1px,
+  tab-number-border-radius: mri-border-radius(pill),
+  tab-number-margin-right: mri-spacing(small),
+) !default;
+
+@include component-process-tab-bar-size-variant($mri-process-tab-bar-default-size, null);
+
+
+// Color variants
+
+@mixin component-process-tab-bar-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}process-tab-bar--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}process-tab-bar#{$modifier} {
+    background-color: map-get($options, bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab {
+    color: map-get($options, tab-color);
+    background-color: map-get($options, tab-bg-color);
+    border-color: map-get($options, tab-border-color);
+    
+    &:hover {
+      color: map-get($options, tab-hover-color);
+      background-color: map-get($options, tab-hover-bg-color);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-selected,
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-selected:hover {
+    color: map-get($options, tab-selected-color);
+    background-color: map-get($options, tab-selected-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-disabled,
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-disabled:hover {
+    color: map-get($options, tab-disabled-color);
+    background-color: map-get($options, tab-disabled-bg-color);
+    opacity: map-get($options, tab-disabled-opacity);
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab-icon {
+    color: map-get($options, tab-icon-color);
+    background-color: map-get($options, tab-icon-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab.#{$mri-ns}is-complete .#{$mri-ns}process-tab-bar__tab-icon {
+    color: map-get($options, tab-icon-complete-color);
+    background-color: map-get($options, tab-icon-complete-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab:focus {
+    box-shadow: 0 0 map-get($options, tab-focus-ring-blur) map-get($options, tab-focus-ring-offset) map-get($options, tab-focus-ring-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}process-tab-bar__tab-number {
+    color: map-get($options, tab-number-color);
+    background-color: map-get($options, tab-number-bg-color);
+    border-color: map-get($options, tab-number-border-color);
+  }
+}
+
+$mri-process-tab-bar-dark-default: (
+  bg-color: $mri-background-color-light,
+  tab-color: $mri-dark-text-color,
+  tab-bg-color: $mri-background-color-light,
+  tab-border-color: $mri-transparent,
+  tab-selected-color: $mri-dark-text-color,
+  tab-selected-bg-color: $mri-white,
+  tab-disabled-color: $mri-dark-text-color-disabled,
+  tab-disabled-bg-color: $mri-background-color-light,
+  tab-disabled-opacity: 1.0,
+  tab-hover-color: $mri-dark-text-color,
+  tab-hover-bg-color: $mri-background-color-lighter,
+  tab-icon-color: currentColor,
+  tab-icon-bg-color: $mri-transparent,
+  tab-icon-complete-color: $mri-dark-success-color,
+  tab-icon-complete-bg-color: $mri-transparent,
+  tab-focus-ring-blur: 1px,
+  tab-focus-ring-offset: 1px,
+  tab-focus-ring-color: $mri-light-interactive-color inset,
+  tab-number-color: currentColor,
+  tab-number-border-color: currentColor,
+  tab-number-bg-color: $mri-transparent,
+) !default;
+
+@include component-process-tab-bar-color-variant($mri-process-tab-bar-dark-default, null);

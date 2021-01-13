@@ -1,0 +1,63 @@
+.#{$mri-ns}carousel {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  position: relative;
+  min-height: 15em;
+  height: auto;
+}
+
+.#{$mri-ns}carousel__button {
+  position: absolute;
+  top: calc(50%);
+  transform: translateY(-50%);
+  height: auto;
+  width: auto;
+}
+
+.#{$mri-ns}carousel__button--next {
+  right: 1em;
+}
+
+.#{$mri-ns}carousel__button--previous {
+  left: 1em;
+}
+
+.#{$mri-ns}carousel__slides {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  overflow-x: auto;
+  flex-grow: 1;
+}
+
+.#{$mri-ns}carousel__slide {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 33.333%;
+  padding-left: 4em;
+  padding-right: 4em;
+}
+
+
+
+@mixin component-carousel-color-variants($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}carousel--" + $variant-name + " ", null);
+
+  .#{$mri-ns}carousel#{$modifier} {
+    background-color: map-get($options, background-color);
+    color: map-get($options, color);
+  }
+}
+
+$mri-carousel-dark-default: (
+  background-color: mri-blue(90),
+  color: $mri-light-text-color,
+) !default;
+
+@include component-carousel-color-variants($mri-carousel-dark-default, null);

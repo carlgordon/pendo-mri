@@ -1,0 +1,322 @@
+// Options
+// =======
+// 
+// These variables represent discrete color values we're using
+
+// Primary brand colors
+$mri-brand-blue:          #044D66;
+$mri-brand-green:         #BCD538;
+$mri-brand-orange:        #FAA41A;
+
+// /* $mri-brand-blue: #{$mri-brand-blue} */
+// /* $mri-brand-green: #{$mri-brand-green} */
+// /* $mri-brand-orange: #{$mri-brand-orange} */
+
+// Brand accent colors
+$mri-brand-accent-orange: #FF6C36;
+$mri-brand-accent-green:  #00B288;
+$mri-brand-accent-blue:   #0098E3;
+$mri-brand-accent-purple: #8A4B52;
+$mri-brand-accent-yellow: #D6C300;
+$mri-brand-accent-gray:   #778692;
+
+$mri-brand-colors: (
+  "blue":           #044D66,
+  "green":          #BCD538,
+  "orange":         #FAA41A,
+  "accent-orange":  #FF6C36,
+  "accent-green":   #00B288,
+  "accent-blue":    #0098E3,
+  "accent-purple":  #8A4B52,
+  "accent-yellow":  #D6C300,
+  "accent-gray":    #778692,
+) !default;
+
+@function mri-brand-color($value: "blue") {
+  @if not map-has-key($mri-brand-colors, $value) {
+    @warn "$mri-brand-colors doesn't contain the value '#{$value}'. Valid values are: #{map-keys($mri-brand-colors)}.";
+  }
+
+  @return map-get($mri-brand-colors, $value);
+}
+
+// Brand cool grays
+$mri-brand-cool-gray-1:   #DADFE1 !default;
+$mri-brand-cool-gray-2:   #A6BBC3 !default;
+$mri-brand-cool-gray-3:   #A7A9AC !default;
+$mri-brand-cool-gray-4:   #778692 !default;
+$mri-brand-cool-gray-5:   #435363 !default;
+$mri-brand-cool-gray-6:   #233240 !default;
+
+// Transparent
+$mri-transparent:         transparent;
+$mri-transparent-white:   transparentize(white, 1.0);
+$mri-transparent-black:   transparentize(black, 1.0);
+
+// White and black
+$mri-white:         white;
+$mri-black:         black;
+
+// Grays
+$mri-gray: (
+  100: #162029,
+  95:  #1E2933,
+  90:  #27333E,
+  85:  #303D49,
+  80:  #394754,
+  75:  #425160,
+  70:  #4C5C6C,
+  65:  #566678,
+  60:  #607184,
+  55:  #6A7D90,
+  50:  #74889A,
+  45:  #8094A3,
+  40:  #8CA0AC,
+  35:  #98ACB6,
+  30:  #A6B7BF,
+  25:  #B3C3C9,
+  20:  #C2CFD3,
+  15:  #D0DBDD,
+  10:  #DFE7E8,
+  05:  #EFF3F3
+) !default;
+
+@function mri-gray($value: 100) {
+  @if not map-has-key($mri-gray, $value) {
+    @warn "$mri-gray doesn't contain the value '#{$value}'. Valid values are: #{map-keys($mri-gray)}.";
+  }
+
+  @return map-get($mri-gray, $value);
+}
+
+
+// Blues
+
+$mri-blue: (
+  100: #000D1A,
+  95:  #081928,
+  90:  #0B2337,
+  85:  #0E2E47,
+  80:  #103957,
+  75:  #124468,
+  70:  #125079,
+  65:  #125C8B,
+  60:  #10689D,
+  55:  #0D75B0,
+  50:  #0582C3,
+  45:  #1B8FCE,
+  40:  #3A9DD2,
+  35:  #54AAD5,
+  30:  #6CB7D8,
+  25:  #84C4DC,
+  20:  #9CD0E0,
+  15:  #B5DCE6,
+  10:  #CDE8ED,
+  05:  #E6F4F5,
+) !default;
+
+@function mri-blue($value: 100) {
+  @if not map-has-key($mri-blue, $value) {
+    @warn "$mri-blue doesn't contain the value '#{$value}'. Valid values are: #{map-keys($mri-blue)}.";
+  }
+
+  @return map-get($mri-blue, $value);
+}
+
+
+// Reds
+
+$mri-red: (
+  100: #1A0400,
+  95:  #2A0E08,
+  90:  #3C120E,
+  85:  #501513,
+  80:  #641816,
+  75:  #791B19,
+  70:  #8E1D1C,
+  65:  #A41F1E,
+  60:  #BA2121,
+  55:  #D02323,
+  50:  #E72424,
+  45:  #F83531,
+  40:  #FF504B,
+  35:  #FF6C69,
+  30:  #FF8482,
+  25:  #FFBFC2,
+  20:  #FFACAE,
+  15:  #FFBFC2,
+  10:  #FFD1D5,
+  05:  #FFE3E6
+) !default;
+
+@function mri-red($value: 100) {
+  @if not map-has-key($mri-red, $value) {
+    @warn "$mri-red doesn't contain the value '#{$value}'. Valid values are: #{map-keys($mri-red)}.";
+  }
+
+  @return map-get($mri-red, $value);
+}
+
+$mri-dark-red:      mri-red(60) !default;
+$mri-darker-red:    shade($mri-dark-red, 20%) !default;
+
+// /* $mri-dark-red: #{$mri-dark-red} */
+// /* $mri-darker-red: #{$mri-darker-red} */
+
+$mri-light-red:     hsl(360, 100%, 95%) !default;
+
+// /* $mri-light-red: #{$mri-light-red} */
+
+// Greens
+
+$mri-green: (
+  100: #001A15,
+  95:  #05241E,
+  90:  #042F27,
+  85:  #033A30,
+  80:  #024639,
+  75:  #005242,
+  70:  #005E4B,
+  65:  #006A54,
+  60:  #00775D,
+  55:  #008466,
+  50:  #009170,
+  45:  #009F79,
+  40:  #00AD82,
+  35:  #29B992,
+  30:  #4EC4A6,
+  25:  #6DCEB9,
+  20:  #8AD9CB,
+  15:  #A7E2DA,
+  10:  #C4ECE8,
+  05:  #E1F6F5
+) !default;
+
+@function mri-green($value: 100) {
+  @if not map-has-key($mri-green, $value) {
+    @warn "$mri-green doesn't contain the value '#{$value}'. Valid values are: #{map-keys($mri-green)}.";
+  }
+
+  @return map-get($mri-green, $value);
+}
+
+
+// Golds (yellow/orange)
+
+$mri-gold: (
+  100: #571300,
+  95: #661804,
+  90: #741E06,
+  85: #842408,
+  80: #932A08,
+  75: #A33007,
+  70: #B33706,
+  65: #C23E04,
+  60: #D34501,
+  55: #DC5400,
+  50: #E46300,
+  45: #EB7200,
+  40: #F28100,
+  35: #F89000,
+  30: #FE9F00,
+  25: #FFAF35,
+  20: #FFBF5B,
+  15: #FFCD7E,
+  10: #FFDBA0,
+  05: #FFE9C3,
+) !default;
+
+@function mri-gold($value: 100) {
+  @if not map-has-key($mri-gold, $value) {
+    @warn "$mri-gold doesn't contain the value '#{$value}'. Valid values are: #{map-keys($mri-gold)}.";
+  }
+
+  @return map-get($mri-gold, $value);
+}
+
+
+$mri-dark-green:      mri-green(60) !default;
+$mri-darker-green:    mri-green(80) !default;
+
+// /* $mri-dark-green: #{$mri-dark-green} */
+// /* $mri-darker-green: #{$mri-darker-green} */
+
+// Purples
+$mri-light-purple:     hsl(280, 50%, 80%) !default;
+
+// Decisions
+// =========
+// 
+// These variables represent decisions about how we'll use colors consistently
+// throughout the stylesheet
+// (https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421#.mtp1fb14w)
+
+// Interactive colors
+$mri-dark-interactive-color:    mri-blue(60) !default;
+$mri-light-interactive-color:   mri-blue(20) !default;
+
+$mri-light-focus-color:         mri-blue(40) !default;
+$mri-dark-focus-color:         mri-blue(40) !default;
+
+$mri-dark-negative-color:       mri-red(60) !default; // Negative values or outcomes
+$mri-dark-positive-color:       mri-green(60) !default; // Positive values or outcomes
+
+$mri-dark-critical-color:       mri-red(60) !default; // System errors or failures
+$mri-light-critical-color:      mri-red(15) !default;
+$mri-lighter-critical-color:    mri-red(15) !default;
+$mri-lightest-critical-color:   mri-red(15) !default;
+
+$mri-dark-success-color:        mri-green(60) !default;
+$mri-light-success-color:       mri-green(15) !default;
+$mri-lighter-success-color:     mri-green(15) !default;
+$mri-lightest-success-color:    mri-green(10) !default;
+
+$mri-dark-warning-color:        mri-gold(60) !default;
+$mri-light-warning-color:       mri-gold(15) !default;
+$mri-lighter-warning-color:     mri-gold(15) !default;
+$mri-lightest-warning-color:    mri-gold(15) !default;
+
+// Text colors
+$mri-dark-text-color:           mri-gray() !default;
+$mri-dark-text-color-muted:     mri-gray(80) !default;
+$mri-dark-text-color-faint:     mri-gray(60) !default;
+$mri-dark-text-color-disabled:  mri-gray(50) !default;
+$mri-dark-text-color-info:      mri-blue(60) !default;
+$mri-dark-text-color-success:   mri-green(65) !default;
+$mri-dark-text-color-warning:   mri-gold(70) !default;
+$mri-dark-text-color-critical:  mri-red(60) !default;
+
+$mri-light-text-color:          $mri-white !default;
+$mri-light-text-color-muted:    mri-gray(20) !default;
+$mri-light-text-color-faint:    mri-gray(30) !default;
+$mri-light-text-color-disabled: mri-gray(40) !default;
+$mri-light-text-color-info:     mri-blue(15) !default;
+$mri-light-text-color-success:  mri-green(15) !default;
+$mri-light-text-color-warning:  mri-gold(15) !default;
+$mri-light-text-color-critical: mri-red(10) !default;
+
+// Icon colors
+$mri-dark-icon-color:           mri-gray(90) !default;
+$mri-dark-icon-color-muted:     mri-gray(80) !default;
+$mri-dark-icon-color-disabled:  mri-gray(50) !default;
+$mri-dark-icon-color-info:      mri-blue(60) !default;
+$mri-dark-icon-color-success:   mri-green(60) !default;
+$mri-dark-icon-color-warning:   mri-gold(60) !default;
+$mri-dark-icon-color-critical:  mri-red(60) !default;
+
+$mri-light-icon-color:          mri-gray(10) !default;
+$mri-light-icon-color-muted:    mri-gray(20) !default;
+$mri-light-icon-color-disabled: mri-gray(40) !default;
+$mri-light-icon-color-info:     mri-blue(15) !default;
+$mri-light-icon-color-success:  mri-green(15) !default;
+$mri-light-icon-color-warning:  mri-gold(15) !default;
+$mri-light-icon-color-critical: mri-red(15) !default;
+
+// Line colors
+$mri-dark-line-color:           mri-gray(60) !default;
+$mri-dark-line-color-muted:     mri-gray(40) !default;
+$mri-dark-line-color-faint:     mri-gray(20) !default;
+
+$mri-light-line-color:          mri-gray(20) !default;
+$mri-light-line-color-muted:    mri-gray(40) !default;
+$mri-light-line-color-faint:    mri-gray(60) !default;

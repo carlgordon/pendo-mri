@@ -1,0 +1,10 @@
+.#{$mri-ns}chevron {
+  width: $mri-chevron-width;
+}
+
+.#{$mri-ns}chevron__line {
+  stroke-width: $mri-chevron-stroke-width;
+  stroke: $mri-dark-line-color-muted;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}

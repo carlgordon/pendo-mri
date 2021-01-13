@@ -1,0 +1,10 @@
+.#{$mri-ns}caret {
+  display: inline-block;
+  border-style: solid;
+  border-width: $mri-caret-height ($mri-caret-width / 2) 0;
+  border-color: $mri-caret-color $mri-transparent $mri-transparent $mri-transparent;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  transform-origin: $mri-caret-width / 2 $mri-caret-height / 2;
+}

@@ -1,0 +1,14 @@
+.#{$mri-ns}base {  
+  font-family: $mri-font-family-default;
+  font-size: $mri-font-size-base;
+  color: $mri-dark-text-color;
+  background-color: $mri-background-color-white;
+  line-height: 1.5;
+  box-sizing: border-box;
+  // vertical-align: middle;
+
+  *, *::before, *::after {
+    box-sizing: inherit;
+    vertical-align: inherit;
+  }
+}

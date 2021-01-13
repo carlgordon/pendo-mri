@@ -1,0 +1,106 @@
+.#{$mri-ns}hider {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}hider.#{$mri-ns}is-closed > .#{$mri-ns}hider__content {
+  height: 0;
+  overflow: hidden;
+}
+
+.#{$mri-ns}hider__toggle {
+  @extend %button-reset;
+
+  flex-grow: 0;
+  flex-shrink: 0;
+  
+  cursor: pointer;
+  transition:
+    color $mri-transition-base,
+    background-color $mri-transition-base;
+}
+
+.#{$mri-ns}hider__toggle:disabled {
+  cursor: default;
+}
+
+.#{$mri-ns}hider__toggle-caret {
+  transform: rotate(180deg);
+  // transition:
+  //   transform $mri-transition-base;
+}
+
+.#{$mri-ns}hider.#{$mri-ns}is-closed > * > .#{$mri-ns}hider__toggle-caret {
+  transform: rotate(0deg);
+}
+
+// Size variants
+
+@mixin component-hider-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}hider--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}hider#{$modifier} {
+    
+  }
+  
+  #{$parent-class}.#{$mri-ns}hider__toggle {
+    padding:
+      map-get($options, toggle-padding-vertical)
+      map-get($options, toggle-padding-horizontal);
+    border-radius: map-get($options, toggle-border-radius);
+  }
+}
+
+$mri-hider-default-size: (
+  toggle-padding-vertical: mri-spacing(x-small),
+  toggle-padding-horizontal: mri-spacing(small),
+  toggle-border-radius: mri-border-radius(small)
+) !default;
+
+@include component-hider-size-variant($mri-hider-default-size, null);
+
+// Color variants
+
+@mixin component-hider-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}hider--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}hider#{$modifier} {
+    
+  }
+  
+  #{$parent-class}.#{$mri-ns}hider__toggle {
+    color: map-get($options, toggle-color);
+    background-color: map-get($options, toggle-bg-color);
+    
+    &:hover {
+      color: map-get($options, toggle-hover-color);
+      background-color: map-get($options, toggle-hover-bg-color);
+    }
+    
+    &:active {
+      color: map-get($options, toggle-active-color);
+      background-color: map-get($options, toggle-active-bg-color);
+    }
+    
+    &:focus {
+      box-shadow: 0 0 0 2px map-get($options, toggle-focus-ring-color);
+    }
+  }
+  
+}
+
+$mri-hider-dark-default: (
+  toggle-color: $mri-dark-interactive-color,
+  toggle-bg-color: transparent,
+  toggle-hover-color: $mri-dark-interactive-color,
+  toggle-hover-bg-color: transparentize(mri-blue(40), 0.9),
+  toggle-active-color: $mri-dark-interactive-color,
+  toggle-active-bg-color: transparentize(mri-blue(40), 0.8),
+  toggle-focus-ring-color: mri-blue(40)
+) !default;
+
+@include component-hider-color-variant($mri-hider-dark-default, null);

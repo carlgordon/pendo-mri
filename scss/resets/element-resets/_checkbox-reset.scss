@@ -1,0 +1,13 @@
+// Reset checkboxes and radio buttons
+%checkbox-reset {
+  appearance: none;
+  margin: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+%radio-button-reset {
+  @extend %checkbox-reset;
+}

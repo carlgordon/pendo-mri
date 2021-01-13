@@ -1,0 +1,15 @@
+.#{$mri-ns}donut-chart-list {
+  display: flex;
+  flex-flow: row wrap;
+  margin: -1px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.#{$mri-ns}donut-chart-list__item {
+  flex-basis: auto;
+  margin: 1px;
+  position: relative;
+  flex-grow: 1;
+  align-items: center;
+}

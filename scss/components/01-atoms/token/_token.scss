@@ -1,0 +1,65 @@
+.#{$mri-ns}token__list {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  // min-width: 0;
+  overflow: hidden;
+}
+
+.#{$mri-ns}token {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-shrink: 1;
+  min-width: 6em;
+  // overflow: hidden;
+  background-color: $mri-token-bg-color;
+  color: $mri-token-color;
+  padding: $mri-token-padding;
+  border-radius: $mri-token-border-radius;
+  
+  transition:
+    color $mri-transition-base,
+    background-color $mri-transition-base;
+}
+
+.#{$mri-ns}token__label {
+  flex-grow: 0;
+  flex-shrink: 1;
+  max-width: 10em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.#{$mri-ns}token--selectable {
+  cursor: pointer;
+}
+
+.#{$mri-ns}token--selectable:hover {
+  color: $mri-token-hover-color;
+  background-color: $mri-token-hover-bg-color;
+}
+
+.#{$mri-ns}token.#{$mri-ns}is-selected {
+  color: $mri-token-selected-color;
+  background-color: $mri-token-selected-bg-color;
+}
+
+.#{$mri-ns}token--selectable.#{$mri-ns}is-selected:hover {
+  color: $mri-token-selected-hover-color;
+  background-color: $mri-token-selected-hover-bg-color;
+}
+
+.#{$mri-ns}token__button {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.#{$mri-ns}token--small {
+  font-size: $mri-font-size-small;
+  line-height: 1.25;
+  padding: mri-spacing(x-small) mri-spacing(small) !important;
+  border-radius: mri-border-radius(small) !important;
+}

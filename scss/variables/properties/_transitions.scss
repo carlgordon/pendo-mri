@@ -1,0 +1,10 @@
+$mri-transition-delay-time-base:    0s !default;
+$mri-transition-time-base:          1/4 * 1s !default;
+$mri-transition-timing-base:        cubic-bezier(0, 1, 1, 1) !default;
+$mri-transition-base:               $mri-transition-time-base
+                                    $mri-transition-delay-time-base
+                                    $mri-transition-timing-base !default;
+$mri-transition-long:               $mri-transition-time-base * 2
+                                    $mri-transition-delay-time-base
+                                    $mri-transition-timing-base !default;
+$mri-transition-delayed-instant:    0s $mri-transition-time-base linear !default;

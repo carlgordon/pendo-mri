@@ -1,0 +1,440 @@
+// Button block
+.#{$mri-ns}button {
+  @extend %button-reset;
+  @extend %link-reset;
+  
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: relative;
+
+  border-style: solid;
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  
+  transition:
+    background-color $mri-transition-base,
+    color $mri-transition-base,
+    border $mri-transition-base;
+}
+
+.#{$mri-ns}button:disabled,
+.#{$mri-ns}button.#{$mri-ns}is-disabled {
+  cursor: $mri-button-disabled-cursor;
+}
+
+.#{$mri-ns}button__label {
+  white-space: nowrap;
+}
+
+.#{$mri-ns}button__icon {
+  pointer-events: none;
+}
+
+.#{$mri-ns}button__label,
+.#{$mri-ns}button__icon {
+  opacity: 1;
+  transition: opacity $mri-transition-base;
+}
+
+.#{$mri-ns}button__spinner,
+.#{$mri-ns}button__status-icon {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity $mri-transition-base;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+// Loading state
+.#{$mri-ns}button.#{$mri-ns}is-loading {
+  .#{$mri-ns}button__label, .#{$mri-ns}button__icon {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .#{$mri-ns}button__spinner {
+    opacity: 1;
+  }
+}
+
+// Status state
+.#{$mri-ns}button.#{$mri-ns}has-status {
+  .#{$mri-ns}button__label, .#{$mri-ns}button__icon {
+    visibility: hidden;
+  }
+
+  .#{$mri-ns}button__status-icon {
+    opacity: 1;
+  }
+}
+
+// Size variants
+
+@mixin component-button-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  
+  .#{$mri-ns}button#{$modifier} {
+    padding-top: map-get($options , padding-vertical);
+    padding-bottom: map-get($options , padding-vertical);
+    padding-left: map-get($options, padding-horizontal);
+    padding-right: map-get($options, padding-horizontal);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+  }
+
+  .#{$mri-ns}button__icon--left {
+    margin-right: map-get($options, icon-spacing);
+  }
+
+  .#{$mri-ns}button__icon--right, .#{$mri-ns}button__caret:not(:first-child) {
+    margin-left: map-get($options, icon-spacing);
+  }
+
+  .#{$mri-ns}button#{$modifier} .#{$mri-ns}counter {
+    font-size: map-get($options, font-size)*.857;
+}
+
+}
+
+$mri-button-default-size: (
+  padding-horizontal: mri-spacing(medium),
+  padding-vertical: mri-spacing(x-small),
+  border-width: 1px,
+  border-radius: $mri-border-radius-buttons,
+  font-size: mri-font-size(),
+  line-height: mri-line-height(),
+  icon-spacing: mri-spacing(small),
+) !default;
+
+@include component-button-size-variant($mri-button-default-size, null);
+
+$mri-button-quiet-size: (
+  padding-horizontal: mri-spacing(small),
+  padding-vertical: mri-spacing(x-small),
+  border-width: 1px,
+  border-radius: $mri-border-radius-buttons,
+  font-size: mri-font-size(),
+  line-height: mri-line-height(),
+  icon-spacing: mri-spacing(small),
+) !default;
+
+@include component-button-size-variant($mri-button-quiet-size, "quiet");
+@include component-button-size-variant($mri-button-quiet-size, "dark-quiet");
+
+$mri-button-small: (
+  padding-horizontal: mri-spacing(small),
+  padding-vertical: mri-spacing(2x-small),
+  border-width: 1px,
+  border-radius: $mri-border-radius-buttons,
+  font-size: mri-font-size(small),
+  line-height: mri-line-height(small),
+  icon-spacing: mri-spacing(small),
+) !default;
+
+@include component-button-size-variant($mri-button-small, "small");
+
+// Width variants
+
+@mixin component-button-width-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  
+  .#{$mri-ns}button#{$modifier} {
+    min-width: map-get($options, width);
+  }
+}
+
+$mri-button-narrow-size: (
+  width: 75px
+) !default;
+
+@include component-button-width-variant($mri-button-narrow-size, "narrow");
+
+$mri-button-medium-size: (
+  width: 125px
+) !default;
+
+@include component-button-width-variant($mri-button-medium-size, "medium");
+
+$mri-button-wide-size: (
+  width: 175px
+) !default;
+
+@include component-button-width-variant($mri-button-wide-size, "wide");
+
+// Color variants
+
+@mixin component-button-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}button--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}button#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+  }
+  
+  .#{$mri-ns}button#{$modifier}:enabled:hover {
+    background-color: map-get($options, hover-bg-color);
+    color: map-get($options, hover-color);
+    border-color: map-get($options, hover-border-color);
+  }
+  
+  .#{$mri-ns}button#{$modifier}:enabled:active {
+    background-color: map-get($options, active-bg-color);
+    color: map-get($options, active-color);
+    border-color: map-get($options, active-border-color);
+  }
+  
+  .#{$mri-ns}button#{$modifier}:focus {
+    box-shadow: 0 0 $mri-button-focus-box-shadow-blur-size $mri-button-focus-box-shadow-offset map-get($options, focus-ring-color);
+  }
+  
+  .#{$mri-ns}button#{$modifier}:disabled,
+  .#{$mri-ns}button#{$modifier}.#{$mri-ns}is-disabled {
+    background-color: map-get($options, disabled-bg-color);
+    color: map-get($options, disabled-color);
+    border-color: map-get($options, disabled-border-color);
+    opacity: map-get($options, disabled-opacity);
+  }
+  #{$parent-class} .#{$mri-ns}icon-button__success-icon {
+    color: map-get($options, success-color);
+  }
+
+  #{$parent-class} .#{$mri-ns}icon-button__critical-icon {
+    color: map-get($options, critical-color);
+  }
+
+  .#{$mri-ns}button#{$modifier} .#{$mri-ns}counter {
+    background-color: map-get($options, counter-bg-color);
+    color: map-get($options, counter-color);
+    font-weight: map-get($options, counter-font-weight);
+  }
+
+  .#{$mri-ns}button#{$modifier} .#{$mri-ns}counter--info {
+    background-color: map-get($options, counter-info-bg-color);
+    color: map-get($options, counter-info-color);
+    font-weight: map-get($options, counter-font-weight);
+  }
+
+  .#{$mri-ns}button#{$modifier} .#{$mri-ns}counter--success {
+    background-color: map-get($options, counter-success-bg-color);
+    color: map-get($options, counter-success-color);
+    font-weight: map-get($options, counter-font-weight);
+  }
+
+  .#{$mri-ns}button#{$modifier} .#{$mri-ns}counter--warning {
+    background-color: map-get($options, counter-warning-bg-color);
+    color: map-get($options, counter-warning-color);
+    font-weight: map-get($options, counter-font-weight);
+  }
+
+  .#{$mri-ns}button#{$modifier} .#{$mri-ns}counter--critical {
+    background-color: map-get($options, counter-critical-bg-color);
+    color: map-get($options, counter-critical-color);
+    font-weight: map-get($options, counter-font-weight);
+  }
+
+}
+
+$mri-button-light-default: (
+  bg-color: $mri-transparent-white,
+  color: $mri-dark-text-color,
+  border-color: $mri-dark-line-color,
+  hover-bg-color: $mri-light-hover-color-transparent,
+  hover-color: $mri-dark-text-color,
+  hover-border-color: $mri-dark-line-color,
+  active-bg-color: $mri-light-active-color-transparent,
+  active-color:  $mri-dark-text-color,
+  active-border-color: $mri-dark-line-color,
+  disabled-bg-color: $mri-transparent-white,
+  disabled-color:  $mri-dark-text-color,
+  disabled-border-color: $mri-dark-line-color,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-color: $mri-light-focus-color,
+  success-color: $mri-dark-success-color,
+  critical-color: $mri-dark-critical-color,
+  counter-bg-color: $mri-light-icon-color,
+  counter-color: $mri-dark-text-color,
+  counter-info-bg-color: $mri-light-icon-color-info,
+  counter-info-color: $mri-dark-text-color-info,
+  counter-success-bg-color: $mri-light-icon-color-success,
+  counter-success-color: $mri-dark-text-color-success,
+  counter-warning-bg-color: $mri-light-icon-color-warning,
+  counter-warning-color: $mri-dark-text-color-warning,
+  counter-critical-bg-color: $mri-light-icon-color-critical,
+  counter-critical-color: $mri-dark-text-color-critical,
+  counter-font-weight: $mri-dark-normal-weight,
+) !default;
+
+@include component-button-color-variant($mri-button-light-default, null);
+
+
+$mri-button-light-primary: (
+  bg-color: mri-blue(55),
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  hover-bg-color: shade(mri-blue(55), 20%),
+  hover-color: $mri-light-text-color,
+  hover-border-color: $mri-transparent,
+  active-bg-color: shade(mri-blue(55), 50%),
+  active-color: $mri-light-text-color,
+  active-border-color: $mri-transparent,
+  disabled-bg-color: mri-blue(55),
+  disabled-color: $mri-light-text-color,
+  disabled-border-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-color: $mri-light-focus-color,
+  success-color: $mri-lighter-success-color,
+  critical-color: $mri-lighter-critical-color,
+  counter-bg-color: $mri-dark-icon-color,
+  counter-color: $mri-light-text-color,
+  counter-info-bg-color: $mri-dark-icon-color-info,
+  counter-info-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-icon-color-success,
+  counter-success-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-icon-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-icon-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-font-weight: $mri-light-normal-weight,
+) !default;
+
+@include component-button-color-variant($mri-button-light-primary, "primary");
+
+
+$mri-button-light-quiet: (
+  bg-color: $mri-transparent,
+  color: mri-blue(60),
+  border-color: $mri-transparent,
+  hover-bg-color: $mri-light-hover-color-transparent,
+  hover-color: mri-blue(60),
+  hover-border-color: $mri-transparent,
+  active-bg-color: $mri-light-active-color-transparent,
+  active-color: mri-blue(60),
+  active-border-color: $mri-transparent,
+  disabled-bg-color: $mri-transparent,
+  disabled-color: mri-blue(60),
+  disabled-border-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-color: mri-blue(40),
+  success-color: $mri-dark-success-color,
+  critical-color: $mri-dark-critical-color,
+  counter-bg-color: $mri-light-icon-color,
+  counter-color: $mri-dark-text-color,
+  counter-info-bg-color: $mri-light-icon-color-info,
+  counter-info-color: $mri-dark-text-color-info,
+  counter-success-bg-color: $mri-light-icon-color-success,
+  counter-success-color: $mri-dark-text-color-success,
+  counter-warning-bg-color: $mri-light-icon-color-warning,
+  counter-warning-color: $mri-dark-text-color-warning,
+  counter-critical-bg-color: $mri-light-icon-color-critical,
+  counter-critical-color: $mri-dark-text-color-critical,
+  counter-font-weight: $mri-dark-normal-weight,
+) !default;
+
+@include component-button-color-variant($mri-button-light-quiet, "quiet");
+
+$mri-button-dark-default: (
+  bg-color: $mri-transparent,
+  color: $mri-light-text-color,
+  border-color: $mri-light-line-color,
+  hover-bg-color: $mri-dark-hover-color-transparent,
+  hover-color: $mri-light-text-color,
+  hover-border-color: $mri-light-line-color,
+  active-bg-color: $mri-dark-active-color-transparent,
+  active-color: $mri-light-text-color,
+  active-border-color: $mri-light-line-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-color: $mri-light-text-color,
+  disabled-border-color: $mri-light-line-color,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-color: mri-blue(40),
+  success-color: $mri-light-success-color,
+  critical-color: $mri-light-critical-color,
+  counter-bg-color: $mri-dark-icon-color,
+  counter-color: $mri-light-text-color,
+  counter-info-bg-color: $mri-dark-icon-color-info,
+  counter-info-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-icon-color-success,
+  counter-success-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-icon-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-icon-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-font-weight: $mri-light-normal-weight,
+) !default;
+
+@include component-button-color-variant($mri-button-dark-default, "dark");
+
+$mri-button-dark-primary: (
+  bg-color: mri-blue(55),
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  hover-bg-color: mri-blue(45),
+  hover-color: $mri-light-text-color,
+  hover-border-color: $mri-transparent,
+  active-bg-color: mri-blue(60),
+  active-color: $mri-light-text-color,
+  active-border-color: $mri-transparent,
+  disabled-bg-color: mri-blue(55),
+  disabled-color: $mri-light-text-color,
+  disabled-border-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-color: mri-blue(40),
+  success-color: $mri-lighter-success-color,
+  critical-color: $mri-lighter-critical-color,
+  counter-bg-color: $mri-dark-icon-color,
+  counter-color: $mri-light-text-color,
+  counter-info-bg-color: $mri-dark-icon-color-info,
+  counter-info-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-icon-color-success,
+  counter-success-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-icon-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-icon-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-font-weight: $mri-light-normal-weight,
+) !default;
+
+@include component-button-color-variant($mri-button-dark-primary, "dark-primary");
+
+$mri-button-dark-quiet: (
+  bg-color: $mri-transparent,
+  color: $mri-light-text-color,
+  border-color: $mri-transparent,
+  hover-bg-color: $mri-dark-hover-color-transparent,
+  hover-color: $mri-light-text-color,
+  hover-border-color: $mri-transparent,
+  active-bg-color: $mri-dark-active-color-transparent,
+  active-color: $mri-light-text-color,
+  active-border-color: $mri-transparent,
+  disabled-bg-color: $mri-transparent,
+  disabled-color: $mri-light-text-color,
+  disabled-border-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  focus-ring-color: mri-blue(40),
+  success-color: $mri-light-success-color,
+  critical-color: $mri-light-critical-color,  
+  counter-bg-color: $mri-dark-icon-color,
+  counter-color: $mri-light-text-color,
+  counter-info-bg-color: $mri-dark-icon-color-info,
+  counter-info-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-icon-color-success,
+  counter-success-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-icon-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-icon-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-font-weight: $mri-light-normal-weight,
+) !default;
+
+@include component-button-color-variant($mri-button-dark-quiet, "dark-quiet");

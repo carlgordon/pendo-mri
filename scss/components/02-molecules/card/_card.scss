@@ -1,0 +1,296 @@
+.#{$mri-ns}card {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  border-style: solid;
+  overflow: hidden;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}card--clickable, .#{$mri-ns}card--draggable {
+  @extend %link-reset;
+  
+  transition:
+    background-color $mri-transition-base;
+}
+
+.#{$mri-ns}card__body {
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 100%;
+}
+
+.#{$mri-ns}card__chevron-area {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.#{$mri-ns}card__title {
+  @extend %heading-reset;
+}
+
+.#{$mri-ns}card__status-area, .#{$mri-ns}card__chevron-area {
+  flex-shrink: 0;
+  
+  transition:
+    background-color $mri-transition-base;
+}
+
+.#{$mri-ns}card--clickable {
+  cursor: pointer;
+}
+
+.#{$mri-ns}card--draggable {
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.#{$mri-ns}card__number {
+  display: block;
+  text-align: center;
+}
+
+// Size variants
+
+@mixin component-card-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}card--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}card#{$modifier} {
+    padding:
+      map-get($options, padding-vertical)
+      map-get($options, padding-horizontal);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+  }
+  
+  #{$parent-class}.#{$mri-ns}card__header {
+    padding:
+      map-get($options, header-padding-vertical)
+      map-get($options, header-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}card__title {
+    font-size: map-get($options, title-font-size);
+    line-height: map-get($options, title-line-height);
+    text-transform: map-get($options, title-text-transform);
+    letter-spacing: map-get($options, title-letter-spacing);
+  }
+  
+  #{$parent-class}.#{$mri-ns}card__body {
+    padding:
+      map-get($options, body-padding-vertical)
+      map-get($options, body-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}card__status-area {
+    min-width: map-get($options, status-area-min-width);
+    padding:
+      map-get($options, status-area-padding-vertical)
+      map-get($options, status-area-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}card__number {
+    font-size: map-get($options, number-font-size);
+    min-width: map-get($options, number-min-width);
+  }
+}
+
+$mri-card-default-size: (
+  header-padding-vertical: mri-spacing(small),
+  header-padding-horizontal: mri-spacing(medium),
+  body-padding-vertical: 0,
+  body-padding-horizontal: 0,
+  border-width: 0,
+  border-radius: mri-border-radius(medium),
+  title-font-size: 1.25em,
+  title-line-height: 1.25,
+  title-text-transform: none,
+  title-letter-spacing: 0,
+  status-area-min-width: 1em,
+  status-area-padding-vertical: mri-spacing(small),
+  status-area-padding-horizontal: mri-spacing(x-small),
+  number-font-size: 1.25em,
+  number-min-width: 2ch
+) !default;
+
+@include component-card-size-variant($mri-card-default-size, null);
+
+// Color variants
+
+@mixin component-card-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}card--" + $variant-name + " ", null);
+
+  .#{$mri-ns}card#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    box-shadow:
+      0
+      map-get($options, drop-shadow-height)
+      map-get($options, drop-shadow-blur)
+      rgba(0, 0, 0, map-get($options, drop-shadow-opacity));
+  }
+
+  .#{$mri-ns}card#{$modifier}.#{$mri-ns}card--clickable,
+  .#{$mri-ns}card#{$modifier}.#{$mri-ns}card--draggable {
+    &:hover {
+      background-color: map-get($options, hover-bg-color);
+    }
+
+    &:active {
+      background-color: map-get($options, active-bg-color);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}card__header {
+    background-color: map-get($options, header-bg-color);
+    color: map-get($options, header-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}card__title {
+    color: map-get($options, title-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}card__footer {
+    background-color: map-get($options, footer-bg-color);
+    color: map-get($options, footer-color);
+  }
+}
+
+$mri-card-light-default: (
+  bg-color: $mri-background-color-white,
+  color: $mri-dark-text-color,
+  hover-bg-color: shade($mri-background-color-white, 5%),
+  active-bg-color: shade($mri-background-color-white, 10%),
+  drop-shadow-height: mri-spacing(2x-small),
+  drop-shadow-blur: mri-spacing(small),
+  drop-shadow-opacity: 0.25,
+  header-bg-color: $mri-transparent,
+  header-color: inherit,
+  title-color: $mri-brand-blue,
+  footer-bg-color: $mri-transparent,
+  footer-color: inherit
+) !default;
+
+@include component-card-color-variant($mri-card-light-default, null);
+
+$mri-card-light: (
+  bg-color: $mri-background-color-lighter,
+  color: $mri-dark-text-color,
+  hover-bg-color: tint($mri-background-color-lighter, 25%),
+  active-bg-color: tint($mri-background-color-lighter, 50%),
+  drop-shadow-height: mri-spacing(2x-small),
+  drop-shadow-blur: mri-spacing(small),
+  drop-shadow-opacity: 0.5,
+  header-bg-color: $mri-transparent,
+  header-color: inherit,
+  title-color: $mri-brand-blue,
+  footer-bg-color: $mri-transparent,
+  footer-color: inherit
+) !default;
+
+@include component-card-color-variant($mri-card-light, "light");
+
+$mri-card-dark: (
+  bg-color: $mri-background-color-dark,
+  color: $mri-light-text-color,
+  hover-bg-color: tint($mri-background-color-dark, 5%),
+  active-bg-color: tint($mri-background-color-dark, 10%),
+  drop-shadow-height: mri-spacing(2x-small),
+  drop-shadow-blur: mri-spacing(small),
+  drop-shadow-opacity: 0.5,
+  header-bg-color: $mri-transparent,
+  header-color: inherit,
+  title-color: $mri-light-text-color,
+  footer-bg-color: $mri-transparent,
+  footer-color: inherit
+) !default;
+
+@include component-card-color-variant($mri-card-dark, "dark");
+
+$mri-card-darker: (
+  bg-color: $mri-background-color-darker,
+  color: $mri-light-text-color,
+  drop-shadow-height: mri-spacing(2x-small),
+  drop-shadow-blur: mri-spacing(small),
+  drop-shadow-opacity: 0.5,
+  header-bg-color: $mri-transparent,
+  header-color: inherit,
+  title-color: $mri-light-text-color,
+  footer-bg-color: $mri-transparent,
+  footer-color: inherit
+) !default;
+
+@include component-card-color-variant($mri-card-darker, "darker");
+
+// Status Color variants
+
+@mixin component-card-status-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}card--" + $variant-name + " ", null);
+
+  .#{$mri-ns}card#{$modifier}#{$parent-class} > .#{$mri-ns}card__status-area {
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+  }
+
+  .#{$mri-ns}card#{$modifier}.#{$mri-ns}card--clickable:hover > .#{$mri-ns}card__status-area {
+    background-color: map-get($options, hover-bg-color);
+  }
+
+  .#{$mri-ns}card#{$modifier}.#{$mri-ns}card--clickable:active > .#{$mri-ns}card__status-area {
+    background-color: map-get($options, active-bg-color);
+  }
+}
+
+$mri-card-status-default: (
+  color: $mri-dark-text-color,
+  bg-color: $mri-background-color-lighter
+) !default;
+
+@include component-card-status-color-variant($mri-card-status-default, null);
+
+$mri-card-status-success: (
+  color: $mri-light-text-color,
+  bg-color: $mri-dark-success-color,
+  hover-bg-color: shade($mri-dark-success-color, 20%),
+  active-bg-color: shade($mri-dark-success-color, 40%)
+) !default;
+
+@include component-card-status-color-variant($mri-card-status-success, "success");
+
+$mri-card-status-warning: (
+  color: $mri-light-text-color,
+  bg-color: $mri-dark-warning-color,
+  hover-bg-color: shade($mri-dark-warning-color, 20%),
+  active-bg-color: shade($mri-dark-warning-color, 40%)
+) !default;
+
+@include component-card-status-color-variant($mri-card-status-warning, "warning");
+
+$mri-card-status-critical: (
+  color: $mri-light-text-color,
+  bg-color: $mri-dark-critical-color,
+  hover-bg-color: shade($mri-dark-critical-color, 20%),
+  active-bg-color: shade($mri-dark-critical-color, 40%)
+) !default;
+
+@include component-card-status-color-variant($mri-card-status-critical, "critical");
+
+$mri-card-status-info: (
+  color: $mri-light-text-color,
+  bg-color: mri-blue(60),
+  hover-bg-color: shade(mri-blue(60), 20%),
+  active-bg-color: shade(mri-blue(60), 40%)
+) !default;
+
+@include component-card-status-color-variant($mri-card-status-info, "info");

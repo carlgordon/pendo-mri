@@ -1,0 +1,55 @@
+.#{$mri-ns}link {
+  transition:
+    color $mri-transition-base;
+  cursor: pointer;
+}
+
+.#{$mri-ns}link:link, .#{$mri-ns}link:visited {
+  text-decoration: $mri-link-text-decoration;
+
+  &:hover {
+    text-decoration: $mri-link-hover-text-decoration;
+  }
+}
+
+// Color variants
+
+@mixin component-link-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}link--" + $variant-name + " ", null);
+
+  .#{$mri-ns}link#{$modifier} {
+    color: map-get($options, color);
+
+    &:visited {
+      color: map-get($options, visited-color);
+    }
+
+    &:hover {
+      color: map-get($options, hover-color);
+    }
+
+    &:visited:hover {
+      color: map-get($options, visited-hover-color);
+    }
+  }
+}
+
+$mri-link-dark-default: (
+  color: $mri-dark-interactive-color,
+  visited-color: $mri-dark-interactive-color,
+  hover-color: shade($mri-dark-interactive-color, 20%),
+  visited-hover-color: shade($mri-dark-interactive-color, 20%),
+);
+
+@include component-link-color-variant($mri-link-dark-default, null);
+
+$mri-link-light: (
+  color: $mri-light-interactive-color,
+  visited-color: $mri-light-interactive-color,
+  hover-color: shade($mri-light-interactive-color, 20%),
+  visited-hover-color: shade($mri-light-interactive-color, 20%),
+);
+
+@include component-link-color-variant($mri-link-light, "light");
+

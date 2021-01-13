@@ -1,0 +1,128 @@
+.#{$mri-ns}panel {
+  display: flex;
+  flex-flow: column nowrap;
+  border-style: solid;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: auto;
+}
+
+.#{$mri-ns}panel--horizontal {
+  flex-flow: row nowrap;
+}
+
+.#{$mri-ns}panel__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  border-style: solid;
+}
+
+.#{$mri-ns}panel__header-toolbar {
+  flex-grow: 1;
+}
+
+.#{$mri-ns}panel__body {
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  flex-shrink: 1;
+  height: auto;
+  overflow-y: auto;
+}
+
+.#{$mri-ns}panel__heading {
+  @extend %heading-reset;
+}
+
+// Size variants
+
+@mixin component-panel-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}panel--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}panel#{$modifier} {
+    padding: map-get($options, padding);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+  }
+  
+  #{$parent-class}.#{$mri-ns}panel__header {
+    padding: map-get($options, header-padding);
+    border-width: map-get($options, header-border-width);
+    margin: map-get($options, header-margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}panel__body {
+    padding: map-get($options, body-padding);
+  }
+  
+  #{$parent-class}.#{$mri-ns}panel__heading {
+    font-size: map-get($options, heading-font-size);
+    line-height: map-get($options, heading-line-height);
+    font-weight: map-get($options, heading-font-weight);
+  }
+  
+  #{$parent-class}.#{$mri-ns}panel__header-icon {
+    margin-right: map-get($options, icon-margin);
+  }
+}
+
+$mri-panel-default-size: (
+  padding: 0,
+  border-width: 0,
+  border-radius: mri-border-radius(medium),
+  header-padding: mri-spacing(small) mri-spacing(medium),
+  body-padding: 0,
+  header-border-width: 0 0 1px 0,
+  header-margin: 0 0 1px 0,
+  icon-margin: mri-spacing(small),
+  heading-font-size: 1em,
+  heading-line-height: 1.25,
+  heading-font-weight: normal
+) !default;
+
+@include component-panel-size-variant($mri-panel-default-size, null);
+
+
+// Color variants
+
+@mixin component-panel-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}panel--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}panel#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}panel__header {
+    background-color: map-get($options, header-bg-color);
+    color: map-get($options, header-color);
+    border-color: map-get($options, header-border-color);
+  }
+}
+
+$mri-panel-light-default: (
+  bg-color: $mri-background-color-lighter,
+  color: $mri-dark-text-color,
+  header-bg-color: $mri-background-color-light,
+  header-color: $mri-dark-text-color,
+  header-border-color: $mri-transparent
+) !default;
+
+@include component-panel-color-variant($mri-panel-light-default, null);
+
+$mri-panel-dark: (
+  bg-color: $mri-background-color-dark,
+  color: $mri-light-text-color,
+  header-bg-color: $mri-background-color-darkest,
+  header-color: $mri-light-text-color,
+  header-border-color: $mri-transparent
+) !default;
+
+@include component-panel-color-variant($mri-panel-dark, "dark");

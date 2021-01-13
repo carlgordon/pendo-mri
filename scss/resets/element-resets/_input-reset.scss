@@ -1,0 +1,40 @@
+// Reset inputs (fields)
+%input-reset {
+  appearance: none;
+  font-family: inherit;
+  line-height: inherit;
+
+  // Hide X button added to field in IE/Edge
+  &::-ms-clear {
+    display: none;
+    width : 0;
+    height: 0;
+  }
+  
+  // Hide X button added to field in IE/Edge
+  &::-ms-reveal {
+    display: none;
+    width : 0;
+    height: 0;
+  }
+
+  // Hide X button added to field when type is "search"
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    display: none;
+  }
+  
+  // Remove styling that browsers add when required attribute is present and field is empty
+  &:invalid {
+    box-shadow: none;
+  }
+  &:-moz-submit-invalid {
+    box-shadow: none;
+  }
+  &:-moz-ui-invalid {
+    box-shadow: none;
+  }
+}
+

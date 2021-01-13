@@ -1,0 +1,23 @@
+%progress-reset {
+    appearance: none;
+    background: transparent;
+    color: transparent;
+
+    &::-moz-progress-bar { 
+        background-color: transparent;
+        appearance: none;
+        display: none;
+    }
+
+    &::-webkit-progress-bar { 
+        background-color: transparent;
+        appearance: none;
+        display: none;
+    } 
+
+    &::-webkit-progress-value  { 
+        background-color: transparent;
+        appearance: none;
+        display: none;
+    } 
+}

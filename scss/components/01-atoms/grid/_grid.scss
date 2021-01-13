@@ -1,0 +1,103 @@
+.#{$mri-ns}grid {
+  display: block;
+  padding-left: $mri-grid-horizontal-margin-width;
+  padding-right: $mri-grid-horizontal-margin-width;
+  padding-top: $mri-grid-container-padding / 2;
+  padding-bottom: $mri-grid-container-padding / 2;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}grid > .#{$mri-ns}grid,
+.#{$mri-ns}grid__column > .#{$mri-ns}grid {
+  padding: 0;
+}
+
+.#{$mri-ns}grid--grow {
+  flex-grow: 1;
+  flex-shrink: 1;
+
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: stretch;
+
+  .#{$mri-ns}grid__row {
+    flex-grow: 1;
+  }
+
+  .#{$mri-ns}grid__column {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}
+
+.#{$mri-ns}grid--small-margin {
+  padding-left: mri-spacing(medium);
+  padding-right: mri-spacing(medium);
+  padding-top: $mri-grid-container-padding / 2;
+  padding-bottom: $mri-grid-container-padding / 2;
+  
+  .#{$mri-ns}grid__column {
+    margin-top: mri-spacing(medium) / 2;
+    margin-bottom: mri-spacing(medium) / 2;
+  }
+}
+
+.#{$mri-ns}grid--single-cell {
+  padding-left: $mri-grid-horizontal-margin-width;
+  padding-right: $mri-grid-horizontal-margin-width;
+  padding-top: $mri-grid-container-padding;
+  padding-bottom: $mri-grid-container-padding;
+}
+
+.#{$mri-ns}grid__row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  margin-left: $mri-grid-gutter-width / 2 * -1;
+  margin-right: $mri-grid-gutter-width / 2 * -1;
+}
+
+.#{$mri-ns}grid__column {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  width: 100%;
+  margin-left: $mri-grid-gutter-width / 2;
+  margin-right: $mri-grid-gutter-width / 2;
+  margin-top: $mri-grid-container-padding / 2;
+  margin-bottom: $mri-grid-container-padding / 2;
+  min-width: 0;
+}
+
+// Width classes
+
+@for $bp from 1 through length(map-keys($mri-grid-breakpoints)) {
+  @media screen and (min-width: #{nth(map-values($mri-grid-breakpoints), $bp)}) {
+    // Create classes for each column value from 1 through $mri-grid-columns
+    // e.g. "mri-sm-12"
+    @for $clmn from 1 through $mri-grid-columns {
+      .#{$mri-ns}grid__column.#{$mri-ns}#{nth($mri-grid-breakpoint-names, $bp)}-#{$clmn} {
+        @if($mri-grid-gutter-width != 0) { width: calc(#{($clmn / $mri-grid-columns) * 100%} - #{$mri-grid-gutter-width}); }
+        @else { width: calc(#{($clmn / $mri-grid-columns) * 100%}); }
+      }
+    }
+  }
+}
+
+// Offset classes
+
+@for $bp from 1 through length(map-keys($mri-grid-breakpoints)) {
+  @media screen and (min-width: #{nth(map-values($mri-grid-breakpoints), $bp)}) {
+    // Create classes for each column value from 1 through $mri-grid-columns
+    // e.g. "mri-sm-12"
+    @for $clmn from 1 through ($mri-grid-columns - 1) {
+      .#{$mri-ns}grid__column.#{$mri-ns}#{nth($mri-grid-breakpoint-names, $bp)}-offset-#{$clmn} {
+        @if($mri-grid-gutter-width != 0) { margin-left: calc(#{($clmn / $mri-grid-columns) * 100%} + #{$mri-grid-gutter-width * 2}); }
+        @else { margin-left: calc(#{($clmn / $mri-grid-columns) * 100%}); }
+      }
+    }
+  }
+}

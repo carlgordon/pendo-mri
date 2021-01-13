@@ -1,0 +1,242 @@
+.#{$mri-ns}checkbox {
+  @extend %checkbox-reset;
+  
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  border-style: solid;
+  cursor: pointer;
+  background-color: white;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-style: solid;
+    border-right: none;
+    border-top: none;
+    opacity: 0;
+    transform: rotate(-55deg);
+
+    transition:
+      opacity $mri-transition-base,
+      border $mri-transition-base,
+      transform $mri-transition-base;
+  }
+
+  &:indeterminate::before {
+    height: 0;
+    opacity: 1;
+    transform: none;
+    border-left: none;
+  }
+
+  &:checked::before {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: $mri-disabled-cursor;
+  }
+}
+
+// Size variants
+
+@mixin component-checkbox-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}checkbox--" + $variant-name + " ", null);
+
+  .#{$mri-ns}checkbox#{$modifier} {
+    width: map-get($options, size);
+    height: map-get($options, size);
+    line-height: map-get($options, line-height);
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+
+    &::before {
+      top: calc(#{map-get($options, size) / 2} - #{map-get($options, checkmark-height) / 2} - (#{map-get($options, checkmark-width)} * (55/180) / 2));
+      left: calc(#{map-get($options, size) / 2} - #{map-get($options, checkmark-width) / 2} - (#{map-get($options, checkmark-height)} * (55/180) / 2));
+      width: map-get($options, checkmark-width);
+      height: map-get($options, checkmark-height);
+      border-width: map-get($options, checkmark-weight);
+    }
+
+    &:indeterminate::before {
+      top: calc(50% - (#{map-get($options, checkmark-weight)} / 2));
+    }
+  }
+}
+
+$mri-checkbox-default-size: (
+  size: 1.5em,
+  border-width: mri-spacing(hairline),
+  border-radius: $mri-border-radius-fields,
+  checkmark-width: 14px,
+  checkmark-height: 8px,
+  checkmark-weight: 3px
+) !default;
+
+@include component-checkbox-size-variant($mri-checkbox-default-size, null);
+
+$mri-checkbox-small: (
+  size: 1em,
+  border-width: mri-spacing(hairline),
+  border-radius: $mri-border-radius-fields,
+  checkmark-width: 9px,
+  checkmark-height: 5px,
+  checkmark-weight: 2px
+) !default;
+
+@include component-checkbox-size-variant($mri-checkbox-small, "small");
+
+// Color variants
+
+@mixin component-checkbox-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}checkbox--" + $variant-name + " ", null);
+
+  .#{$mri-ns}checkbox#{$modifier} {
+    border-color: map-get($options, border-color);
+    border-style: map-get($options, border-style);
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+
+    &:before {
+      border-color: map-get($options, color);
+    }
+
+    &:hover {
+      border-color: map-get($options, hover-border-color);
+      color: map-get($options, hover-color);
+      background-color: map-get($options, hover-bg-color);
+
+      &:before {
+        border-color: map-get($options, hover-color);
+      }
+    }
+
+    &:focus {
+      border-color: map-get($options, focus-border-color);
+      border-style: map-get($options, focus-border-style);
+      color: map-get($options, focus-color);
+      background-color: map-get($options, focus-bg-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color);
+
+      &:before {
+        border-color: map-get($options, focus-color);
+      }
+    }
+
+    &:disabled:not(.#{$mri-ns}checkbox--readonly), &.#{$mri-ns}is-disabled:not(.#{$mri-ns}checkbox--readonly) {
+      border-color: map-get($options, disabled-border-color);
+      color: map-get($options, disabled-color);
+      background-color: map-get($options, disabled-bg-color);
+      opacity: map-get($options, disabled-opacity);
+
+      &:before {
+        border-color: map-get($options, disabled-color);
+      }
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}checkbox__label#{$modifier} {
+    color: map-get($options, label-text-color);
+  }
+
+  #{if($modifier, ".#{$mri-ns}checkbox#{$modifier}", null)}.#{$mri-ns}checkbox--readonly {
+    background-color: map-get($options, readonly-bg-color);
+    border-color: map-get($options, readonly-border-color);
+
+    &::before {
+      border-color: map-get($options, readonly-color);
+    }
+
+    &:hover {
+      border-color: map-get($options, readonly-border-color);
+      color: map-get($options, readonly-color);
+      background-color: map-get($options, readonly-bg-color);
+
+      &:before {
+        border-color: map-get($options, readonly-color);
+      }
+    }
+
+    &:focus {
+      background-color: map-get($options, readonly-focus-bg-color);
+      border-color: map-get($options, readonly-focus-border-color);
+
+      &::before {
+        border-color: map-get($options, readonly-focus-color);
+      }
+    }
+  }
+}
+
+$mri-checkbox-light: (
+  border-color: $mri-dark-line-color-muted,
+  border-style: solid,
+  color: $mri-dark-text-color,
+  bg-color: $mri-background-color-white,
+  hover-border-color: $mri-dark-line-color,
+  hover-color: $mri-dark-text-color,
+  hover-bg-color: $mri-background-color-white,
+  focus-border-color: $mri-dark-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-dark-text-color,
+  focus-bg-color: $mri-background-color-white,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: $mri-dark-line-color-muted,
+  disabled-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-background-color-lighter,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-dark-line-color-muted,
+  readonly-border-style: solid,
+  readonly-color: $mri-dark-text-color,
+  readonly-bg-color: $mri-background-color-lightest,
+  readonly-focus-border-color: $mri-dark-line-color-muted,
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-dark-text-color,
+  readonly-focus-bg-color: $mri-background-color-lightest,
+  label-text-color: $mri-dark-text-color
+) !default;
+
+@include component-checkbox-color-variant($mri-checkbox-light, null);
+
+$mri-checkbox-dark: (
+  border-color: $mri-light-line-color-muted,
+  border-style: solid,
+  color: $mri-light-text-color,
+  bg-color: $mri-background-color-dark,
+  font-weight: inherit,
+  hover-border-color: $mri-light-line-color,
+  hover-color: $mri-light-text-color,
+  hover-bg-color: $mri-background-color-dark,
+  focus-border-color: $mri-light-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-light-text-color,
+  focus-bg-color: $mri-background-color-dark,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: $mri-light-line-color-muted,
+  disabled-color: $mri-light-text-color,
+  disabled-bg-color: $mri-background-color-darker,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-light-line-color-muted,
+  readonly-border-style: solid,
+  readonly-color: $mri-light-text-color,
+  readonly-bg-color: $mri-background-color-darker,
+  readonly-focus-border-color: $mri-light-line-color-muted,
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-light-text-color,
+  readonly-focus-bg-color: $mri-background-color-darker,
+  label-text-color: $mri-light-text-color
+) !default;
+
+@include component-checkbox-color-variant($mri-checkbox-dark, "dark");

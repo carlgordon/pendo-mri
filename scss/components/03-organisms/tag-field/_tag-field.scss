@@ -1,0 +1,102 @@
+.#{$mri-ns}tag-field {
+  display: grid;
+  grid-template-columns:
+    mri-spacing(small) auto 1fr auto auto mri-spacing(small);
+  grid-template-rows:
+    mri-spacing(small) auto mri-spacing(small);
+  min-width: 0;
+
+  &:not([aria-disabled="true"]) {
+    cursor: text;
+  }
+}
+
+.#{$mri-ns}tag-field__background {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  grid-row-start: 1;
+  grid-row-end: -1;
+  cursor: text;
+  background-color: $mri-background-color-white;
+  border: 1px solid $mri-dark-line-color-muted;
+  border-radius: $mri-border-radius-fields;
+
+  .#{$mri-ns}tag-field__input:focus + & {
+    border-color: $mri-dark-interactive-color;
+    box-shadow: 0 0 2px transparentize($mri-dark-interactive-color, 0.5);
+    outline-offset: -2px;
+  }
+
+  .#{$mri-ns}tag-field__input:read-only + & {
+    background-color: $mri-background-color-light;
+  }
+}
+
+.#{$mri-ns}tag-field__input {
+  @extend %input-reset;
+
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 3;
+
+  background-color: $mri-transparent;
+  border: none;
+  outline: none;
+
+  font-size: $mri-font-size-base;
+  line-height: 1.5;
+
+  z-index: 1;
+  
+  min-width: 2rem;
+  width: auto;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.#{$mri-ns}tag-field__tag-list {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  align-self: center;
+  // overflow: hidden;
+  padding: mri-spacing(small);
+  flex-shrink: 1;
+  min-width: 0;
+  
+  z-index: 1;
+}
+
+.#{$mri-ns}tag-field__tag {
+  margin-right: mri-spacing(small);
+  box-shadow:
+    0 0 2px rgba(0, 0, 0, 0.25),
+    0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.#{$mri-ns}tag-field__validation-icon {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 4;
+    grid-column-end: 5;
+    align-self: center;
+    justify-self: right;
+    margin-right: mri-spacing(small);
+	
+    z-index: 1;
+}
+
+.#{$mri-ns}tag-field__button {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  align-self: center;
+  margin: mri-spacing(x-small);
+
+  z-index: 1;
+}

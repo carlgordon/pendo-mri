@@ -1,0 +1,15 @@
+%button-reset {
+  display: inline-block;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}

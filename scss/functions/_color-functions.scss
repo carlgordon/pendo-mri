@@ -1,0 +1,28 @@
+@function tint($mri-color, $mri-percentage) {
+  @return mix(white, $mri-color, $mri-percentage);
+}
+
+@function shade($mri-color, $mri-percentage) {
+  @return mix(black, $mri-color, $mri-percentage);
+}
+
+// Calculate brightness of a given color.
+// From https://codepen.io/bluesaunders/pen/FCLaz
+@function brightness($mri-color) {
+  @return ((red($mri-color) * .299) + (green($mri-color) * .587) + (blue($mri-color) * .114)) / 255 * 100%;
+}
+
+// Compares contrast of a given color to the light/dark arguments and returns whichever is most "contrasty"
+// Adapted from https://codepen.io/bluesaunders/pen/FCLaz
+@function contrast-color($mri-color, $mri-dark: #000, $mri-light: #FFF) {
+  @if $mri-color == null {
+    @return null;
+  }
+  @else {
+    $mri-color-brightness: brightness($mri-color);  
+    $mri-light-text-brightness: brightness($mri-light);
+    $mri-dark-text-brightness: brightness($mri-dark);
+    
+    @return if(abs($mri-color-brightness - $mri-light-text-brightness) > abs($mri-color-brightness - $mri-dark-text-brightness), $mri-light, $mri-dark);  
+  }
+}

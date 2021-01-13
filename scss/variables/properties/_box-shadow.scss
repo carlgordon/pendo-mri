@@ -1,0 +1,24 @@
+$mri-shadows: (
+  x-small:
+    #{0 0    1px   rgba(0, 0, 0, 0.5),
+     0 1px  2px   rgba(0, 0, 0, 0.5)},
+  small:
+    #{0 0    1px   rgba(0, 0, 0, 0.4),
+     0 2px  4px   rgba(0, 0, 0, 0.4)},
+  medium:
+    #{0 0    2px   rgba(0, 0, 0, 0.35),
+     0 4px  8px   rgba(0, 0, 0, 0.35)},
+  large:
+    #{0 0    4px   rgba(0, 0, 0, 0.3),
+     0 8px  16px  rgba(0, 0, 0, 0.3)},
+  x-large:
+    #{0 0    8px   rgba(0, 0, 0, 0.25),
+     0 16px 32px  rgba(0, 0, 0, 0.25)},
+  2x-large:
+    #{0 0    16px  rgba(0, 0, 0, 0.2),
+     0 24px 48px  rgba(0, 0, 0, 0.2)},
+) !default;
+
+@function mri-shadow($size: medium) {
+  @return map-get($mri-shadows, $size);
+}

@@ -1,0 +1,58 @@
+// Difference function
+@function diff($mri-a, $mri-b) {
+  $mri-r: $mri-a - $mri-b;
+
+  @if($mri-r < 0) {$mri-r: -$mri-r}
+
+  @return $mri-r;
+}
+
+// Square root function
+// http://www.antimath.info/css/sass-sqrt-function/
+
+@function sqrt($v) {
+  $x0: 1;
+  $x1: $x0;
+
+  $vu: 1;
+
+  @if not unitless($v) {
+    $vu: ($v * 0 + 1);
+    $v: strip-unit($v);
+  }
+ 
+  @for $i from 1 through 10 {
+    $x1: $x0 - ($x0 * $x0 - abs($v)) / (2 * $x0);
+    $x0: $x1;
+  }
+
+  $x1: $x1 * $vu;
+ 
+  @return $x1;
+}
+
+// Power function
+
+@function pow($mri-b, $mri-e) {
+  $mri-bu: 1;
+  $mri-r: 1;
+
+  @if not unitless($mri-b) {
+    $mri-bu: ($mri-b * 0 + 1);
+    $mri-b: strip-unit($mri-b);
+  }
+
+  @if $mri-e > 0 {
+    @for $mri-i from 1 through $mri-e {
+      $mri-r: $mri-r * $mri-b;
+    }
+  } @else if $mri-e < 0 {
+    @for $mri-i from 1 through -$mri-e {
+      $mri-r: $mri-r / $mri-b;
+    }
+  }
+
+  $mri-r: $mri-r * $mri-bu;
+
+  @return $mri-r;
+}

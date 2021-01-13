@@ -1,0 +1,504 @@
+.#{$mri-ns}tab-bar {
+  display: flex;
+  flex-flow: row nowrap;
+  border-width: 0;
+  min-width: auto;
+}
+
+.#{$mri-ns}tab-bar__tab {
+  @extend %link-reset;
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  align-items: center;
+  flex-shrink: 1;
+  overflow: hidden;
+  border-style: solid;
+  cursor: pointer;
+  
+  transition:
+    background-color $mri-transition-base,
+    color $mri-transition-base,
+    border $mri-transition-base;
+}
+
+.#{$mri-ns}tab-bar__tab.#{$mri-ns}is-disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.#{$mri-ns}tab-bar__tab.#{$mri-ns}is-active {
+  cursor: default;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}tab-bar__tab-label {
+  flex-shrink: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.#{$mri-ns}tab-bar__tab-icon {
+  flex-shrink: 0;
+  flex-basis: auto;
+  pointer-events: none;
+}
+
+.#{$mri-ns}tab-bar__tab .#{$mri-ns}counter {
+  pointer-events: none;
+}
+
+.#{$mri-ns}tab-bar__tab-button {
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.#{$mri-ns}tab__bar-body {
+  background-color: white;
+  animation: fade-in-down $mri-transition-base;
+  display: none;
+}
+
+.#{$mri-ns}tab__bar.#{$mri-ns}is-closed > .#{$mri-ns}tab__bar-body {
+  animation: fade-out-up $mri-transition-base;
+  height: 0;
+  overflow: hidden;
+  display: none;
+}
+
+// Size variants
+
+@mixin component-tab-bar-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tab-bar--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}tab-bar#{$modifier} {
+    padding-top: map-get($options, padding-top);
+    padding-bottom: map-get($options, padding-bottom);
+    padding-left: map-get($options, padding-horizontal);
+    padding-right: map-get($options, padding-horizontal);
+    border-bottom-width: map-get($options, border-bottom-width);
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    text-transform: map-get($options, text-transform);
+    letter-spacing: map-get($options, letter-spacing);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab {
+    padding: map-get($options, tab-padding-vertical) map-get($options, tab-padding-horizontal);
+    border-width: map-get($options, tab-border-width);
+    margin-right: map-get($options, tab-spacing);
+    margin-bottom: map-get($options, tab-margin-bottom);
+    border-radius:
+      map-get($options, tab-border-radius-top)
+      map-get($options, tab-border-radius-top)
+      map-get($options, tab-border-radius-bottom)
+      map-get($options, tab-border-radius-bottom);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab.#{$mri-ns}is-active, #{$parent-class}.#{$mri-ns}tab-bar__tab:hover {
+    margin-bottom: map-get($options, active-tab-margin-bottom);
+    padding-bottom: calc(#{map-get($options, tab-padding-vertical)} + #{map-get($options, active-tab-margin-bottom) * -1})
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab-label {
+    min-width: map-get($options, tab-label-min-width);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab-button {
+    margin-left: map-get($options, tab-button-margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}counter {
+    margin: map-get($options, tab-counter-margin);
+    position: relative;
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab-icon {
+    width: map-get($options, tab-icon-size);
+    height: map-get($options, tab-icon-size);
+    margin-right: map-get($options, tab-icon-margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab-required {
+    margin-left: map-get($options, tab-icon-margin);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab-pip {
+    width: map-get($options, tab-pip-size);
+    height: map-get($options, tab-pip-size);
+    margin-left: map-get($options, tab-icon-margin);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab__bar-icons {
+    line-height: 14px;
+    padding-top: 1px;
+    white-space: nowrap;
+  }
+
+  #{$parent-class}.#{$mri-ns}tab__bar-icon {
+    margin-right: map-get($options, icon-margin);
+    vertical-align: initial;
+  }
+
+  #{$parent-class}.#{$mri-ns}tab__bar-caret {
+    display: none;
+  }
+
+  #{$parent-class}.#{$mri-ns}counter {
+    font-size: map-get($options, tab-counter-font-size);
+  }
+
+}
+
+$mri-tab-bar-default-size: (
+  font-size: $mri-font-size-base,
+  line-height: 1.5,
+  text-transform: none,
+  letter-spacing: 0,
+  padding-top: mri-spacing(x-small),
+  padding-bottom: 0,
+  padding-horizontal: $mri-spacing-horizontal-margin-width - mri-spacing(medium),
+  border-bottom-width: 1px,
+  tab-spacing: mri-spacing(x-small),
+  tab-padding-vertical: mri-spacing(small),
+  tab-padding-horizontal: mri-spacing(medium),
+  tab-margin-bottom: 0,
+  tab-border-width: 1px 1px 0 1px,
+  tab-border-radius-top: mri-border-radius(small),
+  tab-border-radius-bottom: 0,
+  tab-label-min-width: 4ch,
+  tab-button-margin: mri-spacing(small),
+  tab-icon-size: 14px,
+  tab-counter-font-size: $mri-font-size-small,
+  tab-pip-size: 8px,
+  tab-icon-margin: mri-spacing(small),
+  tab-counter-margin: 0 0 0 mri-spacing(small),
+  active-tab-margin-bottom: -1px
+) !default;
+
+@include component-tab-bar-size-variant($mri-tab-bar-default-size, null);
+
+$mri-tab-bar-small: (
+  font-size: $mri-font-size-small,
+  line-height: 1.25,
+  text-transform: none,
+  letter-spacing: 0,
+  padding-top: mri-spacing(x-small),
+  padding-bottom: 0,
+  padding-horizontal: mri-spacing(small),
+  border-bottom-width: 1px,
+  tab-spacing: mri-spacing(2x-small),
+  tab-padding-vertical: mri-spacing(x-small),
+  tab-padding-horizontal: mri-spacing(small),
+  tab-margin-bottom: 0,
+  tab-border-width: 1px 1px 0 1px,
+  tab-border-radius-top: mri-border-radius(small),
+  tab-border-radius-bottom: 0,
+  tab-label-min-width: 4ch,
+  tab-button-margin: mri-spacing(small),
+  tab-icon-size: 12px,
+  tab-counter-font-size: $mri-font-size-x-small,
+  tab-pip-size: 8px,
+  tab-icon-margin: mri-spacing(small),
+  tab-counter-margin: 0 0 0 mri-spacing(small),
+  active-tab-margin-bottom: -1px
+) !default;
+
+@include component-tab-bar-size-variant($mri-tab-bar-small, "small");
+
+$mri-tab-bar-secondary-default-size: (
+  font-size: $mri-font-size-base,
+  line-height: 1.5,
+  text-transform: none,
+  letter-spacing: 0,
+  padding-top: 0,
+  padding-bottom: 0,
+  padding-horizontal: mri-spacing(medium),
+  border-bottom-width: 1px,
+  tab-spacing: mri-spacing(x-small),
+  tab-padding-vertical: mri-spacing(x-small),
+  tab-padding-horizontal: mri-spacing(small),
+  tab-margin-bottom: 0,
+  tab-border-width: 0 0 2px 0,
+  tab-border-radius-top: 0,
+  tab-border-radius-bottom: 0,
+  tab-label-min-width: 4ch,
+  tab-button-margin: mri-spacing(small),
+  tab-icon-size: 14px,
+  tab-counter-font-size: $mri-font-size-small,
+  tab-pip-size: 8px,
+  tab-icon-margin: mri-spacing(small),
+  tab-counter-margin: 0 0 0 mri-spacing(small),
+  active-tab-margin-bottom: 0
+) !default;
+
+@include component-tab-bar-size-variant($mri-tab-bar-secondary-default-size, "secondary");
+
+$mri-tab-bar-secondary-small-size: (
+  font-size: $mri-font-size-small,
+  line-height: 1.25,
+  text-transform: none,
+  letter-spacing: 0,
+  padding-top: 0,
+  padding-bottom: 0,
+  padding-horizontal: mri-spacing(small),
+  border-bottom-width: 1px,
+  tab-spacing: mri-spacing(2x-small),
+  tab-padding-vertical: mri-spacing(x-small),
+  tab-padding-horizontal: mri-spacing(small),
+  tab-margin-bottom: 0,
+  tab-border-width: 0 0 2px 0,
+  tab-border-radius-top: 0,
+  tab-border-radius-bottom: 0,
+  tab-label-min-width: 4ch,
+  tab-button-margin: mri-spacing(small),
+  tab-icon-size: 12px,
+  tab-counter-font-size: $mri-font-size-x-small,
+  tab-pip-size: 8px,
+  tab-icon-margin: mri-spacing(small),
+  tab-counter-margin: 0 0 0 mri-spacing(small),
+  active-tab-margin-bottom: 0
+) !default;
+
+@include component-tab-bar-size-variant($mri-tab-bar-secondary-small-size, "secondary-small");
+
+
+// Color variants
+
+@mixin component-tab-bar-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tab-bar--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}tab-bar#{$modifier} {
+    background-color: map-get($options, bg-color);
+    border-bottom-color: map-get($options, border-bottom-color);
+    border-style: map-get($options, border-style);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab {
+    background-color: map-get($options, tab-bg-color);
+    color: map-get($options, tab-color);
+    border-color: map-get($options, tab-border-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab:hover {
+    background-color: map-get($options, tab-hover-bg-color);
+    color: map-get($options, tab-color);
+    border-color: map-get($options, tab-hover-border-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab:focus {
+    box-shadow: 0 0 map-get($options, tab-focus-ring-blur) map-get($options, tab-focus-ring-offset) map-get($options, tab-focus-ring-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab.#{$mri-ns}is-active, #{$parent-class}.#{$mri-ns}tab-bar__tab:active {
+    background-color: map-get($options, tab-active-bg-color);
+    border-color: map-get($options, tab-active-border-color);
+    color: map-get($options, tab-color);
+    box-shadow: none;
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab.#{$mri-ns}is-disabled {
+    opacity: map-get($options, tab-disabled-opacity);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}tab-bar__tab-icon {
+    color: inherit;
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}tab-bar__tab-label {
+    color: inherit;
+  }
+  
+  #{$parent-class} .#{$mri-ns}tab-bar__tab-button {
+    color: inherit;
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}icon--critical {
+    color: map-get($options, pip-critical-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}icon--warning {
+    color: map-get($options, pip-warning-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}icon--success {
+    color: map-get($options, pip-success-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}counter {
+    color: map-get($options, counter-color);
+    background-color: map-get($options, counter-bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}counter--critical {
+    color: map-get($options, counter-critical-color);
+    background-color: map-get($options, counter-critical-bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}counter--warning {
+    color: map-get($options, counter-warning-color);
+    background-color: map-get($options, counter-warning-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-bar__tab .#{$mri-ns}counter--success  {
+    color: map-get($options, counter-success-color);
+    background-color: map-get($options, counter-success-bg-color);
+  }
+}
+
+$mri-tab-bar-light-default: (
+  bg-color: $mri-transparent,
+  color: $mri-dark-text-color,
+  border-style: solid,
+  border-bottom-color: $mri-transparent,
+  tab-bg-color: $mri-transparent,
+  tab-color: $mri-dark-text-color,
+  tab-border-color: $mri-transparent,
+  tab-hover-bg-color: $mri-background-color-darker-transparent,
+  tab-hover-color: $mri-dark-text-color,
+  tab-hover-border-color: $mri-transparent,
+  tab-active-bg-color: $mri-background-color-white,
+  tab-active-color: $mri-dark-text-color,
+  tab-active-border-color: $mri-transparent,
+  tab-disabled-bg-color: $mri-transparent,
+  tab-disabled-color: $mri-dark-text-color-muted,
+  tab-disabled-border-color: $mri-transparent,
+  tab-disabled-opacity: $mri-disabled-opacity,
+  tab-icon-color: $mri-dark-text-color,
+  tab-active-icon-color: $mri-dark-interactive-color,
+  tab-focus-ring-blur: 0,
+  tab-focus-ring-offset: 2px,
+  tab-focus-ring-color: mri-blue(40),
+  pip-critical-color: $mri-dark-icon-color-critical,
+  pip-warning-color: #C23E04,
+  pip-success-color: $mri-dark-icon-color-success,
+  counter-bg-color: $mri-light-icon-color,
+  counter-color: $mri-dark-text-color,
+  counter-critical-bg-color: $mri-light-background-color-critical,
+  counter-critical-color: $mri-dark-text-color-critical,
+  counter-warning-bg-color: $mri-light-background-color-warning,
+  counter-warning-color: $mri-dark-text-color-warning,
+  counter-success-bg-color: $mri-light-background-color-success,
+  counter-success-color: $mri-dark-text-color-success,
+  ) !default;
+
+@include component-tab-bar-color-variant($mri-tab-bar-light-default, null);
+
+$mri-tab-bar-light-secondary: (
+  bg-color: $mri-transparent,
+  color: $mri-dark-text-color,
+  border-style: solid,
+  border-bottom-color: $mri-dark-line-color-faint,
+  tab-bg-color: $mri-transparent,
+  tab-color: $mri-dark-text-color,
+  tab-border-color: $mri-transparent,
+  tab-hover-bg-color: $mri-transparent,
+  tab-hover-color: $mri-dark-text-color,
+  tab-hover-border-color: $mri-dark-line-color-faint,
+  tab-active-bg-color: $mri-background-color-white,
+  tab-active-color: $mri-dark-text-color,
+  tab-active-border-color: $mri-dark-interactive-color,
+  tab-disabled-bg-color: $mri-transparent,
+  tab-disabled-color: $mri-dark-text-color-muted,
+  tab-disabled-border-color: $mri-transparent,
+  tab-disabled-opacity: $mri-disabled-opacity,
+  tab-icon-color: $mri-dark-text-color-muted,
+  tab-active-icon-color: $mri-dark-interactive-color,
+  tab-focus-ring-blur: 0,
+  tab-focus-ring-offset: 2px,
+  tab-focus-ring-color: mri-blue(40),
+  pip-critical-color: $mri-dark-icon-color-critical,
+  pip-warning-color: $mri-dark-icon-color-warning,
+  pip-success-color: $mri-dark-icon-color-success,
+  counter-bg-color: $mri-light-icon-color,
+  counter-color: $mri-dark-text-color,
+  counter-critical-bg-color: $mri-light-background-color-critical,
+  counter-critical-color: $mri-dark-text-color-critical,
+  counter-warning-bg-color: $mri-light-background-color-warning,
+  counter-warning-color: $mri-dark-text-color-warning,
+  counter-success-bg-color: $mri-light-background-color-success,
+  counter-success-color: $mri-dark-text-color-success,
+) !default;
+
+@include component-tab-bar-color-variant($mri-tab-bar-light-secondary, "secondary");
+
+$mri-tab-bar-dark: (
+  bg-color: $mri-transparent,
+  color: $mri-light-text-color,
+  border-style: solid,
+  border-bottom-color: $mri-transparent,
+  tab-bg-color: $mri-transparent,
+  tab-color: $mri-light-text-color,
+  tab-border-color: $mri-transparent,
+  tab-hover-bg-color: $mri-background-color-darkest-transparent,
+  tab-hover-color: $mri-light-text-color,
+  tab-hover-border-color: $mri-transparent,
+  tab-active-bg-color: $mri-background-color-darkest,
+  tab-active-color: $mri-light-text-color,
+  tab-active-border-color: $mri-transparent,
+  tab-disabled-bg-color: $mri-transparent,
+  tab-disabled-color: $mri-light-text-color-muted,
+  tab-disabled-border-color: $mri-transparent,
+  tab-disabled-opacity: $mri-disabled-opacity,
+  tab-icon-color: $mri-light-text-color-muted,
+  tab-active-icon-color: $mri-light-interactive-color,
+  tab-focus-ring-blur: 0,
+  tab-focus-ring-offset: 2px,
+  tab-focus-ring-color: mri-blue(40),
+  pip-critical-color: $mri-light-icon-color-critical,
+  pip-warning-color: $mri-light-icon-color-warning,
+  pip-success-color: $mri-light-icon-color-success,
+  counter-bg-color: $mri-background-color-darkest,
+  counter-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-background-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-background-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-background-color-success,
+  counter-success-color: $mri-light-text-color,
+) !default;
+
+@include component-tab-bar-color-variant($mri-tab-bar-dark, "dark");
+
+$mri-tab-bar-dark-secondary: (
+  bg-color: $mri-transparent,
+  color: $mri-light-text-color,
+  border-style: solid,
+  border-bottom-color: $mri-light-line-color-muted,
+  tab-bg-color: $mri-transparent,
+  tab-color: $mri-light-text-color,
+  tab-border-color: $mri-transparent,
+  tab-hover-bg-color: $mri-transparent,
+  tab-hover-color: $mri-light-text-color,
+  tab-hover-border-color: $mri-light-line-color-muted,
+  tab-active-bg-color: $mri-transparent,
+  tab-active-color: $mri-light-text-color,
+  tab-active-border-color: $mri-light-interactive-color,
+  tab-disabled-bg-color: $mri-transparent,
+  tab-disabled-color: $mri-light-text-color,
+  tab-disabled-border-color: $mri-transparent,
+  tab-disabled-opacity: $mri-disabled-opacity,
+  tab-icon-color: $mri-light-text-color,
+  tab-active-icon-color: $mri-light-interactive-color,
+  tab-focus-ring-blur: 0,
+  tab-focus-ring-offset: 2px,
+  tab-focus-ring-color: mri-blue(40),
+  pip-critical-color: $mri-light-icon-color-critical,
+  pip-warning-color: $mri-light-icon-color-warning,
+  pip-success-color: $mri-light-icon-color-success,
+  counter-bg-color: $mri-dark-icon-color,
+  counter-color: $mri-light-text-color,
+  counter-critical-bg-color: $mri-dark-background-color-critical,
+  counter-critical-color: $mri-light-text-color,
+  counter-warning-bg-color: $mri-dark-background-color-warning,
+  counter-warning-color: $mri-light-text-color,
+  counter-success-bg-color: $mri-dark-background-color-success,
+  counter-success-color: $mri-light-text-color,
+) !default;
+
+@include component-tab-bar-color-variant($mri-tab-bar-dark-secondary, "dark-secondary");

@@ -1,0 +1,448 @@
+.#{$mri-ns}table__container {
+  display: flex;
+  flex-flow: column nowrap;
+  // overflow: auto;
+  flex-grow: 1;
+  // flex-shrink: 1;
+  overflow: auto;
+}
+
+.#{$mri-ns}table__container--size {
+  min-height: $mri-table-min-height;
+}
+
+.#{$mri-ns}table {
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 1;
+  flex-shrink: 0;
+
+  position: relative;
+  text-align: left; // default
+  border-collapse: collapse;
+  min-width: min-content;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.#{$mri-ns}table__header, .#{$mri-ns}table__body, .#{$mri-ns}table__footer {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.#{$mri-ns}table__header--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.#{$mri-ns}table__footer--sticky {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.#{$mri-ns}table__row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  width: 100%;
+}
+
+// .#{$mri-ns}table__row--sticky .#{$mri-ns}table__cell {
+//   position: sticky;
+//   top: 0;
+//   z-index: 10;
+// }
+
+.#{$mri-ns}table__row--sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.#{$mri-ns}table__cell {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  // justify-content: flex-start;
+  text-align: left; // Default
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 200px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}table__column-header, .#{$mri-ns}table__column-footer {
+  user-select: none;
+}
+
+.#{$mri-ns}table__column-header--clickable {
+  cursor: pointer;
+  transition:
+    color $mri-transition-base,
+    background-color $mri-transition-base;
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px mri-blue(40);
+  }
+}
+
+.#{$mri-ns}table__column-control-row,
+.#{$mri-ns}table__column-control {
+  font-weight: normal;
+}
+
+.#{$mri-ns}table__column-resize-handle {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 10px;
+  border-right: 1px solid $mri-dark-line-color-muted;
+  top: 0;
+  right: 0;
+  cursor: col-resize;
+  transition:
+    border-color $mri-transition-base,
+    background-color $mri-transition-base;
+
+  &:hover {
+    border-right: .5em solid $mri-dark-interactive-color;
+  }
+}
+
+.#{$mri-ns}table__footer {
+  margin-top: auto;
+}
+
+.#{$mri-ns}table__column-footer {
+  display: grid;
+  grid-template-areas:
+    "value button"
+    "label button";
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+}
+
+.#{$mri-ns}table__column-total-label {
+  grid-area: label;
+}
+
+.#{$mri-ns}table__column-total {
+  grid-area: value;
+  // justify-self: left;
+  font-weight: bold;
+}
+
+.#{$mri-ns}table__column-total-dropdown {
+  grid-area: button;
+  align-self: center;
+  justify-self: center;
+  margin-left: mri-spacing(small);
+}
+
+.#{$mri-ns}table__body-row {
+  border-style: solid;
+}
+
+.#{$mri-ns}table__new-row {
+  border-style: solid;
+}
+
+.#{$mri-ns}table__input {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+// .#{$mri-ns}table__new-row .#{$mri-ns}table__cell {
+//   position: sticky;
+//   bottom: 0;
+// }
+
+.#{$mri-ns}table__data,
+.#{$mri-ns}table__column-title,
+.#{$mri-ns}table__row-title {
+  display: block;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.#{$mri-ns}table__column-header-icon {
+  flex-shrink: 0;
+}
+
+@each $mri-horizontal-alignment in center, left, right {
+  .#{$mri-ns}table__cell--align-#{$mri-horizontal-alignment} {
+    text-align: $mri-horizontal-alignment;
+  }
+}
+
+@each $mri-vertical-alignment in top, middle, bottom {
+  .#{$mri-ns}table__cell--align-#{$mri-vertical-alignment} {
+    vertical-align: $mri-vertical-alignment;
+  }
+}
+
+@each $mri-name, $mri-size in $mri-table-column-sizes {
+  .#{$mri-ns}table__cell--#{$mri-name} {
+    min-width: $mri-size; // For IE/Edge
+    width: $mri-size;
+    flex-basis: $mri-size;
+    flex-grow: 1;
+  }
+}
+
+.#{$mri-ns}table__cell--no-grow {
+  flex-grow: 0;
+}
+
+.#{$mri-ns}table__cell--editable {
+  padding: 0 !important;
+}
+
+// Size variants
+
+@mixin component-table-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}table--" + $variant-name + " ", "");
+  
+  .#{$mri-ns}table {
+    width: map-get($options, width);
+    font-size: map-get($options, font-size);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__cell {
+    padding: map-get($options, cell-padding-vertical) map-get($options, cell-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__cell:first-child {
+    padding-left: map-get($options, outer-cell-padding);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__cell:last-child {
+    padding-right: map-get($options, outer-cell-padding);
+  }
+  
+  #{$parent-class + ".#{$mri-ns}table--small-margin"}.#{$mri-ns}table__cell:first-child {
+    padding-left: map-get($options, outer-cell-padding-small);
+  }
+  
+  #{$parent-class + ".#{$mri-ns}table--small-margin"}.#{$mri-ns}table__cell:last-child {
+    padding-right: map-get($options, outer-cell-padding-small);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__data {
+    padding: map-get($options, data-padding-vertical) map-get($options, data-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__row-title {
+    padding: map-get($options, row-title-padding-vertical) map-get($options, row-title-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__column-title {
+    padding: map-get($options, column-title-padding-vertical) map-get($options, column-title-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__column-header-icon {
+    margin: map-get($options, column-header-icon-margin-vertical) map-get($options, column-header-icon-margin-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__column-header {
+    padding: map-get($options, column-header-padding-vertical) map-get($options, column-header-padding-horizontal);
+  }
+
+  #{$parent-class}.#{$mri-ns}table__column-total-label {
+    font-size: map-get($options, column-total-label-font-size);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__body-row {
+    border-width: map-get($options, body-row-border-width);
+  }
+
+  #{$parent-class}.#{$mri-ns}table__new-row {
+    border-width: map-get($options, body-row-border-width);
+  }
+}
+
+$mri-table-default-size: (
+  width: 100%,
+  font-size: $mri-font-size-base,
+  cell-padding-vertical: mri-spacing(small),
+  cell-padding-horizontal: mri-spacing(small),
+  column-header-padding-vertical: mri-spacing(small),
+  column-header-padding-horizontal: mri-spacing(small),
+  outer-cell-padding: mri-spacing(small)*3,
+  outer-cell-padding-small: mri-spacing(small),
+  data-padding-vertical: 0,
+  data-padding-horizontal: 0,
+  row-title-padding-vertical: 0,
+  row-title-padding-horizontal: 0,
+  column-title-padding-vertical: 0,
+  column-title-padding-horizontal: 0,
+  column-header-icon-margin-vertical: 0,
+  column-header-icon-margin-horizontal: mri-spacing(small),
+  column-total-label-font-size: $mri-font-size-x-small,
+  body-row-border-width: 0 0 1px 0,
+) !default;
+
+@include component-table-size-variant($mri-table-default-size, null);
+
+// Color variants
+
+@mixin component-table-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}table--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}table {
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__cell {
+    color: map-get($options, cell-color);
+    background-color: map-get($options, cell-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__header {
+    color: map-get($options, header-color);
+    background-color: map-get($options, header-bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}table__column-header,
+  #{$parent-class}.#{$mri-ns}table__column-header-row {
+    color: map-get($options, header-cell-color);
+    background-color: map-get($options, header-cell-bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}table__column-control,
+  #{$parent-class}.#{$mri-ns}table__column-control-row {
+    color: map-get($options, control-cell-color);
+    background-color: map-get($options, control-cell-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__footer,
+  #{$parent-class}.#{$mri-ns}table__footer .#{$mri-ns}table__cell {
+    color: map-get($options, footer-color);
+    background-color: map-get($options, footer-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__body-row {
+    &,
+    & .#{$mri-ns}table__cell {
+      background-color: map-get($options, body-row-bg-color);
+      border-color: map-get($options, body-row-border-color);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}table__new-row {
+    &,
+    & .#{$mri-ns}table__cell {
+      background-color: map-get($options, body-row-bg-color);
+      border-color: map-get($options, body-row-border-color);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__row-header {
+    font-weight: map-get($options, row-header-font-weight);
+  }
+  
+  #{$parent-class}.#{$mri-ns}table__new-row .#{$mri-ns}table__cell {
+    color: map-get($options, new-row-color);
+    background-color: map-get($options, new-row-bg-color);
+    opacity: map-get($options, new-row-opacity);
+  }
+    
+  #{$parent-class}.#{$mri-ns}table__new-row.has-focus .#{$mri-ns}table__cell {
+    opacity: map-get($options, new-row-focus-opacity);
+  }
+    
+  #{$parent-class}.#{$mri-ns}table__drilldown-row:hover {
+    color: map-get($options, drilldown-row-hover-color);
+    background-color: map-get($options, drilldown-row-hover-bg-color);
+    cursor: pointer;
+  }
+
+  #{$parent-class}.#{$mri-ns}table__drilldown-row:hover .#{$mri-ns}table__cell {
+    background-color: $mri-transparent;
+  }
+    
+  #{$parent-class}.#{$mri-ns}table__drilldown-row:active {
+    color: map-get($options, drilldown-row-active-color);
+    background-color: map-get($options, drilldown-row-active-bg-color);
+    cursor: pointer;
+  }
+
+  #{$parent-class}.#{$mri-ns}table__drilldown-row:active .#{$mri-ns}table__cell {
+    background-color: $mri-transparent;
+  }
+
+  #{$parent-class}.#{$mri-ns}table__drilldown-row:focus {
+    box-shadow: 0 0 0 map-get($options, drilldown-row-focus-ring-offset) map-get($options, drilldown-row-focus-ring-color) map-get($options, drilldown-row-focus-ring-inset);
+    background-color: map-get($options, drilldown-row-focus-bg-color);
+  }
+
+  #{$parent-class}.#{$mri-ns}table__drilldown-row:focus .#{$mri-ns}table__cell {
+    background-color: $mri-transparent;
+  }
+
+  #{$parent-class}.#{$mri-ns}table__column-header--clickable {
+    &:hover {
+      background-color: map-get($options, column-header-clickable-hover-bg-color);
+      color: map-get($options, column-header-clickable-hover-color);
+    }
+  }
+
+  #{$parent-class}.#{$mri-ns}table__row.#{$mri-ns}is-selected {
+    &,
+    & .#{$mri-ns}table__cell {
+      background-color: map-get($options, row-selected-bg-color);
+      color: map-get($options, row-selected-color);
+    }
+
+    .#{$mri-ns}table__link {
+      color: map-get($options, row-selected-link-color);
+    }
+  }
+}
+
+$mri-table-dark-default: (
+  color: $mri-dark-text-color,
+  cell-color: inherit,
+  cell-bg-color: inherit,
+  header-bg-color: $mri-background-color-lighter,
+  header-cell-bg-color: $mri-background-color-lighter,
+  control-bg-color: $mri-background-color-light,
+  control-cell-bg-color: $mri-background-color-light,
+  footer-bg-color: $mri-background-color-lighter,
+  footer-cell-bg-color: $mri-background-color-lighter,
+  column-header-clickable-hover-bg-color: mri-gray(20),
+  column-header-clickable-hover-color: $mri-dark-text-color,
+  body-row-border-color: $mri-dark-line-color-faint,
+  body-row-bg-color: $mri-background-color-white,
+  row-header-font-weight: bold,
+  new-row-bg-color: $mri-background-color-white,
+  new-row-opacity: 1,
+  drilldown-row-hover-bg-color: $mri-light-hover-color-transparent,
+  drilldown-row-hover-opacity: 1,
+  drilldown-row-active-bg-color: $mri-light-active-color-transparent,
+  drilldown-row-active-opacity: 1,
+  drilldown-row-focus-bg-color: null,
+  drilldown-row-focus-ring-color: mri-blue(40),
+  drilldown-row-focus-ring-offset: 2px,
+  drilldown-row-focus-ring-inset: inset,
+  row-selected-bg-color: mri-blue(70),
+  row-selected-color: $mri-light-text-color,
+  row-selected-link-color: $mri-light-link-color,
+) !default;
+
+@include component-table-color-variant($mri-table-dark-default, null);

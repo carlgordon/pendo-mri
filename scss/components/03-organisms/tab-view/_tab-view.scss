@@ -1,0 +1,49 @@
+.#{$mri-ns}tab-view {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.#{$mri-ns}tab-view__tabs {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}tab-view__content {
+  flex-grow: 1;
+  flex-shrink: 1;
+  // overflow-y: auto;
+  min-height: 20em;
+}
+
+// Color variants
+
+@mixin component-tab-view-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tab-view--" + $variant-name + " ", null);
+  
+  #{$parent-class}.#{$mri-ns}tab-view__tabs {
+    background-color: map-get($options, tabs-bg-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tab-view__content {
+    background-color: map-get($options, content-bg-color);
+  }
+}
+
+$mri-tab-view-light-default: (
+  tabs-bg-color: $mri-background-color-light,
+  content-bg-color: $mri-background-color-white
+) !default;
+
+@include component-tab-view-color-variant($mri-tab-view-light-default, null);
+
+$mri-tab-view-dark: (
+  tabs-bg-color: $mri-background-color-darkest,
+  content-bg-color: $mri-background-color-dark
+) !default;
+
+@include component-tab-view-color-variant($mri-tab-view-dark, "dark");

@@ -1,0 +1,255 @@
+.#{$mri-ns}select {
+  @extend %select-reset;
+
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  transition: border $mri-transition-base, background-position $mri-transition-base;
+  cursor: pointer;
+
+  option {
+    font-family: inherit;
+    line-height: inherit;
+    transition: all $mri-transition-base;
+    cursor: pointer;
+
+    &:checked {
+      font-family: inherit;
+    }
+  }
+  
+  &:not([multiple]),
+  &:not([size]),
+  &[size="1"], &[size="0"] {
+    background-repeat: no-repeat;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $mri-dark-interactive-color;
+  }
+
+  &::-ms-select {
+    display: none;
+  }
+}
+
+// Size variants
+
+@mixin component-select-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}select--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}select#{$modifier} {
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    padding-top: map-get($options, padding-vertical);
+    padding-bottom: map-get($options, padding-vertical);
+    padding-left: map-get($options, padding-horizontal);
+    padding-right: calc(#{map-get($options, padding-horizontal)} + #{map-get($options, arrow-image-size)});
+  
+    &:not([multiple]),
+    &:not([size]),
+    &[size="1"], &[size="0"] {
+      background-position: right map-get($options, padding-horizontal) center;
+      background-size: map-get($options, arrow-image-size);
+    }
+  }
+}
+
+$mri-select-default-size: (
+  border-width: mri-spacing(hairline),
+  font-size: mri-font-size(medium),
+  line-height: mri-line-height(medium),
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: mri-spacing(small),
+  arrow-image-size: 1em,
+) !default;
+
+@include component-select-size-variant($mri-select-default-size, null);
+
+$mri-select-small: (
+  border-width: mri-spacing(hairline),
+  font-size: mri-font-size(small),
+  line-height: mri-line-height(small),
+  padding-vertical: mri-spacing(2x-small),
+  padding-horizontal: mri-spacing(x-small),
+  arrow-image-size: 1em,
+) !default;
+
+@include component-select-size-variant($mri-select-small, 'small');
+
+// Length variants
+
+@mixin component-select-length-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}select--" + $variant-name + " ", null);
+  
+  
+}
+
+// Color variants
+
+@mixin component-select-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}select--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}select#{$modifier} {
+    border-color: map-get($options, border-color);
+    border-style: map-get($options, border-style);
+    border-radius: map-get($options, border-radius);
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+    font-weight: map-get($options, font-weight);
+    
+    &:not([multiple]),
+    &:not([size]),
+    &[size="1"], &[size="0"] {
+      background-image: map-get($options, background-image-url);
+  
+      &:disabled, &.#{$mri-ns}is-disabled {
+        cursor: default;
+        background-image: map-get($options, background-image-disabled-url);
+      }
+    }
+    
+    &:hover {
+      border-color: map-get($options, hover-border-color);
+      color: map-get($options, hover-color);
+      background-color: map-get($options, hover-bg-color);
+    }
+    
+    &:focus {
+      border-color: map-get($options, focus-border-color);
+      border-style: map-get($options, focus-border-style);
+      color: map-get($options, focus-color);
+      background-color: map-get($options, focus-bg-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color) map-get($options, focus-ring-inset);
+    }
+    
+    &:disabled, &.#{$mri-ns}is-disabled {
+      border-color: map-get($options, disabled-border-color);
+      color: map-get($options, disabled-color);
+      background-color: map-get($options, disabled-bg-color);
+      opacity: map-get($options, disabled-opacity);
+    }
+
+    > option {
+      color: map-get($options, option-color);
+    }
+  }
+}
+
+$mri-select-light: (
+  border-color: $mri-dark-line-color-muted,
+  border-style: solid,
+  border-radius: $mri-border-radius-fields,
+  color: $mri-dark-text-color,
+  bg-color: $mri-background-color-white,
+  font-weight: inherit,
+  hover-border-color: $mri-dark-line-color-muted,
+  hover-color: $mri-dark-text-color,
+  hover-bg-color: $mri-background-color-white,
+  focus-border-color: $mri-dark-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-dark-text-color,
+  focus-bg-color: $mri-background-color-white,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: $mri-transparent,
+  disabled-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-background-color-lighter,
+  disabled-opacity: $mri-disabled-opacity,
+  background-image-url: $mri-select-arrow-url-dark,
+  background-image-disabled-url: $mri-select-arrow-url-dark,
+  option-color: $mri-dark-text-color,
+) !default;
+
+@include component-select-color-variant($mri-select-light, null);
+
+$mri-select-light-invisible: (
+  border-color: $mri-transparent,
+  border-style: solid,
+  border-radius: $mri-border-radius-fields,
+  color: $mri-dark-text-color,
+  bg-color: $mri-transparent,
+  hover-border-color: $mri-dark-line-color-muted,
+  hover-color: $mri-dark-text-color,
+  hover-bg-color: $mri-transparent,
+  focus-border-color: $mri-dark-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-dark-text-color,
+  focus-bg-color: $mri-transparent,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 1px,
+  focus-ring-inset: inset,
+  disabled-border-color: $mri-transparent,
+  disabled-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  background-image-url: $mri-select-arrow-url-dark,
+  background-image-disabled-url: $mri-select-arrow-url-dark,
+  option-color: $mri-dark-text-color,
+) !default;
+
+@include component-select-color-variant($mri-select-light-invisible, 'invisible');
+
+$mri-select-dark: (
+  border-color: $mri-light-line-color-muted,
+  border-style: solid,
+  border-radius: $mri-border-radius-fields,
+  color: $mri-light-text-color,
+  bg-color: $mri-background-color-dark,
+  font-weight: inherit,
+  hover-border-color: $mri-light-line-color-muted,
+  hover-color: $mri-light-text-color,
+  hover-bg-color: $mri-background-color-dark,
+  focus-border-color: $mri-light-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-light-text-color,
+  focus-bg-color: $mri-background-color-dark,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: mri-gray(50),
+  disabled-color: $mri-light-text-color,
+  disabled-bg-color: $mri-background-color-darker,
+  disabled-opacity: $mri-disabled-opacity,
+  background-image-url: $mri-select-arrow-url-light,
+  background-image-disabled-url: $mri-select-arrow-url-light,
+  option-color: $mri-light-text-color,
+) !default;
+
+@include component-select-color-variant($mri-select-dark, "dark");
+
+$mri-select-dark-invisible: (
+  border-color: $mri-transparent,
+  border-style: solid,
+  border-radius: $mri-border-radius-fields,
+  color: $mri-light-text-color,
+  bg-color: $mri-background-color-dark,
+  hover-border-color: $mri-light-line-color-muted,
+  hover-color: $mri-light-text-color,
+  hover-bg-color: $mri-background-color-dark,
+  focus-border-color: $mri-light-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-light-text-color,
+  focus-bg-color: $mri-background-color-dark,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 1px,
+  focus-ring-inset: inset,
+  disabled-border-color: $mri-transparent,
+  disabled-color: $mri-light-text-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  background-image-url: $mri-select-arrow-url-light,
+  background-image-disabled-url: $mri-select-arrow-url-light,
+  option-color: $mri-light-text-color,
+) !default;
+
+@include component-select-color-variant($mri-select-dark-invisible, 'dark-invisible');

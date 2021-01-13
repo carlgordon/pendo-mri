@@ -1,0 +1,409 @@
+// Block
+.#{$mri-ns}input {
+  @extend %input-reset;
+
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  text-align: inherit;
+  border-style: solid;
+  transition:
+    border $mri-transition-base,
+    color $mri-transition-base,
+    background-color $mri-transition-base
+    box-shadow $mri-transition-base;
+  box-shadow: 0 0 0 0 transparent;
+    
+  font-variant-numeric: tabular-nums;
+
+  -webkit-appearance: none;
+
+  &::-webkit-outer-spin-button, /* Removes arrows */
+  &::-webkit-inner-spin-button /* Removes arrows */
+  {  -webkit-appearance: none;
+    display: none;
+    margin: 0;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+}
+
+.#{$mri-ns}input[type="date"] {
+  @extend %input-reset;
+
+  &::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    height: 1em;
+    width: .6em;
+    border-color: $mri-transparent;
+    border-width: 0;
+    border-radius: 999px;
+    background-color: $mri-transparent;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 1em;
+    opacity: 1
+  }
+
+  &::-webkit-calendar-picker-indicator:hover {
+    background-color: $mri-light-hover-color-transparent;
+  }
+
+  &::-webkit-calendar-picker-indicator:focus {
+    background-color: $mri-light-active-color-transparent;
+  }
+
+  &::-webkit-clear-button {  
+    -webkit-appearance: none;
+    height: .9em;
+    width: 1.25em;
+    border-color: $mri-transparent;
+    border-width: 0;
+    border-radius: 999px;
+    background-color: $mri-transparent;
+    background-repeat: no-repeat;
+  }
+
+  &::-webkit-datetime-edit,
+  &::-webkit-datetime-edit-fields-wrapper,
+  &::-webkit-datetime-edit-text {
+    height: auto;
+    line-height: inherit;
+    padding: 0;
+    margin: 0;
+    border: none;
+  }
+}
+
+// Size variants
+
+@mixin component-input-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}input--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}input#{$modifier} {
+    border-width: map-get($options, border-width);
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    padding:
+      map-get($options, padding-vertical)
+      map-get($options, padding-horizontal);
+  }
+}
+
+$mri-input-default-size: (
+  border-width: mri-spacing(hairline),
+  font-size: mri-font-size(medium),
+  line-height: mri-line-height(medium),
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: mri-spacing(small)
+) !default;
+
+@include component-input-size-variant($mri-input-default-size, null);
+
+$mri-input-small: (
+  border-width: mri-spacing(hairline),
+  font-size: mri-font-size(small),
+  line-height: mri-line-height(small),
+  padding-vertical: mri-spacing(2x-small),
+  padding-horizontal: mri-spacing(x-small)
+) !default;
+
+@include component-input-size-variant($mri-input-small, 'small');
+
+// Length variants
+
+@mixin component-input-length-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}input--" + $variant-name + " ", null);
+}
+
+// Color variants
+
+@mixin component-input-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}input--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}input#{$modifier} {
+    border-color: map-get($options, border-color);
+    border-style: map-get($options, border-style);
+    border-radius: map-get($options, border-radius);
+    color: map-get($options, color);
+    background-color: map-get($options, bg-color);
+    font-weight: map-get($options, font-weight);
+    
+    &:hover {
+      border-color: map-get($options, hover-border-color);
+      color: map-get($options, hover-color);
+      background-color: map-get($options, hover-bg-color);
+    }
+    
+    &:focus {
+      border-color: map-get($options, focus-border-color);
+      border-style: map-get($options, focus-border-style);
+      color: map-get($options, focus-color);
+      background-color: map-get($options, focus-bg-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, focus-ring-color) map-get($options, focus-ring-inset);
+    }
+    
+    &:disabled {
+      border-color: map-get($options, disabled-border-color);
+      color: map-get($options, disabled-color);
+      background-color: map-get($options, disabled-bg-color);
+      opacity: map-get($options, disabled-opacity);
+    }
+    
+    &:read-only {
+      border-color: map-get($options, readonly-border-color);
+      border-style: map-get($options, readonly-border-style);
+      color: map-get($options, readonly-color);
+      background-color: map-get($options, readonly-bg-color);
+    
+      &:focus {
+        border-color: map-get($options, readonly-focus-border-color);
+        border-style: map-get($options, readonly-focus-border-style);
+        color: map-get($options, readonly-focus-color);
+        background-color: map-get($options, readonly-focus-bg-color);
+      }
+    }
+  }
+
+  .#{$mri-ns}input#{$modifier}[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: map-get($options, date-calendar-image);
+  }
+  .#{$mri-ns}input#{$modifier}[type="date"]::-webkit-clear-button {
+    background-image: map-get($options, date-clear-image);
+  }
+
+  .#{$mri-ns}input#{$modifier}.#{$mri-ns}input--critical {
+    border-color: map-get($options, critical-border-color);
+    
+    &:hover {
+      border-color: map-get($options, critical-hover-border-color);
+    }
+    
+    &:focus {
+      border-color: map-get($options, critical-focus-border-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, critical-focus-ring-color) map-get($options, focus-ring-inset);
+    }
+  }
+
+  .#{$mri-ns}input#{$modifier}.#{$mri-ns}input--warning {
+    border-color: map-get($options, warning-border-color);
+    
+    &:hover {
+      border-color: map-get($options, warning-hover-border-color);
+    }
+    
+    &:focus {
+      border-color: map-get($options, warning-focus-border-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, warning-focus-ring-color) map-get($options, focus-ring-inset);
+    }
+  }
+
+  .#{$mri-ns}input#{$modifier}.#{$mri-ns}input--success {
+    border-color: map-get($options, success-border-color);
+    
+    &:hover {
+      border-color: map-get($options, success-hover-border-color);
+    }
+    
+    &:focus {
+      border-color: map-get($options, success-focus-border-color);
+      box-shadow: 0 0 map-get($options, focus-ring-blur) map-get($options, focus-ring-offset) map-get($options, success-focus-ring-color) map-get($options, focus-ring-inset);
+    }
+  }
+
+
+}
+
+$mri-input-light: (
+  border-color: $mri-dark-line-color-muted,
+  border-style: solid,
+  border-radius: $mri-border-radius-fields,
+  color: $mri-dark-text-color,
+  bg-color: $mri-background-color-white,
+  font-weight: inherit,
+  hover-border-color: $mri-dark-line-color,
+  hover-color: $mri-dark-text-color,
+  hover-bg-color: $mri-background-color-white,
+  focus-border-color: $mri-dark-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-dark-text-color,
+  focus-bg-color: $mri-background-color-white,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: $mri-transparent,
+  disabled-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-background-color-lighter,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-transparent,
+  readonly-border-style: solid,
+  readonly-color: $mri-dark-text-color,
+  readonly-bg-color: $mri-background-color-lightest,
+  readonly-focus-border-color: $mri-transparent,
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-dark-text-color,
+  readonly-focus-bg-color: $mri-background-color-lightest,
+  critical-border-color: mri-red(30),
+  critical-hover-border-color: mri-red(30),
+  critical-focus-border-color: mri-red(30),
+  critical-focus-ring-color: mri-red(40),
+  warning-border-color: mri-gold(30),
+  warning-hover-border-color: mri-gold(30),
+  warning-focus-border-color: mri-gold(30),
+  warning-focus-ring-color: mri-gold(40),
+  success-border-color: $mri-dark-line-color-muted,
+  success-hover-border-color: $mri-dark-line-color-muted,
+  success-focus-border-color: $mri-dark-line-color-muted,
+  success-focus-ring-color: mri-green(40),
+  date-calendar-image: $mri-date-picker-url-dark,
+  date-clear-image: $mri-date-clear-url-dark
+) !default;
+
+@include component-input-color-variant($mri-input-light, null);
+
+$mri-input-light-invisible: (
+  border-color: $mri-transparent,
+  border-style: solid,
+  border-radius: 0,
+  color: $mri-dark-text-color,
+  bg-color: $mri-transparent,
+  hover-border-color: $mri-dark-line-color-muted,
+  hover-color: $mri-dark-text-color,
+  hover-bg-color: $mri-transparent,
+  focus-border-color: $mri-dark-line-color-muted,
+  focus-border-style: solid,
+  focus-color: mri-blue(40),
+  focus-bg-color: $mri-transparent,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 1px,
+  focus-ring-inset: inset,
+  disabled-border-color: $mri-transparent,
+  disabled-color: $mri-dark-text-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-transparent,
+  readonly-border-style: solid,
+  readonly-color: $mri-dark-text-color,
+  readonly-bg-color: $mri-transparent,
+  readonly-focus-border-color: mri-blue(40),
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-dark-text-color,
+  readonly-focus-bg-color: $mri-background-color-lightest,
+  critical-border-color: $mri-transparent,
+  critical-hover-border-color: mri-red(30),
+  critical-focus-border-color: mri-red(40),
+  critical-focus-ring-color: mri-red(40),
+  warning-border-color: $mri-transparent,
+  warning-hover-border-color: mri-gold(30),
+  warning-focus-border-color: mri-gold(40),
+  warning-focus-ring-color: mri-gold(40),
+  success-border-color: $mri-transparent,
+  success-hover-border-color: $mri-light-line-color-muted,
+  success-focus-border-color: mri-green(40),
+  success-focus-ring-color: mri-green(40),
+  date-calendar-image: $mri-date-picker-url-dark,
+  date-clear-image: $mri-date-clear-url-dark
+) !default;
+
+@include component-input-color-variant($mri-input-light-invisible, 'invisible');
+
+$mri-input-dark: (
+  border-color: $mri-light-line-color-muted,
+  border-style: solid,
+  border-radius: $mri-border-radius-fields,
+  color: $mri-light-text-color,
+  bg-color: $mri-background-color-dark,
+  font-weight: inherit,
+  hover-border-color: $mri-light-line-color,
+  hover-color: $mri-light-text-color,
+  hover-bg-color: $mri-background-color-dark,
+  focus-border-color: $mri-light-line-color-muted,
+  focus-border-style: solid,
+  focus-color: $mri-light-text-color,
+  focus-bg-color: $mri-background-color-dark,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 2px,
+  disabled-border-color: mri-gray(50),
+  disabled-color: $mri-light-text-color,
+  disabled-bg-color: $mri-background-color-darker,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-transparent,
+  readonly-border-style: solid,
+  readonly-color: $mri-light-text-color,
+  readonly-bg-color: mri-gray(75),
+  readonly-focus-border-color: $mri-transparent,
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-light-text-color,
+  readonly-focus-bg-color: mri-gray(75),
+  critical-border-color: mri-red(40),
+  critical-hover-border-color: mri-red(40),
+  critical-focus-border-color: mri-red(30),
+  critical-focus-ring-color: mri-red(30),
+  warning-border-color: mri-gold(40),
+  warning-hover-border-color: mri-gold(40),
+  warning-focus-border-color: mri-gold(30),
+  warning-focus-ring-color: mri-gold(30),
+  success-border-color: $mri-light-line-color-muted,
+  success-hover-border-color: $mri-light-line-color-muted,
+  success-focus-border-color: $mri-light-line-color-muted,
+  success-focus-ring-color: mri-green(30),
+  date-calendar-image: $mri-date-picker-url-light,
+  date-clear-image: $mri-date-clear-url-light
+) !default;
+
+@include component-input-color-variant($mri-input-dark, "dark");
+
+$mri-input-dark-invisible: (
+  border-color: $mri-transparent,
+  border-style: solid,
+  border-radius: 0,
+  color: $mri-light-text-color,
+  bg-color: $mri-transparent,
+  hover-border-color: $mri-light-line-color-muted,
+  hover-color: $mri-light-text-color,
+  hover-bg-color: $mri-transparent,
+  focus-border-color: mri-blue(40),
+  focus-border-style: solid,
+  focus-color: $mri-light-text-color,
+  focus-bg-color: $mri-transparent,
+  focus-ring-color: mri-blue(40),
+  focus-ring-blur: 0,
+  focus-ring-offset: 1px,
+  focus-ring-inset: inset,
+  disabled-border-color: $mri-transparent,
+  disabled-color: $mri-light-text-color,
+  disabled-bg-color: $mri-transparent,
+  disabled-opacity: $mri-disabled-opacity,
+  readonly-border-color: $mri-transparent,
+  readonly-border-style: solid,
+  readonly-color: $mri-light-text-color,
+  readonly-bg-color: $mri-transparent,
+  readonly-focus-border-color: mri-blue(40),
+  readonly-focus-border-style: solid,
+  readonly-focus-color: $mri-light-text-color,
+  readonly-focus-bg-color: mri-gray(75),
+  critical-border-color: $mri-transparent,
+  critical-hover-border-color: mri-red(40),
+  critical-focus-border-color: mri-red(30),
+  critical-focus-ring-color: mri-red(30),
+  warning-border-color: $mri-transparent,
+  warning-hover-border-color: mri-gold(40),
+  warning-focus-border-color: mri-gold(30),
+  warning-focus-ring-color: mri-gold(30),
+  success-border-color: $mri-transparent,
+  success-hover-border-color: $mri-light-line-color-muted,
+  success-focus-border-color: mri-green(30),
+  success-focus-ring-color: mri-green(30),
+  date-calendar-image: $mri-date-picker-url-light,
+  date-clear-image: $mri-date-clear-url-light
+) !default;
+
+@include component-input-color-variant($mri-input-dark-invisible, 'dark-invisible');

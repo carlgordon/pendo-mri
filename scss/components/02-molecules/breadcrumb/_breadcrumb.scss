@@ -1,0 +1,63 @@
+.#{$mri-ns}breadcrumb {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.#{$mri-ns}breadcrumb__link--current {
+  background-color: transparent;
+}
+
+.#{$mri-ns}breadcrumb__crumb {
+  color: inherit;
+  margin-right: $mri-breadcrumb-separator-spacing;
+}
+
+.#{$mri-ns}breadcrumb__separator {
+  color: inherit;
+  margin-left: 6px;
+  vertical-align: baseline;
+}
+
+// Color variants
+
+@mixin component-breadcrumb-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}breadcrumb--" + $variant-name + " ", null);
+
+  .#{$mri-ns}breadcrumb#{$modifier} .#{$mri-ns}link#{$modifier} {
+    color: map-get($options, color);
+
+    &:visited {
+      color: map-get($options, visited-color);
+    }
+
+    &:hover {
+      color: map-get($options, hover-color);
+    }
+
+    &:visited:hover {
+      color: map-get($options, visited-hover-color);
+    }
+  }
+}
+
+$mri-breadcrumb-dark-default: (
+  color: $mri-dark-interactive-color,
+  visited-color: $mri-dark-interactive-color,
+  hover-color: shade($mri-dark-interactive-color, 20%),
+  visited-hover-color: shade($mri-dark-interactive-color, 20%),
+);
+
+@include component-breadcrumb-color-variant($mri-breadcrumb-dark-default, null);
+
+$mri-breadcrumb-light: (
+  color: $mri-light-interactive-color,
+  visited-color: $mri-light-interactive-color,
+  hover-color: shade($mri-light-interactive-color, 20%),
+  visited-hover-color: shade($mri-light-interactive-color, 20%),
+);
+
+@include component-breadcrumb-color-variant($mri-breadcrumb-light, "light");

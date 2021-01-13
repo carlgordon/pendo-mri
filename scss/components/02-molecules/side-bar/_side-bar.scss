@@ -1,0 +1,27 @@
+.#{$mri-ns}sidebar {
+    display: flex;
+    flex-flow: column nowrap;
+    @media (min-width: #{map-get($mri-grid-breakpoints, md)}){
+        flex-flow: row nowrap;
+        align-items: stretch;
+    }
+
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.#{$mri-ns}sidebar__body {
+    flex-grow: 1;
+    flex-shrink: 0;
+
+}
+
+.#{$mri-ns}sidebar__side {
+    flex-grow: 0;
+    flex-shrink: 0;
+    @media (min-width: #{map-get($mri-grid-breakpoints, md)}){
+        width: $mri-sidebar-width;
+
+    }
+
+}

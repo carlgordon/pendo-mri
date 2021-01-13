@@ -1,0 +1,260 @@
+.#{$mri-ns}autocomplete {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  border-style: solid;
+  border-top: none;
+  user-select: none;
+}
+
+.#{$mri-ns}autocomplete__item {
+  @extend %button-reset;
+  
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  
+  transition:
+    background-color $mri-transition-base,
+    color $mri-transition-base,
+    border $mri-transition-base;
+}
+
+.#{$mri-ns}autocomplete__item-icon {
+  display: block;
+  width: $mri-font-size-base;
+  flex-grow: 0;
+  flex-shrink: 0;
+  // vertical-align: middle;
+}
+
+.#{$mri-ns}autocomplete__item-label,
+.#{$mri-ns}autocomplete__label { // TODO: change the name of this...supposed to refer to table column headings
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.#{$mri-ns}autocomplete__table {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+.#{$mri-ns}autocomplete__table-header,
+.#{$mri-ns}autocomplete__table-body,
+.#{$mri-ns}autocomplete__table-footer {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}autocomplete__table-header {
+  border-style: solid;
+}
+
+
+.#{$mri-ns}autocomplete__table-row {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}autocomplete__table-cell {
+  border: none;
+  text-align: left; // Default
+  flex-shrink: 0;
+  flex-grow: 0;
+  overflow: hidden;
+
+  &--align-left {
+    text-align: left;
+  }
+
+  &--align-right {
+    text-align: right;
+  }
+
+  &--align-center {
+    text-align: center;
+  }
+}
+
+.#{$mri-ns}autocomplete__divider {
+  @extend %hr-reset;
+  
+  border-top-style: solid;
+}
+
+// Size variants
+
+@mixin component-autocomplete-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}autocomplete--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}autocomplete#{$modifier} {
+    border-width: map-get($options, border-width);
+    border-radius: map-get($options, border-radius);
+    padding: map-get($options, padding-vertical) map-get($options, padding-horizontal);
+    font-size: map-get($options, font-size);
+    line-height: map-get($options, line-height);
+    margin-top: map-get($options, margin-top);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__item {
+    padding: map-get($options, item-padding-vertical) map-get($options, item-padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__divider {
+    border-top-width: map-get($options, divider-width);
+    margin-top: map-get($options, divider-margin);
+    margin-bottom: map-get($options, divider-margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__item-icon {
+    width: map-get($options, icon-width);
+    margin-right: map-get($options, icon-margin);
+  }
+
+  #{$parent-class}.#{$mri-ns}autocomplete__table-row {
+    padding: map-get($options, table-row-padding);
+  }
+
+  #{$parent-class}.#{$mri-ns}autocomplete__table-cell {
+    padding-top: map-get($options, item-padding-vertical);
+    padding-bottom: map-get($options, item-padding-vertical);
+    padding-left: map-get($options, cell-padding-horizontal);
+    padding-right: map-get($options, cell-padding-horizontal);
+    margin: 0;
+
+    &:first-child { padding-left: map-get($options, item-padding-horizontal); }
+    &:last-child { padding-right: map-get($options, item-padding-horizontal); }
+  }
+
+  #{$parent-class}.#{$mri-ns}autocomplete__table-header {
+    margin-bottom: map-get($options, table-header-margin-bottom);
+    border-width: map-get($options, table-header-border-width);
+  }
+
+  #{$parent-class}.#{$mri-ns}autocomplete__table-column-header {
+    font-size: map-get($options, table-header-font-size);
+    font-weight: map-get($options, table-header-font-weight);
+    text-transform: map-get($options, table-header-text-transform);
+    padding: map-get($options, table-header-cell-padding);
+  }
+}
+
+$mri-autocomplete-default-size: (
+  border-radius: mri-border-radius(small),
+  font-size: mri-font-size(small),
+  line-height: mri-line-height(small),
+  border-width: 0,
+  margin-top: mri-spacing(x-small),
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: 0,
+  divider-width: 1px,
+  divider-margin: mri-spacing(x-small),
+  item-padding-horizontal: mri-spacing(small),
+  item-padding-vertical: mri-spacing(x-small),
+  cell-padding-horizontal: mri-spacing(x-small),
+  icon-width: 1em,
+  icon-margin: 1ch,
+  table-row-padding: 0,
+  table-header-border-width: 0 0 1px 0,
+  table-header-font-size: $mri-font-size-x-small,
+  table-header-font-weight: normal,
+  table-header-text-transform: normal,
+  table-header-cell-padding: mri-spacing(x-small) mri-spacing(x-small) mri-spacing(small),
+  table-header-margin-bottom: mri-spacing(x-small)
+) !default;
+
+@include component-autocomplete-size-variant($mri-autocomplete-default-size, null);
+
+// Column length variants
+
+@each $name, $length in $mri-autocomplete-column-lengths {
+  .#{$mri-ns}autocomplete__table-cell--#{$name} {
+    width: $length;
+  }
+}
+
+// Color variants
+
+@mixin component-autocomplete-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}autocomplete--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}autocomplete#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+    border-color: map-get($options, border-color);
+    opacity: map-get($options, opacity);
+    box-shadow: map-get($options, box-shadow);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__divider {
+    border-top-color: map-get($options, divider-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__item {
+    background-color: map-get($options, item-bg-color);
+    color: map-get($options, item-color);
+    border-color: map-get($options, item-border-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__item:hover {
+    background-color: map-get($options, item-hover-bg-color);
+    color: map-get($options, item-hover-color);
+    border-color: map-get($options, item-hover-border-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__item.#{$mri-ns}is-selected {
+    background-color: map-get($options, item-selected-bg-color);
+    color: map-get($options, item-selected-color);
+    border-color: map-get($options, item-selected-border-color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}autocomplete__table-header {
+    color: map-get($options, table-header-color);
+    border-color: map-get($options, table-header-border-color);
+  }
+}
+
+$mri-autocomplete-light-default: (
+  bg-color: $mri-background-color-white,
+  color: $mri-dark-text-color,
+  border-color: $mri-dark-line-color-muted,
+  opacity: 1,
+  box-shadow: mri-shadow(small),
+  divider-color: $mri-dark-line-color-faint,
+  table-header-color: $mri-dark-text-color-muted,
+  table-header-border-color: $mri-dark-line-color-faint,
+  item-bg-color: $mri-transparent,
+  item-color: $mri-dark-text-color,
+  item-border-color: $mri-transparent,
+  item-hover-bg-color: mri-blue(60),
+  item-hover-color: $mri-light-text-color,
+  item-hover-border-color: $mri-transparent,
+  item-selected-bg-color: $mri-light-selected-hover-color-transparent,
+  item-selected-color: $mri-dark-interactive-color,
+  item-selected-border-color: $mri-transparent,
+) !default;
+
+@include component-autocomplete-color-variant($mri-autocomplete-light-default, null);
+

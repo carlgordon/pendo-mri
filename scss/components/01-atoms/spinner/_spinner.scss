@@ -1,0 +1,75 @@
+.#{$mri-ns}spinner {
+  @extend %progress-reset;
+
+  display: block;
+  border-style: solid;
+
+  transform-origin: 50% 50%;
+
+  animation: spin $mri-spinner-animation-time linear infinite;
+}
+
+
+// Size variants
+
+@mixin component-spinner-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}spinner--" + $variant-name + " ", null);
+
+  .#{$mri-ns}spinner#{$modifier} {
+    width: map-get($options, size);
+    height: map-get($options, size);
+    border-radius: 2 * map-get($options, size);
+    border-width: map-get($options, border-width);
+  }
+}
+
+$mri-spinner-default-size: (
+  size: 0.875rem,
+  border-width: 2px,
+) !default;
+
+@include component-spinner-size-variant($mri-spinner-default-size, null);
+
+$mri-spinner-large: (
+  size: 3rem,
+  border-width: 2px,
+) !default;
+
+@include component-spinner-size-variant($mri-spinner-large, "large");
+
+
+// Color variants
+
+@mixin component-spinner-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}spinner--" + $variant-name + " ", null);
+
+  .#{$mri-ns}spinner#{$modifier} {
+    border-color: map-get($options, color);
+    border-left-color: transparentize(map-get($options, color), (1 - map-get($options, left-opacity)));
+    border-right-color: transparentize(map-get($options, color), (1 - map-get($options, right-opacity)));
+    border-top-color: transparentize(map-get($options, color), (1 - map-get($options, top-opacity)));
+    border-bottom-color: transparentize(map-get($options, color), (1 - map-get($options, bottom-opacity)));
+  }
+}
+
+$mri-spinner-light-default: (
+  color: $mri-dark-interactive-color,
+  left-opacity: 0.25,
+  right-opacity: 0.25,
+  top-opacity: 1,
+  bottom-opacity: 0.25,
+) !default;
+
+@include component-spinner-color-variant($mri-spinner-light-default, null);
+
+$mri-spinner-dark: (
+  color: $mri-light-interactive-color,
+  left-opacity: 0.25,
+  right-opacity: 0.25,
+  top-opacity: 1,
+  bottom-opacity: 0.25,
+) !default;
+
+@include component-spinner-color-variant($mri-spinner-dark, "dark");

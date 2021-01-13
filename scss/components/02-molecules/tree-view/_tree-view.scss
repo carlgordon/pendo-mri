@@ -1,0 +1,228 @@
+.#{$mri-ns}tree-view {
+  @extend %list-reset;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  user-select: none;
+  cursor: default;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow-y: auto;
+}
+
+.#{$mri-ns}tree-view__item {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}tree-view__leaf-label,
+.#{$mri-ns}tree-view__branch-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.#{$mri-ns}tree-view__item-icon {
+  flex-shrink: 0;
+}
+
+.#{$mri-ns}tree-view__item-selector {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  align-content: center;
+  cursor: pointer;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+  transition:
+    background-color $mri-transition-base,
+    color $mri-transition-base;
+}
+
+.#{$mri-ns}tree-view__caret-button {
+  @extend %button-reset;
+  
+  cursor: pointer;
+}
+
+.#{$mri-ns}tree-view__branch-list {
+  @extend %list-reset;
+  width:100%;
+}
+
+.#{$mri-ns}tree-view__branch.#{$mri-ns}is-closed > .#{$mri-ns}tree-view__caret-button > .#{$mri-ns}tree-view__branch-caret {
+  transform:
+    rotate(-90deg);
+}
+
+.#{$mri-ns}tree-view__branch.#{$mri-ns}is-closed > .#{$mri-ns}tree-view__branch-list,
+.#{$mri-ns}tree-view__branch.#{$mri-ns}is-closed > .#{$mri-ns}tree-view__empty-message, {
+  height: 0;
+  overflow: hidden;
+}
+
+.#{$mri-ns}tree-view__empty-message {
+  display: block;
+  flex-basis: 100%;
+  flex-shrink: 1;
+  font-style: italic;
+}
+
+// Size variants
+
+@mixin component-tree-view-size-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tree-view--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}tree-view#{$modifier} {
+    padding-top: map-get($options, padding-vertical);
+    padding-bottom: map-get($options, padding-vertical);
+    padding-right: map-get($options, padding-horizontal);
+    padding-left: map-get($options, padding-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__item {
+    margin:
+      map-get($options, item-margin-vertical)
+      map-get($options, item-margin-horizontal);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__item-selector {
+    padding:
+      map-get($options, item-selector-padding-vertical)
+      map-get($options, item-selector-padding-horizontal);
+    border-width: map-get($options, item-selector-border-width);
+    border-radius: map-get($options, item-selector-border-radius);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__caret-button {
+    padding:
+      map-get($options, caret-button-padding-vertical)
+      map-get($options, caret-button-padding-horizontal);
+    min-width: map-get($options, caret-button-size);
+    min-height: map-get($options, caret-button-size);
+    margin-left: map-get($options, caret-button-outdent) * -1;
+    border-width: map-get($options, caret-button-border-width);
+    border-radius: map-get($options, caret-button-border-radius);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__item-icon {
+    margin: map-get($options, item-icon-margin);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__item .#{$mri-ns}tree-view__item {
+    margin-left: map-get($options, branch-list-indentation);
+  }
+}
+
+$mri-tree-view-default-size: (
+  padding-vertical: mri-spacing(small),
+  padding-horizontal: $mri-spacing-gutter-width,
+  item-margin-vertical: mri-spacing(2x-small),
+  item-margin-horizontal: 0,
+  item-icon-margin: 0 mri-spacing(small) 0 0,
+  item-selector-padding-vertical: mri-spacing(2x-small),
+  item-selector-padding-horizontal: mri-spacing(small),
+  item-selector-border-width: 0,
+  item-selector-border-radius: 2px,
+  caret-button-padding-vertical: mri-spacing(2x-small),
+  caret-button-padding-horizontal: mri-spacing(small),
+  caret-button-size: 2em,
+  caret-button-border-width: 0,
+  caret-button-border-radius: "",
+  caret-button-outdent: 0,
+  branch-list-indentation: 2em,
+) !default;
+
+@include component-tree-view-size-variant($mri-tree-view-default-size, null);
+
+// Color variants
+
+@mixin component-tree-view-color-variant($options, $variant-name) {
+  $modifier: if($variant-name, "--" + $variant-name, null);
+  $parent-class: if($variant-name, ".#{$mri-ns}tree-view--" + $variant-name + " ", null);
+  
+  .#{$mri-ns}tree-view#{$modifier} {
+    background-color: map-get($options, bg-color);
+    color: map-get($options, color);
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__item-selector {
+    background-color: map-get($options, item-selector-bg-color);
+    color: map-get($options, item-selector-color);
+    
+    &:hover {
+      background-color: map-get($options, item-selector-hover-bg-color);
+      color: map-get($options, item-selector-hover-color);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__caret-button {
+    background-color: map-get($options, caret-button-bg-color);
+    color: map-get($options, caret-button-color);
+    
+    &:hover {
+      background-color: map-get($options, caret-button-hover-bg-color);
+      color: map-get($options, caret-button-hover-color);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__item.#{$mri-ns}is-selected > .#{$mri-ns}tree-view__item-selector {
+    background-color: map-get($options, item-selector-selected-bg-color);
+    color: map-get($options, item-selector-selected-color);
+    
+    &:hover {
+      background-color: map-get($options, item-selector-selected-hover-bg-color);
+      color: map-get($options, item-selector-selected-hover-color);
+    }
+  }
+  
+  #{$parent-class}.#{$mri-ns}tree-view__empty-message {
+    color: map-get($options, empty-message-color);
+  }
+}
+
+$mri-tree-view-dark-default: (
+  bg-color: $mri-transparent,
+  color: $mri-dark-text-color,
+  item-selector-bg-color: $mri-transparent,
+  item-selector-color: $mri-dark-text-color,
+  item-selector-hover-bg-color: $mri-light-hover-color-transparent,
+  item-selector-hover-color: $mri-dark-text-color,
+  item-selector-selected-bg-color: $mri-light-selected-color-transparent,
+  item-selector-selected-color: $mri-dark-text-color,
+  item-selector-selected-hover-bg-color: $mri-light-selected-hover-color-transparent,
+  item-selector-selected-hover-color: $mri-dark-text-color,
+  caret-button-bg-color: $mri-transparent,
+  caret-button-color: $mri-dark-text-color,
+  caret-button-hover-bg-color: $mri-light-hover-color-transparent,
+  caret-button-hover-color: $mri-dark-text-color,
+  empty-message-color: $mri-dark-text-color-disabled,
+) !default;
+
+@include component-tree-view-color-variant($mri-tree-view-dark-default, null);
+
+$mri-tree-view-light: (
+  bg-color: $mri-transparent,
+  color: $mri-light-text-color,
+  item-selector-bg-color: $mri-transparent,
+  item-selector-color: $mri-light-text-color,
+  item-selector-hover-bg-color: $mri-dark-hover-color-transparent,
+  item-selector-hover-color: $mri-light-text-color,
+  item-selector-selected-bg-color: $mri-dark-selected-color-transparent,
+  item-selector-selected-color: $mri-light-text-color,
+  item-selector-selected-hover-bg-color: $mri-dark-selected-hover-color-transparent,
+  item-selector-selected-hover-color: $mri-light-text-color,
+  caret-button-bg-color: $mri-transparent,
+  caret-button-color: $mri-light-text-color,
+  caret-button-hover-bg-color: $mri-dark-hover-color-transparent,
+  caret-button-hover-color: $mri-light-text-color,
+  empty-message-color: $mri-light-text-color-disabled,
+) !default;
+
+@include component-tree-view-color-variant($mri-tree-view-light, 'light');

@@ -1,0 +1,346 @@
+.menuWindow {
+  z-index: 90;
+  height: 100%;
+  font-weight: bold;
+}
+
+.subMenuWindow {
+  height: calc((100%) - 38px);
+  /*padding-bottom: 20px;*/
+  color: white;
+  font-weight: normal;
+  display: inline-block;
+  -webkit-user-select: none;
+  /* Chrome/Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+ */
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+  background-color: #fdfdfd;
+  overflow-y: auto;
+  overflow-x: overlay;
+}
+
+.appMenu {
+  background-color: #27333E;
+  width: 300px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.appMenu .selected,
+#appMenuWindow div.menuItem:hover,
+#setupMenuWindow div.menuGroup div.menuItem[tabindex]:hover,
+#setupMenuWindow div.subMenuGroup div.menuGroup div.menuItem[tabindex]:hover,
+#ReportMenu div.menuGroup div.menuItem[tabindex]:hover,
+#ReportMenu div.subMenuGroup div.menuGroup div.menuItem[tabindex]:hover,
+#RelatedLinksMenu div.menuGroup div.menuItem[tabindex]:hover,
+#RelatedLinksMenu div.subMenuGroup div.menuGroup div.menuItem[tabindex]:hover {
+  color: #6CB7D8;
+}
+
+#appMenuWindow div.menuItem:focus,
+#subMenuWindow div.menuGroup div.menuItem[tabindex]:focus,
+#subMenuWindow div.subMenuGroup div.menuGroup div.menuItem[tabindex]:focus,
+#setupMenuWindow div.menuGroup div.menuItem[tabindex]:focus,
+#setupMenuWindow div.subMenuGroup div.menuGroup div.menuItem[tabindex]:focus,
+#ReportMenu div.menuGroup div.menuItem[tabindex]:focus,
+#ReportMenu div.subMenuGroup div.menuGroup div.menuItem[tabindex]:focus,
+#RelatedLinksMenu div.menuGroup div.menuItem[tabindex]:focus,
+#RelatedLinksMenu div.subMenuGroup div.menuGroup div.menuItem[tabindex]:focus {
+  color: none;
+  outline: none;
+  box-shadow: 0 0 0 2px #3A9DD2;
+  z-index: 1;
+}
+
+.menuGroup:focus-within {
+  z-index: 1;
+}
+
+#subMenuWindow div.subMenuGroup div.menuItem.menuAction:hover,
+#subMenuWindow div.menuGroup div.menuItem.menuAction:hover {
+  color: #3A9DD2 !important;
+}
+
+.hideSub {
+  display: none !important;
+}
+
+#menuWindow h2 {
+  margin-left: 5px;
+}
+
+#menuWindow div.menuItem {
+  position: relative;
+  font-size: 1rem;
+  font-weight: normal;
+  padding: 4px 8px;
+  cursor: default;
+  border-radius: 4px;
+}
+
+#menuWindow div.menuItem div.menuAction {
+  cursor: pointer;
+}
+
+.subMenu {
+  height: 100%;
+  background-color: white;
+}
+
+#subMenuWindow .menuGroup .menuItem {
+  color: #000D1A;
+}
+
+.menuTitle {
+  color: #044D66;
+  font-size: 1.5rem;
+  font-weight: 300;
+  padding: 8px 16px;
+  display: inline-block;
+  width: 100%;
+  float: left;
+  position: relative;
+}
+
+.MenuPaneFavIcon {
+  background: white;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.001), white 45%);
+  background: -ms-linear-gradient(left, rgba(255, 255, 255, 0.001), #FFF 45%);
+}
+
+div.subMenuGroup * .MenuPaneFavIcon {
+  margin-right: 0;
+  width: 50px;
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+}
+
+div.subMenu div.menuGroup:first-child div.menuItem:first-child:before {
+  top: 28px;
+}
+
+/*Keep this class to reset submenu items to not have line under them*/
+div.subMenu div.subMenuGroup div.menuItem:first-child:before {
+  content: none;
+  background: none;
+}
+
+div.subMenu div.subMenuGroup div.menuItem,
+div.subMenu div.menuGroup:first-child div.menuItem:first-child {
+  margin: 0;
+}
+
+#menuWindow div.menuGroup div.menuItem.menuAction {
+  color: #10689D;
+  cursor: pointer;
+}
+
+#menuWindow div.menuGroup {
+  width: 284px;
+  float: left;
+  position: relative;
+  margin: 0;
+}
+
+#menuWindow div.subMenuGroup {
+  background-color: transparent;
+  font-size: 1em;
+  width: 284px;
+  display: inline-block;
+  color: white;
+  margin: 0;
+}
+
+#menuWindow div.subMenuGroup div.recentlyRunReports {
+  width: 350px;
+}
+
+#menuWindow .subMenu {
+  color: #000D1A;
+}
+
+#menuWindow div.subMenu .subMenuGroup div.menuItem {
+  font-size: 0.75rem;
+  font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+}
+
+#subMenuWindow .subMenuGroup div.menuGroup div.subMenuGroup {
+  padding-left: 0px;
+}
+
+#subMenuWindow .subMenuGroup .menuGroup .subMenuGroup div.menuItem:only-child {
+  /*only put padding left on smaller subgroups*/
+  padding-left: 15px;
+}
+
+#menuWindow div.subMenuGroup.hideSub {
+  display: none;
+}
+
+#menuWindow div.subMenuGroup div.menuGroup {
+  width: 100%;
+  background-color: transparent;
+}
+
+.MenuColumn {
+  float: left;
+  width: 300px;
+  display: inline-block;
+  padding: 8px;
+}
+
+#subMenuWindow .MenuColumn > .menuGroup > .menuItem,
+.subMenuWindow .MenuColumn > .menuGroup > .menuItem {
+  margin-top: 16px;
+}
+
+#subMenuWindow .MenuColumn > .menuGroup:first-child > .menuItem,
+.subMenuWindow .MenuColumn > .menuGroup:first-child > .menuItem {
+  margin-top: 0;
+}
+
+.rotate {
+  white-space: nowrap;
+  /* IE9+ */
+  /* FF3.5+ */
+  /* Opera 10.5 */
+  -webkit-transform: rotate(270deg);
+  /* Saf3.1+, Chrome */
+  transform: rotate(270deg);
+  /* CSS3 (for when it gets supported) */
+}
+
+#appMenuWindow div.menuItem {
+  cursor: pointer;
+  padding: 4px 8px;
+  margin: 4px 0;
+}
+
+div.menuItem:hover .MenuPaneFavIcon,
+div.menuItem:focus .MenuPaneFavIcon,
+#subMenuWindow div.menuItem[tabindex]:focus .MenuPaneFavIcon {
+  display: block;
+}
+
+#subMenuWindow .subMenu:only-of-type span.subMenuCollapserLink {
+  display: none;
+}
+
+#MenuSearchBar {
+  top: 0;
+  background-color: #DFE7E8;
+  width: inherit;
+  height: 38px;
+  padding: 8px 8px;
+}
+
+#MenuSearchInputBox {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid #A6B7BF;
+  width: 100%;
+  height: 100%;
+  font-family: "Noto Sans", "NotoSans", sans-serif;
+  font-size: 12px;
+  padding-left: 8px;
+  border-radius: 3px;
+}
+
+#MenuSearchInputBox:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3A9DD2;
+}
+
+.blurMenuSearch {
+  color: red;
+}
+
+#MenuSearchIcon {
+  position: absolute;
+  top: 0px;
+  top: 2px;
+  width: 24px;
+  height: 26px;
+}
+
+#MenuSearchClear {
+  position: absolute;
+  top: 0;
+  left: calc((100%) - 30px);
+  width: 17px;
+  height: 38px;
+  cursor: pointer;
+}
+
+svg:focus .clearSearchIconBackground,
+svg:hover .clearSearchIconBackground {
+  fill: #AAAAAA;
+  stroke: #AAAAAA;
+  transition-duration: 250ms;
+  -webkit-transition-duration: 250ms;
+  -moz-transition-duration: 250ms;
+  -o-transition-duration: 250ms;
+  -ms-transition-duration: 250ms;
+}
+
+.clearSearchIconBackground {
+  fill: #EEEEEE;
+  stroke: #EEEEEE;
+  transition-duration: 250ms;
+  -webkit-transition-duration: 250ms;
+  -moz-transition-duration: 250ms;
+  -o-transition-duration: 250ms;
+  -ms-transition-duration: 250ms;
+}
+
+.clearSearchIconBody {
+  fill: #FFFFFF;
+}
+
+#appMenuCollapserX {
+  height: 32px;
+  width: 32px;
+  background-color: transparent;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  fill: #7EC6FF;
+  text-align: center;
+  font-size: 30px;
+  line-height: 30px;
+  z-index: 900;
+  cursor: pointer;
+}
+
+#appMenuCollapserXSvg {
+  height: 100%;
+  width: 100%;
+}
+
+#appMenuCollapserX + .MenuColumn > .menuGroup:first-child {
+  width: 250px;
+}
+
+span.subMenuCollapserLink:hover,
+#appMenuCollapserX:hover {
+  color: #3A9DD2;
+  fill: #3A9DD2;
+}
+
+#ReportMenu #Column1.MenuColumn,
+#FavoritesMenu .MenuColumn {
+  width: 425px;
+  margin-left: 5px;
+}
