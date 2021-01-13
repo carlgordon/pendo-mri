@@ -1,0 +1,8 @@
+// Deep map get function
+
+@function map-deep-get($mri-map, $mri-keys...) {
+    @each $mri-key in $mri-keys {
+        $mri-map: map-get($mri-map, $mri-key);
+    }
+    @return $mri-map;
+}

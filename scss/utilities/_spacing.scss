@@ -1,0 +1,66 @@
+// For each size in the map above, output utility classes
+// that allow authors to apply common padding or margin values
+@each $name, $size in $mri-spacing-values {
+  
+  // Paddings, e.g. ".#{$mri-ns}p-small"
+  .#{$mri-ns}p-#{$name} {
+    padding: $size;
+  }
+  
+  .#{$mri-ns}pv-#{$name} {
+    padding-top: $size;
+    padding-bottom: $size;
+  }
+  
+  .#{$mri-ns}ph-#{$name} {
+    padding-left: $size;
+    padding-right: $size;
+  }
+  
+  .#{$mri-ns}pt-#{$name} {
+    padding-top: $size;
+  }
+  
+  .#{$mri-ns}pr-#{$name} {
+    padding-right: $size;
+  }
+  
+  .#{$mri-ns}pb-#{$name} {
+    padding-bottom: $size;
+  }
+  
+  .#{$mri-ns}pl-#{$name} {
+    padding-left: $size;
+  }
+  
+  // Margins, e.g. ".#{$mri-ns}m-medium"
+  .#{$mri-ns}m-#{$name} {
+    margin: $size;
+  }
+  
+  .#{$mri-ns}mv-#{$name} {
+    margin-top: $size;
+    margin-bottom: $size;
+  }
+  
+  .#{$mri-ns}mh-#{$name} {
+    margin-left: $size;
+    margin-right: $size;
+  }
+  
+  .#{$mri-ns}mt-#{$name} {
+    margin-top: $size;
+  }
+  
+  .#{$mri-ns}mr-#{$name} {
+    margin-right: $size;
+  }
+  
+  .#{$mri-ns}mb-#{$name} {
+    margin-bottom: $size;
+  }
+  
+  .#{$mri-ns}ml-#{$name} {
+    margin-left: $size;
+  }
+}

@@ -1,0 +1,29 @@
+@each $name, $color in $mri-brand-colors {
+  .#{$mri-ns}color-brand-#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in $mri-gray {
+  .#{$mri-ns}color-gray-#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in $mri-blue {
+  .#{$mri-ns}color-blue-#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in $mri-green {
+  .#{$mri-ns}color-green-#{$name} {
+    color: $color;
+  }
+}
+
+@each $name, $color in $mri-red {
+  .#{$mri-ns}color-red-#{$name} {
+    color: $color;
+  }
+}

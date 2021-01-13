@@ -1,0 +1,20 @@
+@each $name, $size in $mri-font-size-labels {
+  .#{$mri-ns}font-size-labels-#{$name} {
+    font-size: $size;
+    line-height: map-get($mri-line-height-labels, $name);
+  }
+}
+
+@each $name, $size in $mri-font-size-paragraphs {
+  .#{$mri-ns}font-size-paragraphs-#{$name} {
+    font-size: $size;
+    line-height: map-get($mri-line-height-paragraphs, $name);
+  }
+}
+
+@each $name, $size in $mri-font-size-headings {
+  .#{$mri-ns}font-size-headings-#{$name} {
+    font-size: $size;
+    line-height: map-get($mri-line-height-headings, $name);
+  }
+}

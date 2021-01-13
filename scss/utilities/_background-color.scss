@@ -1,0 +1,20 @@
+$mri-background-colors: (
+  "light": $mri-background-color-light,
+  "lighter": $mri-background-color-lighter,
+  "white": $mri-background-color-white,
+  "dark": $mri-background-color-dark,
+  "darker": $mri-background-color-darker,
+  "darkest": $mri-background-color-darkest
+);
+
+@each $mri-color-name, $mri-color in $mri-background-colors {
+  .#{$mri-ns}bg-#{$mri-color-name} {
+    background-color: $mri-color;
+  }
+}
+
+@each $mri-color-name, $mri-color in $mri-brand-colors {
+  .#{$mri-ns}bg-brand-#{$mri-color-name} {
+    background-color: $mri-color;
+  }
+}

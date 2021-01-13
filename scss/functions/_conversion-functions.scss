@@ -1,0 +1,9 @@
+// Strip units function
+
+@function strip-unit($mri-number) {
+  @if type-of($mri-number) == 'number' and not unitless($mri-number) {
+    @return $mri-number / ($mri-number * 0 + 1);
+  }
+
+  @return $mri-number;
+}

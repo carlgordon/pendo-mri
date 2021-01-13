@@ -1,0 +1,5 @@
+@each $value in inline-block, block, inline-flex, flex, inline, none {
+  .#{$mri-ns}display-#{$value} {
+    display: $value;
+  }
+}

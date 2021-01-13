@@ -1,0 +1,47 @@
+// Flex containers
+
+.#{$mri-ns}flex-column-wrap {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.#{$mri-ns}flex-column-nowrap {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.#{$mri-ns}flex-row-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.#{$mri-ns}flex-row-nowrap {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+// Flex behavior
+
+.#{$mri-ns}flex-auto {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+}
+
+.#{$mri-ns}flex-always {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+}
+
+.#{$mri-ns}flex-grow {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+.#{$mri-ns}flex-never {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}

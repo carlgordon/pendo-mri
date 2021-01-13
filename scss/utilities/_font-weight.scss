@@ -1,0 +1,5 @@
+@each $name, $weight in ( bold: 700, normal: 500, regular: 500, light: 300, inherit: inherit ) {
+  .#{$mri-ns}font-weight-#{$name} {
+    font-weight: $weight;
+  }
+}

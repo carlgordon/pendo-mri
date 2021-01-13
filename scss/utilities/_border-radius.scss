@@ -1,0 +1,16 @@
+$mri-border-radius-classes: (
+  2x-small: mri-border-radius(2x-small),
+  x-small: mri-border-radius(x-small),
+  small: mri-border-radius(small),
+  medium: mri-border-radius(medium),
+  large: mri-border-radius(large),
+  x-large: mri-border-radius(x-large),
+  pill: mri-border-radius(pill),
+  none: 0,
+) !default;
+
+@each $name, $value in $mri-border-radius-classes {
+  .#{$mri-ns}border-radius-#{$name} {
+    border-radius: $value;
+  }
+}
