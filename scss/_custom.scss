@@ -11,16 +11,22 @@ h6 {
     font-weight: 700;
 }
 
+h1 {
+    font-size: 40px;
+}
+
 .nav {
     padding: 2rem 5rem;
-    display: fixed;
+    position: fixed;
     width: $nav-width;
-    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     background-color: $nav-color;
     border-right: 1px solid #e1e1e1;
+    .logo {
+        margin-bottom: 3rem;
+    }
     h2 {
         font-size: 30px;
     }
@@ -89,6 +95,7 @@ h6 {
 
 .subtitle {
     text-align: center;
+    margin-bottom: 2rem;
 }
 
 .video {
@@ -103,4 +110,8 @@ h6 {
         width: 100%;
         height: 100%;
     }
+}
+
+section {
+    margin-bottom: 3rem;
 }
