@@ -8984,3 +8984,6 @@ th.mri-kpi-table__heading--border {
   font-size: 0.875rem;
   line-height: 1.25rem;
   color: #10689D; }
+
+ul li a {
+  color: yellow; }
