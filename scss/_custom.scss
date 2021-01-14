@@ -24,6 +24,13 @@ h1 {
     left: 0;
     background-color: $nav-color;
     border-right: 1px solid #e1e1e1;
+    .background-nav {
+        mask-image: linear-gradient(to top, transparent 0%, black 100%);
+        position: absolute;
+        left: 0;
+        top: 0px;
+        width: 100%;
+    }
     .logo {
         margin-bottom: 3rem;
     }

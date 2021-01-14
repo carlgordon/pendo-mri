@@ -9006,6 +9006,12 @@ h1 {
   left: 0;
   background-color: #f9faff;
   border-right: 1px solid #e1e1e1; }
+  .nav .background-nav {
+    mask-image: linear-gradient(to top, transparent 0%, black 100%);
+    position: absolute;
+    left: 0;
+    top: 0px;
+    width: 100%; }
   .nav .logo {
     margin-bottom: 3rem; }
   .nav h2 {
