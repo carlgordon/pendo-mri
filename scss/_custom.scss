@@ -345,13 +345,13 @@ hr {
         font-weight: 300;
         color: mri-gray(50)
     }
+    button {
+        margin: 0 0.5rem;
+    }
     .center-buttons {
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0.5rem 0;
-        button {
-            margin: 0 0.5rem;
-        }
     }
 }

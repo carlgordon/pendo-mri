@@ -9269,10 +9269,10 @@ hr {
     line-height: 1;
     font-weight: 300;
     color: #74889A; }
+  .example-popup button {
+    margin: 0 0.5rem; }
   .example-popup .center-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0.5rem 0; }
-    .example-popup .center-buttons button {
-      margin: 0 0.5rem; }
