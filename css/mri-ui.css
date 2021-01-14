@@ -9152,7 +9152,7 @@ hr {
   .video::before {
     content: "";
     background-color: #142329;
-    background: url("/images/video-overlay.png");
+    background: url("/images/video-overlay.jpg");
     background-size: cover;
     opacity: 0.46;
     top: 0;
