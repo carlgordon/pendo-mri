@@ -16,22 +16,26 @@
             <img src="images/mri.svg" class="logo" width="68" height="31">
             <h2>MRI Pendo style guide</h2>
             <p class="description">A collection of guidelines, tips and videos for setting up in-app messaging.</p>
-            <h4>Getting Started</h4>
             <ul class="menu">
-                <li><a href="">Pendo overview</a></li>
-                <li><a href="">Themes</a></li>
+                <li><a href="">Getting Started</a><ul>
+                    <li><a href="">Pendo overview</a></li>
+                    <li><a href="">Themes</a></li></ul>
+                </li>
             </ul>
-            <h4>Creating Messages</h4>
             <ul class="menu">
-                <li><a href="">Announcements</a></li>
-                <li><a href="">Module overviews</a></li>
-                <li><a href="">Onboarding & Self-help</a></li>
-                <li><a href="">User feedback</a></li>
+                <li><a href="#creating-messages">Creating Messages</a>
+                <ul>
+                    <li><a href="#announcements">Announcements</a></li>
+                    <li><a href="">Module overviews</a></li>
+                    <li><a href="">Onboarding & Self-help</a></li>
+                    <li><a href="">User feedback</a></li>
+                </ul></li>
+
             </ul>
         </div>
         <div class="main">
             <div class="main-wrapper">
-                <section id="creating-messages">
+                <section class="section" id="creating-messages">
                     <h1 class="title">Creating Messages</h1>
                     <div class="subtitle">
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
@@ -43,7 +47,7 @@
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen></iframe>
                     </div>
-                    <h3>Announcements</h3>
+                    <h3 id="announcements">Announcements</h3>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout.</p>
                 </section>
@@ -58,6 +62,27 @@
         AOS.init({
             duration: 1200,
         })
+
+        const links = document.querySelectorAll(".nav ul a");
+
+        for (const link of links) {
+            link.addEventListener("click", clickHandler);
+        }
+
+        function clickHandler(e) {
+            e.preventDefault();
+            const active = document.querySelector('.active');
+            if(active){
+                active.classList.remove('active');
+            }
+            e.currentTarget.classList.add('active');
+            const href = this.getAttribute("href");
+            const offsetTop = document.querySelector(href).offsetTop;
+            scroll({
+                top: offsetTop,
+                behavior: "smooth"
+            });
+        }
     </script>
 </body>
 
