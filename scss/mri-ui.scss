@@ -10,6 +10,6 @@ $mri-ns: "mri-" !default;
 @import "fonts/_noto-sans.scss";
 @import "animations/_all.scss";
 @import "components/_all.scss";
-@import "utilities/_all.scss";
+// @import "utilities/_all.scss";
 
-@import "vendor";
+@import "custom";
