@@ -169,8 +169,7 @@ hr {
                     color: mri-blue(70);
                 }
                 &:hover::after,
-                &.active::after,
-                &.forced-active::after {
+                &.active:not(.main-section-link)::after {
                     opacity: 1;
                     transform: translateY(-2px);
                 }
