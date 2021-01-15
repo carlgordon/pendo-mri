@@ -31,7 +31,7 @@
                 messaging.</p>
             <div class="sticky">
                 <ul class="menu">
-                    <li><a href="">Getting Started</a>
+                    <li><a href="" class="section-nav">Getting Started</a>
                         <ul>
                             <li><a href="">Pendo overview</a></li>
                             <li><a href="">Creating a Theme</a></li>
@@ -39,9 +39,9 @@
                     </li>
                 </ul>
                 <ul class="menu">
-                    <li><a href="#creating-messages" class="forced-active">Creating Messages</a>
+                    <li><a href="#creating-messages" class="forced-active section-nav">Creating Messages</a>
                         <ul>
-                            <li><a href="#announcements">Announcements</a>
+                            <li><a href="#announcements" class="section-nav">Announcements</a>
                                 <ul>
                                     <li><a href="#version-upgrades">Version upgrades</a></li>
                                     <li><a href="#general">General</a></li>
@@ -49,7 +49,7 @@
                                 </ul>
                             </li>
 
-                            <li><a href="#onboarding">Onboarding & Self-help</a>
+                            <li><a href="#onboarding" class="section-nav">Onboarding & Self-help</a>
                                 <ul>
                                     <li><a href="#tooltip-tours">Tooltip tours</a></li>
                                 </ul>
@@ -63,10 +63,10 @@
         </div>
         <div class="main">
             <div class="container container-med section-container" id="getting-started"></div>
-            <div class="container container-med section-container" id="pendo-overview"></div>
-            <div class="container container-med section-container" id="theme"></div>
+            <div class="container container-med" id="pendo-overview"></div>
+            <div class="container container-med" id="theme"></div>
             <section class="section">
-                <div class="container container-med section-container" id="creating-messages">
+            <div class="container container-med section-container mri-pt-large" id="creating-messages">
                     <h1 class="title">Creating Messages</h1>
                     <div class="subtitle">
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
@@ -99,7 +99,7 @@
                         when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                         distribution of letters, as opposed to using 'Content here, content here’.</p>
                 </div>
-                <div class="container mri-pt-medium section-container" id="version-upgrades">
+                <div class="container mri-pt-medium" id="version-upgrades">
                     <div class="tooltip-hightlight-box tt-tour-box" id="tt-tour-3">
                         <div class="tt tt-left">
                             <div class="tt-heading">Message Examples<span class="tt-number">Tip 3/4</span>
@@ -127,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="container section-container" id="general">
+                <div class="container" id="general">
                     <h4>General</h4>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout.</p>
@@ -138,7 +138,7 @@
                                 class="mri-button mri-button--primary mri-button--small">Got it</button></p>
                     </div>
                 </div>
-                <div class="container section-container" id="critial-bugs">
+                <div class="container" id="critial-bugs">
                     <h4>Critical bugs</h4>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
                     <p><i>E.g.</i></p>
@@ -176,14 +176,14 @@
             <!-- next section -->
 
             <section class="section">
-                <div class="container section-container" id="onboarding">
+                <div class="container section-container mri-pt-large" id="onboarding">
                     <hr>
                     <h3>Onboarding & Self-Help</h3>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                         distribution of letters, as opposed to using 'Content here, content here’.</p>
                 </div>
-                <div class="container mri-pt-medium section-container" id="tooltip-tours">
+                <div class="container mri-pt-medium" id="tooltip-tours">
                     <h4>Tooltip tours</h4>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout.</p>
@@ -366,18 +366,21 @@
             popup.classList.remove('active');
         }
 
-const sectionLinks = document.querySelectorAll('.section-container');
-const sections = document.querySelectorAll('.section-container');
+        const sectionLinks = document.querySelectorAll('.section-nav');
+        const sections = document.querySelectorAll('.section-container');
 
-function changeLinkState() {
-  let index = sections.length;
-  while(--index && window.scrollY + 70 < sections[index].offsetTop) {}
-  links.forEach((link) => link.classList.remove('active'));
-  links[index].classList.add('active');
-}
+        console.log(sectionLinks.length);
+        console.log(sections.length);
 
-changeLinkState();
-window.addEventListener('scroll', changeLinkState);
+        function changeLinkState() {
+        let index = sections.length;
+        while(--index && window.scrollY + 50 < sections[index].offsetTop) {}
+        sectionLinks.forEach((link) => link.classList.remove('active'));
+        sectionLinks[index].classList.add('active');
+        }
+
+        changeLinkState();
+        window.addEventListener('scroll', changeLinkState);
 
     </script>
 

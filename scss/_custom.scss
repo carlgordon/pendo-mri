@@ -164,12 +164,10 @@ hr {
                 &:hover {
                     color: $mri-dark-interactive-color;
                 }
-                &:focus,
                 &.active,
                 &.forced-active {
                     color: mri-blue(70);
                 }
-                &:focus::after,
                 &:hover::after,
                 &.active::after,
                 &.forced-active::after {
@@ -183,7 +181,7 @@ hr {
 }
 
 .main {
-    padding: 2rem;
+    padding: 0 2rem;
     flex-grow: 1;
     margin-left: $nav-width;
 }
@@ -312,10 +310,6 @@ hr {
             margin-right: 6px;
         }
     }
-}
-
-.section {
-    margin-bottom: 3rem;
 }
 
 .tips {
