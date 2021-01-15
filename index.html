@@ -138,8 +138,7 @@
                 </div>
                 <div class="container" id="critial-bugs">
                     <h4>Critical bugs</h4>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout.</p>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
                     <p><i>E.g.</i></p>
                     <div class="example-popup small-popup" data-aos="zoom-in">
                         <span class="close">&times;</span>
@@ -248,7 +247,7 @@
                                     <p class="tt-text">Tours can also be interactive!</p>
                                     <p class="tt-text">They can require the user to interact with the interface to advance the tour.</p>
                                     <div class="tt-footer">
-                                        <div class="action" onclick="clearTour()">Finish the tour by clicking this button.</div>
+                                        <div class="action">Finish the tour by clicking this button.</div>
                                     </div>
                                 </div>
                                 <button class="mri-button button-underline" onclick="starttour()"><img src="images/eye-open.svg">&nbsp;See a
@@ -358,7 +357,12 @@
         }
 
         function starttour() {
-            popup.classList.add('active');
+            const highlight = document.querySelector(".tooltip-hightlight");
+            if(highlight){
+                clearTour();
+            } else {
+                popup.classList.add('active');
+            }
         }
 
         function closepopup() {
