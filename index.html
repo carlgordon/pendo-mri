@@ -39,7 +39,7 @@
                     </li>
                 </ul>
                 <ul class="menu">
-                    <li><a href="#creating-messages">Creating Messages</a>
+                    <li><a href="#creating-messages" class="forced-active">Creating Messages</a>
                         <ul>
                             <li><a href="#announcements">Announcements</a>
                                 <ul>
@@ -62,8 +62,11 @@
             </div>
         </div>
         <div class="main">
-            <section class="section" id="creating-messages">
-                <div class="container container-med">
+            <div class="container container-med section-container" id="getting-started"></div>
+            <div class="container container-med section-container" id="pendo-overview"></div>
+            <div class="container container-med section-container" id="theme"></div>
+            <section class="section">
+                <div class="container container-med section-container" id="creating-messages">
                     <h1 class="title">Creating Messages</h1>
                     <div class="subtitle">
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
@@ -89,14 +92,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="container" id="announcements">
+                <div class="container section-container" id="announcements">
                     <hr>
                     <h3>Announcements</h3>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                         distribution of letters, as opposed to using 'Content here, content here’.</p>
                 </div>
-                <div class="container mri-pt-medium" id="version-upgrades">
+                <div class="container mri-pt-medium section-container" id="version-upgrades">
                     <div class="tooltip-hightlight-box tt-tour-box" id="tt-tour-3">
                         <div class="tt tt-left">
                             <div class="tt-heading">Message Examples<span class="tt-number">Tip 3/4</span>
@@ -116,8 +119,7 @@
                         <div class="example-popup" data-aos="zoom-in">
                             <span class="close">&times;</span>
                             <p>This is a version upgrade notice. The system will be down for maintenance from
-                                <strong>22:00pm</strong> until <strong>01:00am</strong> on the <strong>17th of January
-                                    2021.</strong></p>
+                                <strong>22:00pm</strong> until <strong>01:00am</strong> on the <strong>17th of January 2021.</strong></p>
                             <div class="center-buttons">
                                 <button class="mri-button mri-button--primary">Remind me later</button> <button
                                     class="mri-button mri-button--quiet">Don't show this again</button>
@@ -125,18 +127,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="container" id="general">
+                <div class="container section-container" id="general">
                     <h4>General</h4>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout.</p>
                     <p><i>E.g.</i></p>
                     <div class="example-popup small-popup" data-aos="zoom-in">
                         <span class="close">&times;</span>
-                        <p>MRI Offices will be closed from the 25th of December until the 3rd of January <button
+                        <p>MRI Offices will be closed from the 25th of December until the 3rd of January. <button
                                 class="mri-button mri-button--primary mri-button--small">Got it</button></p>
                     </div>
                 </div>
-                <div class="container" id="critial-bugs">
+                <div class="container section-container" id="critial-bugs">
                     <h4>Critical bugs</h4>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
                     <p><i>E.g.</i></p>
@@ -147,7 +149,6 @@
                                 class="mri-button mri-button--primary mri-button--small">Got it</button></p>
                     </div>
                     <div class="container">
-
                         <div class="column-2">
                             <div class="tips">
                                 <h5><img src="images/lightbulb-outlined.svg">Tips:</h5>
@@ -174,15 +175,15 @@
 
             <!-- next section -->
 
-            <section class="section" id="onboarding">
-                <div class="container">
+            <section class="section">
+                <div class="container section-container" id="onboarding">
                     <hr>
                     <h3>Onboarding & Self-Help</h3>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                         distribution of letters, as opposed to using 'Content here, content here’.</p>
                 </div>
-                <div class="container mri-pt-medium" id="tooltip-tours">
+                <div class="container mri-pt-medium section-container" id="tooltip-tours">
                     <h4>Tooltip tours</h4>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page
                         when looking at its layout.</p>
@@ -260,14 +261,10 @@
                     <div class="tips">
                         <h5><img src="images/lightbulb-outlined.svg">Tips:</h5>
                         <ul>
-                            <li>Draw attention to the important details by making the time and date bold.</li>
+                           <li>Use purposeful, action driven language without too much fluff.</li>
                             <li>Give the user the ability to snooze the announcement, or dismiss it
-                                indefinitely.
-                            </li>
-                            <li>Align the announcement to the very bottom, or very top of the interface so that
-                                it
-                                does not intrude onto content.
-                            </li>
+                                indefinitely.</li>
+                            <li>Have users interact with the UI where possible. Learning by doing is always the best!</li>
                         </ul>
                     </div>
                 </div>
@@ -368,6 +365,19 @@
         function closepopup() {
             popup.classList.remove('active');
         }
+
+const sectionLinks = document.querySelectorAll('.section-container');
+const sections = document.querySelectorAll('.section-container');
+
+function changeLinkState() {
+  let index = sections.length;
+  while(--index && window.scrollY + 70 < sections[index].offsetTop) {}
+  links.forEach((link) => link.classList.remove('active'));
+  links[index].classList.add('active');
+}
+
+changeLinkState();
+window.addEventListener('scroll', changeLinkState);
 
     </script>
 

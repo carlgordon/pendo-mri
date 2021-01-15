@@ -132,6 +132,9 @@ hr {
                 a {
                     margin-bottom: 0.25rem;
                     font-size: 12px;
+                    &:after {
+                        display: none!important;
+                    }
                 }
             }
         }
@@ -146,7 +149,6 @@ hr {
                 display: inline-block;
                 color: #162029;
                 transition: color 0.3s;
-
                 &::after {
                     position: absolute;
                     top: 100%;
@@ -163,18 +165,19 @@ hr {
                     color: $mri-dark-interactive-color;
                 }
                 &:focus,
-                &.active {
+                &.active,
+                &.forced-active {
                     color: mri-blue(70);
                 }
                 &:focus::after,
-                &:hover::after {
+                &:hover::after,
+                &.active::after,
+                &.forced-active::after {
                     opacity: 1;
                     transform: translateY(-2px);
                 }
             }
-            .submenu {
-                padding-left: 1rem;
-            }
+
         }
     }
 }
