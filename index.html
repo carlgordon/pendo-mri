@@ -251,7 +251,7 @@
                                         <div class="action" onclick="clearTour()">Finish the tour by clicking this button.</div>
                                     </div>
                                 </div>
-                                <button class="mri-button button-underline" onclick="tour('1')"><img src="images/eye-open.svg">&nbsp;See a
+                                <button class="mri-button button-underline" onclick="starttour()"><img src="images/eye-open.svg">&nbsp;See a
                                     tour in action</button>
                             </span>
                         </div>
@@ -274,6 +274,25 @@
                 </div>
             </section>
 
+        </div>
+    </div>
+    <div class="tooltip-tour-start">
+        <div class="tour-start-header">
+            <span class="close-popup" onclick="closepopup()">&times;</span>
+            <img src="/images/white-logo.svg">
+            <h3>Tooltip tour demo</h3>
+        </div>
+        <div class="tour-start-body">
+            <p>Tooltip tours can help your users with:</p>
+            <ul>
+                <li>Adoption speed and efficiency</li>
+                <li>Understanding processes</li>
+                <li>Streamlining workflows</li>
+                <li>Increasing feature awareness</li>
+            </ul>
+        </div>
+        <div class="tour-start-footer">
+            <button class="mri-button mri-button--primary" onclick="tour('1')">Take the tour</button>
         </div>
     </div>
     <div class="overlay"></div>
@@ -306,6 +325,7 @@
 
         const body = document.querySelector('body');
         const overlay = document.querySelector('.overlay');
+        const popup = document.querySelector(".tooltip-tour-start");
         const offsetpadding = 50;
 
         function clearTour() {
@@ -318,6 +338,7 @@
         }
 
         function tour(step) {
+            closepopup();
             body.classList.remove('noscroll');
             const highlight = document.querySelector(".tooltip-hightlight");
             const item = document.querySelector(`#tt-tour-${step}`);
@@ -333,7 +354,15 @@
                 overlay.classList.add('active');
                 item.classList.add('tooltip-hightlight');
                 body.classList.add('noscroll');
-            }, 800);
+            }, 600);
+        }
+
+        function starttour() {
+            popup.classList.add('active');
+        }
+
+        function closepopup() {
+            popup.classList.remove('active');
         }
 
     </script>

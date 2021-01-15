@@ -613,3 +613,62 @@ span.tt-tour-box {
         }
     }
 }
+
+.tooltip-tour-start {
+    box-shadow: 0px 4px 6px 3px rgba(0, 0, 0, 0.14);
+    width: 448px;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 400;
+    background-color: white;
+    display: none;
+    .close-popup {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 28px;
+        line-height: 1;
+        font-weight: 400;
+        opacity: 0.7;
+        cursor: pointer;
+        transition: opacity 0.2s ease-in-out;
+        &:hover {
+            opacity: 0.9;
+        }
+    }
+    &.active {
+        display: block;
+    }
+    .tour-start-header {
+        background-image: url('/images/tool-start-header.png');
+        color: white;
+        padding: 35px;
+        background-size: cover;
+        background-color: #416171;
+        img {
+            width: 56px;
+        }
+        h3 {
+            margin: 5px 0;
+            font-weight: 500;
+            font-size: 30px;
+        }
+    }
+    .tour-start-body {
+        padding: 14px 35px;
+        font-size: 16px;
+        font-weight: 500;
+        ul {
+            padding-left: 16px;
+            font-weight: 400;
+            li {
+                line-height: 32px;
+            }
+        }
+    }
+    .tour-start-footer {
+        padding: 0px 35px 35px;
+        text-align: center;
+    }
+}
