@@ -10253,10 +10253,12 @@ hr {
 
 body.noscroll {
   overflow: hidden; }
-
-.tooltip-hightlight-box {
-  box-shadow: 0px 0px 0px 10px white; }
+  body.noscroll .overlay {
+    display: block; }
 
 .tooltip-hightlight {
   position: relative;
-  z-index: 200; }
+  z-index: 200;
+  background-color: white; }
+  .tooltip-hightlight.tooltip-hightlight-box {
+    box-shadow: 0px 0px 0px 10px white; }

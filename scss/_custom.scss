@@ -514,15 +514,21 @@ hr {
     pointer-events: none;
     display: none;
 }
+
 body.noscroll {
     overflow: hidden;
+    .overlay {
+        display: block;
+    }
 }
 
-.tooltip-hightlight-box {
-    box-shadow: 0px 0px 0px 10px white;
-}
+
 
 .tooltip-hightlight {
     position: relative;
     z-index: 200;
+    background-color: white;
+    &.tooltip-hightlight-box {
+    box-shadow: 0px 0px 0px 10px white;
+    }
 }

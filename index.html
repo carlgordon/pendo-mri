@@ -16,7 +16,7 @@
 
 <body class="mri-body">
     <div class="page-wrapper">
-        <div class="nav">
+        <div class="nav" id="tt-tour-1">
             <img src="images/mri.svg" class="logo mri-mb-x-large" width="68" height="31">
             <h2>MRI Pendo style guide</h2>
             <p class="description mri-mb-large">A collection of guidelines, tips and videos for setting up in-app
@@ -48,7 +48,6 @@
                             </li>
                             <li><a href="#module">Module overviews</a></li>
                             <li><a href="#feedback">User feedback</a></li>
-
                         </ul>
                     </li>
                 </ul>
@@ -64,10 +63,12 @@
                         <p>Watch the overview below.</p>
                     </div>
                     <div class="video-underline">
-                    <a class="video">
-                        <span class="video-title">In-app messaging overview</span>
-                        <span class="video-time">5 min</span>
-                    </a>
+                        <div class="tooltip-hightlight-box" id="tt-tour-2">
+                            <a class="video">
+                                <span class="video-title">In-app messaging overview</span>
+                                <span class="video-time">5 min</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="container" id="announcements">
@@ -78,18 +79,21 @@
                         distribution of letters, as opposed to using 'Content here, content here’.</p>
                 </div>
                 <div class="container mri-pt-medium" id="version-upgrades">
-                    <h4>Version upgrades</h4>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                        when looking at its layout.</p>
-                    <p><i>E.g.</i></p>
-                    <div class="example-popup" data-aos="zoom-in">
-                        <span class="close">&times;</span>
-                        <p>This is a version upgrade notice. The system will be down for maintenance from
-                            <strong>22:00pm</strong> until <strong>01:00am</strong> on the <strong>17th of January
-                                2021.</strong></p>
-                        <div class="center-buttons">
-                            <button class="mri-button mri-button--primary">Remind me later</button> <button
-                                class="mri-button mri-button--quiet">Don't show this again</button>
+                    <div class="tooltip-hightlight-box" id="tt-tour-3">
+                        <h4>Version upgrades</h4>
+                        <p>It is a long established fact that a reader will be distracted by the readable content of a
+                            page
+                            when looking at its layout.</p>
+                        <p><i>E.g.</i></p>
+                        <div class="example-popup" data-aos="zoom-in">
+                            <span class="close">&times;</span>
+                            <p>This is a version upgrade notice. The system will be down for maintenance from
+                                <strong>22:00pm</strong> until <strong>01:00am</strong> on the <strong>17th of January
+                                    2021.</strong></p>
+                            <div class="center-buttons">
+                                <button class="mri-button mri-button--primary">Remind me later</button> <button
+                                    class="mri-button mri-button--quiet">Don't show this again</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,7 +213,10 @@
                             </div>
                         </div>
                         <div class="tour">
-                            <button class="mri-button button-underline"><img src="images/eye-open.svg">&nbsp;See a tour in action</button>
+                            <div class="tooltip-hightlight-box" id="tt-tour-4">
+                                <button class="mri-button button-underline"><img src="images/eye-open.svg">&nbsp;See a
+                                    tour in action</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,6 +264,64 @@
                 top: offsetTop,
                 behavior: "smooth"
             });
+        }
+
+        function tour() {
+            const body = document.querySelector('body');
+            const item1 = document.querySelector('#tt-tour-1');
+            const item2 = document.querySelector('#tt-tour-2');
+            const item3 = document.querySelector('#tt-tour-3');
+            const item4 = document.querySelector('#tt-tour-4');
+            const offsetpadding = 50;
+
+            setTimeout(() => {
+                const offsetTop = item1.offsetTop;
+                scroll({
+                    top: offsetTop,
+                    behavior: "smooth"
+                });
+                item1.classList.add('tooltip-hightlight');
+                body.classList.add('noscroll');
+            }, 2000);
+
+            setTimeout(() => {
+                let highlight = document.querySelector(".tooltip-hightlight");
+                highlight.classList.remove('tooltip-hightlight');
+                body.classList.remove('noscroll');
+                const offsetTop = item2.offsetTop;
+                scroll({
+                    top: offsetTop - offsetpadding,
+                    behavior: "smooth"
+                });
+                item2.classList.add('tooltip-hightlight');
+                body.classList.add('noscroll');
+            }, 4000);
+
+            setTimeout(() => {
+                let highlight = document.querySelector(".tooltip-hightlight");
+                highlight.classList.remove('tooltip-hightlight');
+                body.classList.remove('noscroll');
+                const offsetTop = item3.offsetTop;
+                scroll({
+                    top: offsetTop - offsetpadding,
+                    behavior: "smooth"
+                });
+                item3.classList.add('tooltip-hightlight');
+                body.classList.add('noscroll');
+            }, 6000);
+
+            setTimeout(() => {
+                let highlight = document.querySelector(".tooltip-hightlight");
+                highlight.classList.remove('tooltip-hightlight');
+                body.classList.remove('noscroll');
+                const offsetTop = item4.offsetTop;
+                scroll({
+                    top: offsetTop - offsetpadding,
+                    behavior: "smooth"
+                });
+                item4.classList.add('tooltip-hightlight');
+                body.classList.add('noscroll');
+            }, 8000);
         }
     </script>
     <div class="overlay"></div>
