@@ -10151,7 +10151,8 @@ hr {
   background-color: #f9faff;
   display: flex; }
   .tt-tour .tt-types .tt-type {
-    padding: 1rem 2rem; }
+    padding: 1rem 2rem;
+    position: relative; }
     .tt-tour .tt-types .tt-type .highlight {
       color: #0d75b0; }
     .tt-tour .tt-types .tt-type .tooltip-wrapper {
@@ -10164,6 +10165,15 @@ hr {
       .tt-tour .tt-types .tt-type .tooltip-wrapper > button {
         margin: 0 auto;
         display: block; }
+    .tt-tour .tt-types .tt-type:not(:last-child):after {
+      content: "";
+      right: 0px;
+      border-left: 1px solid #E3E3E3;
+      top: 2rem;
+      bottom: 2rem;
+      display: inline-block;
+      width: 0px;
+      position: absolute; }
 
 .tt-tour .tt {
   background-color: #394754;
@@ -10229,3 +10239,24 @@ hr {
     color: #0d75b0; }
     .tt-tour .tour .mri-button img {
       margin-right: 3px; }
+
+.overlay {
+  position: fixed;
+  background-color: rgba(57, 71, 84, 0.68);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none;
+  display: none; }
+
+body.noscroll {
+  overflow: hidden; }
+
+.tooltip-hightlight-box {
+  box-shadow: 0px 0px 0px 10px white; }
+
+.tooltip-hightlight {
+  position: relative;
+  z-index: 200; }
