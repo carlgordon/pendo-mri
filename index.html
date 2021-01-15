@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/mri-ui.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -16,7 +14,17 @@
 
 <body class="mri-body">
     <div class="page-wrapper">
-        <div class="nav" id="tt-tour-1">
+        <div class="nav tt-tour-box" id="tt-tour-1">
+            <div class="tt tt-right">
+                <div class="tt-heading">Navigation<span class="tt-number">Tip 1/4</span>
+                </div>
+                <p class="tt-text">Use this menu to navigate this website.</p>
+                <p class="tt-text">Navigation allows you to move around quick ‘n easy!</p>
+                <div class="tt-footer">
+                    <span onclick="clearTour()">Skip tour</span>
+                    <button class="mri-button mri-button--small" onclick="tour('2')">Next tip</button>
+                </div>
+            </div>
             <img src="images/mri.svg" class="logo mri-mb-x-large" width="68" height="31">
             <h2>MRI Pendo style guide</h2>
             <p class="description mri-mb-large">A collection of guidelines, tips and videos for setting up in-app
@@ -63,7 +71,17 @@
                         <p>Watch the overview below.</p>
                     </div>
                     <div class="video-underline">
-                        <div class="tooltip-hightlight-box" id="tt-tour-2">
+                        <div class="tooltip-hightlight-box tt-tour-box" id="tt-tour-2">
+                            <div class="tt tt-left">
+                                <div class="tt-heading">Video Tutorials<span class="tt-number">Tip 2/4</span>
+                                </div>
+                                <p class="tt-text">These videos have tips and tricks for building awesome tours!</p>
+                                <p class="tt-text">Tours are very helpful, as you know.</p>
+                                <div class="tt-footer">
+                                    <span onclick="clearTour()">Skip tour</span>
+                                    <button class="mri-button mri-button--small" onclick="tour('3')">Next tip</button>
+                                </div>
+                            </div>
                             <a class="video">
                                 <span class="video-title">In-app messaging overview</span>
                                 <span class="video-time">5 min</span>
@@ -79,7 +97,17 @@
                         distribution of letters, as opposed to using 'Content here, content here’.</p>
                 </div>
                 <div class="container mri-pt-medium" id="version-upgrades">
-                    <div class="tooltip-hightlight-box" id="tt-tour-3">
+                    <div class="tooltip-hightlight-box tt-tour-box" id="tt-tour-3">
+                        <div class="tt tt-left">
+                            <div class="tt-heading">Message Examples<span class="tt-number">Tip 3/4</span>
+                            </div>
+                            <p class="tt-text">These examples provide guidance for setting up announcement messages.</p>
+                            <p class="tt-text">Announcements are very valuable!</p>
+                            <div class="tt-footer">
+                                <span onclick="clearTour()">Skip tour</span>
+                                <button class="mri-button mri-button--small" onclick="tour('4')">Next tip</button>
+                            </div>
+                        </div>
                         <h4>Version upgrades</h4>
                         <p>It is a long established fact that a reader will be distracted by the readable content of a
                             page
@@ -173,7 +201,7 @@
                             <div class="tt-type">
                                 <div class="tooltip-wrapper">
                                     <p><i>Interface highlight</i></p>
-                                    <div class="tt" data-aos="zoom-in">
+                                    <div class="tt tt-top" data-aos="zoom-in">
                                         <div class="tt-heading">Adding a Work Item<span class="tt-number">Tip 3/6</span>
                                         </div>
                                         <p class="tt-text">Use this button to add new Work Items.</p>
@@ -193,8 +221,8 @@
 
                             <div class="tt-type">
                                 <div class="tooltip-wrapper">
-                                    <p><i>Interactive highlight</i></p>
-                                    <div class="tt" data-aos="zoom-in" data-aos-delay="250">
+                                    <p><i>Interactive tour</i></p>
+                                    <div class="tt tt-top" data-aos="zoom-in" data-aos-delay="250">
                                         <div class="tt-heading">Adding a Work Item<span class="tt-number">Tip 3/6</span>
                                         </div>
                                         <p class="tt-text">Use this button to add new Work Items.</p>
@@ -213,10 +241,19 @@
                             </div>
                         </div>
                         <div class="tour">
-                            <div class="tooltip-hightlight-box" id="tt-tour-4">
-                                <button class="mri-button button-underline"><img src="images/eye-open.svg">&nbsp;See a
+                            <span class="tooltip-hightlight-box tt-tour-box" id="tt-tour-4">
+                                <div class="tt tt-top">
+                                    <div class="tt-heading">Finish the tour<span class="tt-number">Tip 4/4</span>
+                                    </div>
+                                    <p class="tt-text">Tours can also be interactive!</p>
+                                    <p class="tt-text">They can require the user to interact with the interface to advance the tour.</p>
+                                    <div class="tt-footer">
+                                        <div class="action" onclick="clearTour()">Finish the tour by clicking this button.</div>
+                                    </div>
+                                </div>
+                                <button class="mri-button button-underline" onclick="tour('1')"><img src="images/eye-open.svg">&nbsp;See a
                                     tour in action</button>
-                            </div>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -239,6 +276,7 @@
 
         </div>
     </div>
+    <div class="overlay"></div>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -266,65 +304,40 @@
             });
         }
 
-        function tour() {
-            const body = document.querySelector('body');
-            const item1 = document.querySelector('#tt-tour-1');
-            const item2 = document.querySelector('#tt-tour-2');
-            const item3 = document.querySelector('#tt-tour-3');
-            const item4 = document.querySelector('#tt-tour-4');
-            const offsetpadding = 50;
+        const body = document.querySelector('body');
+        const overlay = document.querySelector('.overlay');
+        const offsetpadding = 50;
 
-            setTimeout(() => {
-                const offsetTop = item1.offsetTop;
-                scroll({
-                    top: offsetTop,
-                    behavior: "smooth"
-                });
-                item1.classList.add('tooltip-hightlight');
-                body.classList.add('noscroll');
-            }, 2000);
-
-            setTimeout(() => {
-                let highlight = document.querySelector(".tooltip-hightlight");
+        function clearTour() {
+            const highlight = document.querySelector(".tooltip-hightlight");
+            if(highlight){
                 highlight.classList.remove('tooltip-hightlight');
                 body.classList.remove('noscroll');
-                const offsetTop = item2.offsetTop;
-                scroll({
-                    top: offsetTop - offsetpadding,
-                    behavior: "smooth"
-                });
-                item2.classList.add('tooltip-hightlight');
-                body.classList.add('noscroll');
-            }, 4000);
-
-            setTimeout(() => {
-                let highlight = document.querySelector(".tooltip-hightlight");
-                highlight.classList.remove('tooltip-hightlight');
-                body.classList.remove('noscroll');
-                const offsetTop = item3.offsetTop;
-                scroll({
-                    top: offsetTop - offsetpadding,
-                    behavior: "smooth"
-                });
-                item3.classList.add('tooltip-hightlight');
-                body.classList.add('noscroll');
-            }, 6000);
-
-            setTimeout(() => {
-                let highlight = document.querySelector(".tooltip-hightlight");
-                highlight.classList.remove('tooltip-hightlight');
-                body.classList.remove('noscroll');
-                const offsetTop = item4.offsetTop;
-                scroll({
-                    top: offsetTop - offsetpadding,
-                    behavior: "smooth"
-                });
-                item4.classList.add('tooltip-hightlight');
-                body.classList.add('noscroll');
-            }, 8000);
+                overlay.classList.remove('active');
+            }
         }
+
+        function tour(step) {
+            body.classList.remove('noscroll');
+            const highlight = document.querySelector(".tooltip-hightlight");
+            const item = document.querySelector(`#tt-tour-${step}`);
+            const offsetTop = item.offsetTop;
+            scroll({
+                top: offsetTop - offsetpadding,
+                behavior: "smooth"
+            });
+            setTimeout(() => {
+                if(highlight){
+                    highlight.classList.remove('tooltip-hightlight');
+                }
+                overlay.classList.add('active');
+                item.classList.add('tooltip-hightlight');
+                body.classList.add('noscroll');
+            }, 800);
+        }
+
     </script>
-    <div class="overlay"></div>
+
 </body>
 
 </html>

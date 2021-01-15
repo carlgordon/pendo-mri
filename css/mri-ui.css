@@ -10155,6 +10155,8 @@ hr {
     position: relative; }
     .tt-tour .tt-types .tt-type .highlight {
       color: #0d75b0; }
+    .tt-tour .tt-types .tt-type .tt {
+      margin-bottom: 1.5rem; }
     .tt-tour .tt-types .tt-type .tooltip-wrapper {
       width: 260px;
       margin: 0 auto;
@@ -10175,62 +10177,6 @@ hr {
       width: 0px;
       position: absolute; }
 
-.tt-tour .tt {
-  background-color: #394754;
-  color: #f1f1f1;
-  padding: 0.7rem 1rem 1rem;
-  border-radius: 3px;
-  position: relative;
-  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15), 0px 2px 11px rgba(0, 0, 0, 0.18);
-  margin-bottom: 1.5rem; }
-  .tt-tour .tt:after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    bottom: -10px;
-    left: 50%;
-    margin-left: -10px;
-    border-width: 10px 10px 0;
-    border-top-color: #394754;
-    z-index: 1; }
-  .tt-tour .tt .tt-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #BCD538;
-    font-size: 15px;
-    font-weight: 500; }
-    .tt-tour .tt .tt-heading span {
-      color: #f1f1f1;
-      font-size: 11px;
-      font-weight: 400; }
-  .tt-tour .tt .tt-number {
-    font-style: italic; }
-  .tt-tour .tt .tt-text {
-    color: #f1f1f1;
-    font-size: 12px;
-    line-height: 15px;
-    margin: 11px 0; }
-  .tt-tour .tt .mri-button {
-    color: white;
-    border-color: white; }
-  .tt-tour .tt .tt-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; }
-    .tt-tour .tt .tt-footer span {
-      font-style: italic;
-      cursor: pointer;
-      font-size: 11px; }
-    .tt-tour .tt .tt-footer .action {
-      color: #BCD538;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer; }
-
 .tt-tour .tour {
   text-align: center;
   padding: 1.6rem; }
@@ -10240,25 +10186,139 @@ hr {
     .tt-tour .tour .mri-button img {
       margin-right: 3px; }
 
+.tt {
+  background-color: #394754;
+  color: #f1f1f1;
+  padding: 0.7rem 1rem 1rem;
+  border-radius: 3px;
+  position: relative;
+  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15), 0px 2px 11px rgba(0, 0, 0, 0.18); }
+  .tt:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    z-index: 1; }
+  .tt.tt-top:after {
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;
+    border-width: 10px 10px 0;
+    border-top-color: #394754; }
+  .tt.tt-left:after {
+    top: calc(50% - 5px);
+    right: -10px;
+    border-width: 10px 0 10px 10px;
+    border-left-color: #394754; }
+  .tt.tt-right:after {
+    top: calc(50% - 5px);
+    left: -10px;
+    border-width: 10px 10px 10px 0;
+    border-right-color: #394754; }
+  .tt .tt-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #BCD538;
+    font-size: 15px;
+    font-weight: 500; }
+    .tt .tt-heading span {
+      color: #f1f1f1;
+      font-size: 11px;
+      font-weight: 400; }
+  .tt .tt-number {
+    font-style: italic; }
+  .tt .tt-text {
+    color: #f1f1f1;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 11px 0;
+    text-align: left; }
+  .tt .mri-button {
+    color: white !important;
+    border-color: white !important; }
+    .tt .mri-button:hover {
+      color: white;
+      border-color: white; }
+  .tt .tt-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
+    .tt .tt-footer span {
+      font-style: italic;
+      cursor: pointer;
+      font-size: 11px; }
+    .tt .tt-footer .action {
+      color: #BCD538;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer; }
+
 .overlay {
   position: fixed;
-  background-color: rgba(57, 71, 84, 0.68);
+  background-color: rgba(65, 97, 113, 0.4);
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
   z-index: 100;
   pointer-events: none;
-  display: none; }
+  display: none;
+  opacity: 0; }
+  .overlay.active {
+    display: block;
+    animation: fade-in 0.6s linear 0s both; }
 
 body.noscroll {
   overflow: hidden; }
-  body.noscroll .overlay {
-    display: block; }
 
-.tooltip-hightlight {
+.tt-tour-box.tooltip-hightlight {
   position: relative;
   z-index: 200;
-  background-color: white; }
-  .tooltip-hightlight.tooltip-hightlight-box {
-    box-shadow: 0px 0px 0px 10px white; }
+  background-color: white;
+  max-height: 100vh;
+  pointer-events: none;
+  box-shadow: 0px 0px 0px 14px transparent; }
+  .tt-tour-box.tooltip-hightlight.tooltip-hightlight-box {
+    box-shadow: 0px 0px 0px 14px white; }
+    .tt-tour-box.tooltip-hightlight.tooltip-hightlight-box .tt-left {
+      right: calc(100% + 28px) !important; }
+    .tt-tour-box.tooltip-hightlight.tooltip-hightlight-box .tt-right {
+      left: calc(100% + 28px) !important; }
+    .tt-tour-box.tooltip-hightlight.tooltip-hightlight-box .tt-top {
+      bottom: calc(100% + 15px) !important; }
+
+span.tt-tour-box {
+  display: inline-block; }
+
+.tt-tour-box {
+  position: relative;
+  background-color: transparent;
+  transition: background-color 0.3s linear, box-shadow 0.3s linear; }
+  .tt-tour-box .tt {
+    position: absolute;
+    z-index: 300;
+    min-width: 300px;
+    display: none;
+    opacity: 0;
+    pointer-events: auto; }
+    .tt-tour-box .tt.tt-right {
+      top: 50%;
+      left: calc(100% + 15px);
+      transform: translate(0, -50%); }
+    .tt-tour-box .tt.tt-left {
+      top: 50%;
+      right: calc(100% + 15px);
+      transform: translate(0, -50%); }
+      .tooltip-hightlight-box .tt-tour-box .tt.tt-left {
+        right: calc(100% + 24px); }
+    .tt-tour-box .tt.tt-top {
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translate(-50%, 0);
+      margin-bottom: 12px; }
+  .tt-tour-box.tooltip-hightlight .tt {
+    display: block;
+    animation: fade-in 0.3s linear 0.2s both; }
