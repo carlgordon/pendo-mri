@@ -1,3 +1,42 @@
+$space-unit: 1rem;
+
+$spacers: (
+    0: 0,
+    1: ($space-unit * .25),
+    2: ($space-unit * .5),
+    3: $space-unit,
+    4: ($space-unit * 1.5),
+    5: ($space-unit * 2),
+    6: ($space-unit * 3),
+    7: ($space-unit * 4),
+    8: ($space-unit * 6),
+    9: ($space-unit * 8),
+    10: ($space-unit * 10)
+) !default;
+
+// Simplified Margin and Padding
+@each $prop,
+$abbrev in (margin: m, padding: p) {
+    @each $size,
+    $length in $spacers {
+        .#{$abbrev}-#{$size} {
+            #{$prop}: $length !important;
+        }
+        .#{$abbrev}t-#{$size} {
+            #{$prop}-top: $length !important;
+        }
+        .#{$abbrev}r-#{$size} {
+            #{$prop}-right: $length !important;
+        }
+        .#{$abbrev}b-#{$size} {
+            #{$prop}-bottom: $length !important;
+        }
+        .#{$abbrev}l-#{$size} {
+            #{$prop}-left: $length !important;
+        }
+    }
+}
+
 $nav-width: 31rem;
 $nav-color: #f9faff;
 
@@ -94,9 +133,6 @@ hr {
     .menu {
         margin-bottom: 2rem;
     }
-    .logo {
-        margin-bottom: 3rem;
-    }
     h2 {
         font-size: 30px;
     }
@@ -106,9 +142,8 @@ hr {
     .description {
         font-weight: 300;
         font-size: 25px;
-        margin-bottom: 3rem;
     }
-    & > ul > li > a {
+    .sticky > ul > li > a {
         font-size: 19px;
         font-weight: 700;
     }
